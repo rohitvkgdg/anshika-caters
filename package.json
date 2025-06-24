@@ -8,7 +8,10 @@
     "lint": "next lint",
     "start": "next start",
     "start:prod": "next start -p 3000",
-    "postinstall": "next build"
+    "postinstall": "next build",
+    "bun:dev": "bun --bun run dev",
+    "bun:build": "bun --bun run build",
+    "bun:start": "bun --bun run start"
   },
   "dependencies": {
     "@emotion/is-prop-valid": "latest",

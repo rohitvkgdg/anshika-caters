@@ -12,15 +12,21 @@
 sudo apt update && sudo apt upgrade -y
 ```
 
-### Install Node.js (LTS version)
+### Install Node.js and Bun
 ```bash
-# Install Node.js 20 LTS
+# Install Node.js 20 LTS (required for Next.js)
 curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 sudo apt-get install -y nodejs
 
+# Install Bun (JavaScript runtime and package manager)
+curl -fsSL https://bun.sh/install | bash
+
+# Reload shell configuration
+source ~/.bashrc
+
 # Verify installation
 node --version
-npm --version
+bun --version
 ```
 
 ### Install PM2 (Process Manager)
@@ -51,14 +57,14 @@ sudo chown -R $USER:$USER anshika-caters-web
 ### Install dependencies and build
 ```bash
 cd /var/www/anshika-caters-web
-npm install
-npm run build
+bun install
+bun run build
 ```
 
 ### Start application with PM2
 ```bash
-# Create PM2 ecosystem file
-pm2 start npm --name "anshika-caters" -- run start:prod
+# Create PM2 ecosystem file (uses Bun)
+pm2 start ecosystem.config.json
 pm2 save
 pm2 startup
 ```
@@ -113,8 +119,8 @@ pm2 restart anshika-caters
 ```bash
 cd /var/www/anshika-caters-web
 git pull origin main
-npm install
-npm run build
+bun install
+bun run build
 pm2 restart anshika-caters
 ```
 

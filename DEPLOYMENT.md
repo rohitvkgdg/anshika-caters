@@ -16,6 +16,10 @@ sudo apt update && sudo apt upgrade -y
 curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 sudo apt-get install -y nodejs
 
+# Install Bun (faster JavaScript runtime & package manager)
+curl -fsSL https://bun.sh/install | bash
+source ~/.bashrc
+
 # Install PM2 and Nginx
 sudo npm install -g pm2
 sudo apt install nginx git -y
@@ -82,8 +86,8 @@ pm2 monit
 # Update application
 cd /var/www/anshika-caters-web
 git pull origin main
-npm install
-npm run build
+bun install
+bun run build
 pm2 restart anshika-caters
 ```
 
@@ -117,7 +121,7 @@ Your application includes a health check endpoint at `/api/health`
 1. **Application won't start**
    ```bash
    cd /var/www/anshika-caters-web
-   npm run build
+   bun run build
    pm2 restart anshika-caters
    pm2 logs anshika-caters
    ```
@@ -159,7 +163,7 @@ Your application includes a health check endpoint at `/api/health`
 - [ ] Keep system updated: `sudo apt update && sudo apt upgrade`
 - [ ] Use strong SSH keys
 - [ ] Configure fail2ban: `sudo apt install fail2ban`
-- [ ] Regular security audits: `npm audit`
+- [ ] Regular security audits: `bun audit` (or `npm audit`)
 - [ ] Monitor logs regularly
 - [ ] Keep SSL certificates updated
 

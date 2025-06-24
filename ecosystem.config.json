@@ -2,7 +2,7 @@
   "apps": [
     {
       "name": "anshika-caters",
-      "script": "npm",
+      "script": "bun",
       "args": "start",
       "instances": "max",
       "exec_mode": "cluster",

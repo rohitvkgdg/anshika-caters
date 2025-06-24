@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Deployment script for Anshika Caters Website
+# Deployment script for Anshika Caters Website (Using Bun)
 # Usage: ./deploy.sh [production|staging]
 
 set -e
@@ -36,21 +36,29 @@ if [[ $EUID -eq 0 ]]; then
    exit 1
 fi
 
+# Check if Bun is installed
+if ! command -v bun &> /dev/null; then
+    log_error "Bun is not installed. Please install Bun first:"
+    log_error "curl -fsSL https://bun.sh/install | bash"
+    log_error "Then restart your terminal or run: source ~/.bashrc"
+    exit 1
+fi
+
 # Environment setup
 ENVIRONMENT=${1:-production}
-log_info "Deploying to $ENVIRONMENT environment"
+log_info "Deploying to $ENVIRONMENT environment using Bun"
 
 # Create logs directory
 mkdir -p $APP_DIR/logs
 
 # Install/Update dependencies
-log_info "Installing dependencies..."
+log_info "Installing dependencies with Bun..."
 cd $APP_DIR
-npm ci --only=production
+bun install --production
 
 # Build the application
-log_info "Building application..."
-npm run build
+log_info "Building application with Bun..."
+bun run build
 
 # Setup PM2 ecosystem
 log_info "Setting up PM2..."
@@ -109,3 +117,4 @@ log_warn "Don't forget to:"
 log_warn "1. Update domain name in Nginx configuration"
 log_warn "2. Setup SSL certificate with: sudo certbot --nginx -d yourdomain.com"
 log_warn "3. Configure firewall: sudo ufw allow 'Nginx Full'"
+log_warn "4. Verify Bun version: bun --version"
