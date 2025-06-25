@@ -109,14 +109,40 @@ find $NGINX_SITES_AVAILABLE -name "*anshika*" -type f -delete 2>/dev/null || tru
 log_info "Setting up Nginx configuration..."
 # Create a simple, clean configuration without rate limiting zones
 cat > $NGINX_SITES_AVAILABLE/$APP_NAME << 'EOF'
+# HTTP to HTTPS redirect
 server {
     listen 80;
     server_name acaterers.com www.acaterers.com;
+    
+    # For Let's Encrypt verification
+    location /.well-known/acme-challenge/ {
+        root /var/www/html;
+    }
+    
+    # Redirect all other HTTP requests to HTTPS
+    location / {
+        return 301 https://$server_name$request_uri;
+    }
+}
 
-    # Basic security headers
+# HTTPS server
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name acaterers.com www.acaterers.com;
+
+    # SSL Configuration (will be updated by certbot)
+    ssl_certificate /etc/letsencrypt/live/acaterers.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/acaterers.com/privkey.pem;
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+
+    # Security headers
     add_header X-Frame-Options "SAMEORIGIN" always;
     add_header X-XSS-Protection "1; mode=block" always;
     add_header X-Content-Type-Options "nosniff" always;
+    add_header Referrer-Policy "no-referrer-when-downgrade" always;
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
 
     # Gzip compression
     gzip on;
