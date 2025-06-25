@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button"
 import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button"
+import StarBorder from "@/components/ui/StarBorder"
 import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
 import { useState, useEffect } from "react"
@@ -222,9 +223,14 @@ export function HeroSection() {
             className="relative"
           >
             <Link href="/contact">
-              <InteractiveHoverButton className="bg-[#bc9c22] hover:bg-[#a08820] text-white border-[#bc9c22] px-12 py-4 text-lg font-semibold shadow-2xl ring-2 ring-white/20 backdrop-blur-sm hover:shadow-3xl hover:ring-white/30 transition-all duration-300 drop-shadow-lg">
-                Plan With Us
-              </InteractiveHoverButton>
+              <StarBorder
+                as="div"
+                className="inline-block"
+                color="#ffd700"
+                speed="3s"
+              >
+                <span className="text-lg font-bold px-8 py-2">Plan With Us</span>
+              </StarBorder>
             </Link>
           </motion.div>
           
@@ -232,7 +238,7 @@ export function HeroSection() {
             <Button
               size="lg"
               variant="outline"
-              className="text-white hover:bg-white/10 hover:text-white px-10 py-7 text-lg bg-white/20 backdrop-blur-lg shadow-2xl hover:shadow-white/20 transition-all duration-300 drop-shadow-lg rounded-full hover:drop-shadow-xl"
+              className="text-white hover:bg-white/10 hover:text-white px-10 py-6 text-lg bg-white/20 backdrop-blur-lg shadow-2xl hover:shadow-white/20 transition-all duration-300 drop-shadow-lg rounded-full hover:drop-shadow-xl"
               asChild
             >
               <Link href="/menus">Explore Menus</Link>

@@ -91,23 +91,12 @@ export function FeaturedEventsSection() {
         </motion.div>
 
         <motion.div
-          className="w-full h-[60vh] overflow-hidden shadow-2xl bg-gradient-to-br from-[#bc9c22] to-[#d4af37] hover:shadow-3xl transition-shadow duration-500"
+          className="w-full h-[60vh] overflow-hidden shadow-2xl hover:shadow-3xl transition-shadow duration-500"
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
         >
           <FlowingMenu items={featuredEvents} />
-        </motion.div>
-
-        <motion.div
-          className="text-center mt-12"
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ delay: 0.8, duration: 0.6 }}
-        >
-          <p className="text-lg text-gray-300 max-w-2xl mx-auto drop-shadow-sm">
-            Hover over each event type to discover our specialized catering solutions tailored for your unique needs.
-          </p>
         </motion.div>
       </div>
     </section>

@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button"
 import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button"
+import StarBorder from "@/components/ui/StarBorder"
 import SpotlightCard from "@/components/ui/SpotlightCard"
 import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
@@ -183,9 +184,14 @@ export function ServicesSection() {
             className="flex items-center justify-center w-full md:w-auto"
           >
             <Link href="/menu-builder" className="w-full md:w-auto">
-              <InteractiveHoverButton className="bg-[#bc9c22] hover:bg-[#a08820] text-white text-center border-[#bc9c22] font-semibold px-8 py-3 shadow-lg hover:shadow-xl transition-shadow duration-300 h-12 w-full md:w-auto drop-shadow-md">
-          Build Your Menu
-              </InteractiveHoverButton>
+              <StarBorder
+                as="div"
+                className="w-full md:w-auto"
+                color="#ffd700"
+                speed="3s"
+              >
+                <span className="text-lg font-bold px-4">Build Your Menu</span>
+              </StarBorder>
             </Link>
           </motion.div>
           <motion.div
@@ -196,7 +202,7 @@ export function ServicesSection() {
             <Button
               size="lg"
               variant="outline"
-              className="text-[#021631] border-gray-100 bg-gray-200 hover:bg-gray-300 px-8 shadow-lg hover:shadow-xl transition-shadow duration-300 h-12 w-full md:w-auto rounded-full drop-shadow-sm"
+              className="text-[#021631] border-gray-100 bg-gray-200 hover:bg-gray-300 px-8 py-6 shadow-lg hover:shadow-xl transition-shadow duration-300 h-12 w-full md:w-auto rounded-full drop-shadow-sm"
               asChild
             >
               <Link href="/budget-calculator">Calculate Budget</Link>

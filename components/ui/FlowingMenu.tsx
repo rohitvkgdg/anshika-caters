@@ -1,9 +1,11 @@
 /*
-	Installed from https://reactbits.dev/ts/tailwind/
+	FlowingMenu component with 4-column vertical layout and image hover effects
 */
 
 import React from "react";
-import { gsap } from "gsap";
+import { motion } from "framer-motion";
+import Link from "next/link";
+import StarBorder from "./StarBorder";
 
 interface MenuItemProps {
   link: string;
@@ -17,132 +19,167 @@ interface FlowingMenuProps {
 
 const FlowingMenu: React.FC<FlowingMenuProps> = ({ items = [] }) => {
   return (
-    <div className="w-full h-full overflow-hidden">
-      <nav className="flex flex-col h-full m-0 p-0">
+    <div className="w-full h-full">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 h-full gap-0">
         {items.map((item, idx) => (
-          <MenuItem key={idx} {...item} />
+          <MenuItem key={idx} {...item} index={idx} />
         ))}
-      </nav>
-    </div>
-  );
-};
-
-const MenuItem: React.FC<MenuItemProps> = ({ link, text, image }) => {
-  const itemRef = React.useRef<HTMLDivElement>(null);
-  const marqueeRef = React.useRef<HTMLDivElement>(null);
-  const marqueeInnerRef = React.useRef<HTMLDivElement>(null);
-
-  const animationDefaults = { duration: 0.6, ease: "expo" };
-
-  const findClosestEdge = (
-    mouseX: number,
-    mouseY: number,
-    width: number,
-    height: number,
-  ): "top" | "bottom" => {
-    const topEdgeDist = Math.pow(mouseX - width / 2, 2) + Math.pow(mouseY, 2);
-    const bottomEdgeDist =
-      Math.pow(mouseX - width / 2, 2) + Math.pow(mouseY - height, 2);
-    return topEdgeDist < bottomEdgeDist ? "top" : "bottom";
-  };
-
-  const handleMouseEnter = (ev: React.MouseEvent<HTMLAnchorElement>) => {
-    if (!itemRef.current || !marqueeRef.current || !marqueeInnerRef.current)
-      return;
-    const rect = itemRef.current.getBoundingClientRect();
-    const edge = findClosestEdge(
-      ev.clientX - rect.left,
-      ev.clientY - rect.top,
-      rect.width,
-      rect.height,
-    );
-
-    const tl = gsap.timeline({ defaults: animationDefaults });
-    tl.set(marqueeRef.current, { y: edge === "top" ? "-101%" : "101%" })
-      .set(marqueeInnerRef.current, { y: edge === "top" ? "101%" : "-101%" })
-      .to([marqueeRef.current, marqueeInnerRef.current], { y: "0%" });
-  };
-
-  const handleMouseLeave = (ev: React.MouseEvent<HTMLAnchorElement>) => {
-    if (!itemRef.current || !marqueeRef.current || !marqueeInnerRef.current)
-      return;
-    const rect = itemRef.current.getBoundingClientRect();
-    const edge = findClosestEdge(
-      ev.clientX - rect.left,
-      ev.clientY - rect.top,
-      rect.width,
-      rect.height,
-    );
-
-    const tl = gsap.timeline({ defaults: animationDefaults }) as TimelineMax;
-    tl.to(marqueeRef.current, { y: edge === "top" ? "-101%" : "101%" }).to(
-      marqueeInnerRef.current,
-      { y: edge === "top" ? "101%" : "-101%" },
-    );
-  };
-
-  const repeatedMarqueeContent = React.useMemo(() => {
-    return Array.from({ length: 4 }).map((_, idx) => (
-      <React.Fragment key={idx}>
-        <span className="text-[#060010] uppercase font-normal text-[4vh] leading-[1.2] p-[1vh_1vw_0]">
-          {text}
-        </span>
-        <div
-          className="w-[200px] h-[7vh] my-[2em] mx-[2vw] p-[1em_0] rounded-[50px] bg-cover bg-center"
-          style={{ backgroundImage: `url(${image})` }}
-        />
-      </React.Fragment>
-    ));
-  }, [text, image]);
-
-  return (
-    <div
-      className="flex-1 relative overflow-hidden text-center shadow-[0_-1px_0_0_#fff]"
-      ref={itemRef}
-    >
-      <a
-        className="flex items-center justify-center h-full relative cursor-pointer uppercase no-underline font-semibold text-white text-[3vh] hover:text-[#060010] focus:text-white focus-visible:text-[#060010]"
-        href={link}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-      >
-        {text}
-      </a>
-      <div
-        className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none bg-white translate-y-[101%]"
-        ref={marqueeRef}
-      >
-        <div className="h-full w-[200%] flex" ref={marqueeInnerRef}>
-          <div className="flex items-center relative h-full w-[200%] will-change-transform animate-marquee">
-            {repeatedMarqueeContent}
-          </div>
-        </div>
       </div>
     </div>
   );
 };
 
-export default FlowingMenu;
+const MenuItem: React.FC<MenuItemProps & { index: number }> = ({ 
+  link, 
+  text, 
+  image, 
+  index 
+}) => {
+  const [isHovered, setIsHovered] = React.useState(false);
 
-// Note: this is also needed
-// /** @type {import('tailwindcss').Config} */
-// export default {
-//   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
-//   theme: {
-//     extend: {
-//       translate: {
-//         '101': '101%',
-//       },
-//       keyframes: {
-//         marquee: {
-//           'from': { transform: 'translateX(0%)' },
-//           'to': { transform: 'translateX(-50%)' }
-//         }
-//       },
-//       animation: {
-//         marquee: 'marquee 15s linear infinite'
-//       }
-//     }
-//   },
-//   plugins: [],
-// };
+  const containerVariants = {
+    initial: { opacity: 0, y: 30 },
+    animate: { 
+      opacity: 1, 
+      y: 0
+    }
+  };
+
+  const containerTransition = {
+    duration: 0.6,
+    delay: index * 0.1,
+    ease: [0.25, 0.46, 0.45, 0.94] as const
+  };
+
+  const imageVariants = {
+    normal: { 
+      opacity: 1,
+      scale: 1,
+      filter: "brightness(0.8)"
+    },
+    hovered: { 
+      opacity: 0.3,
+      scale: 1.05,
+      filter: "brightness(0.4)"
+    }
+  };
+
+  const textVariants = {
+    normal: { 
+      opacity: 0,
+      y: 20,
+      scale: 0.9
+    },
+    hovered: { 
+      opacity: 1,
+      y: 0,
+      scale: 1
+    }
+  };
+
+  return (
+    <motion.div
+      className="relative h-full min-h-[500px] lg:min-h-[600px] overflow-hidden group"
+      variants={containerVariants}
+      initial="initial"
+      animate="animate"
+      transition={containerTransition}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <Link href={link} className="block w-full h-full relative">{/* Background Image */}
+        <motion.div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: `url(${image})` }}
+          variants={imageVariants}
+          animate={isHovered ? "hovered" : "normal"}
+          transition={{ duration: 0.4, ease: "easeInOut" }}
+        />
+
+        {/* Gradient Overlay */}
+        <motion.div
+          className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30"
+          initial={{ opacity: 0.7 }}
+          animate={{ opacity: isHovered ? 0.9 : 0.7 }}
+          transition={{ duration: 0.4 }}
+        />
+
+        {/* Text Content */}
+        <div className="absolute inset-0 flex items-center justify-center z-10">
+          <motion.div
+            className="text-center px-6"
+            variants={textVariants}
+            animate={isHovered ? "hovered" : "normal"}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+          >
+            <motion.h3
+              className="text-lg md:text-xl lg:text-2xl font-serif text-white font-bold drop-shadow-lg"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: isHovered ? 1 : 0 }}
+              transition={{ duration: 0.3, delay: isHovered ? 0.1 : 0 }}
+            >
+              {text}
+            </motion.h3>
+            
+            <motion.div
+              className="mt-4 inline-block"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ 
+                opacity: isHovered ? 1 : 0,
+                scale: isHovered ? 1 : 0.8
+              }}
+              transition={{ duration: 0.3, delay: isHovered ? 0.2 : 0 }}
+            >
+              <StarBorder
+                as="span"
+                className="inline-block"
+                color="#ffd700"
+                speed="3s"
+              >
+                <span className="inline-flex items-center text-sm font-bold">
+                  Explore More
+                  <svg 
+                    className="ml-2 w-4 h-4" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                  >
+                    <path 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round" 
+                      strokeWidth={2} 
+                      d="M17 8l4 4m0 0l-4 4m4-4H3" 
+                    />
+                  </svg>
+                </span>
+              </StarBorder>
+            </motion.div>
+          </motion.div>
+        </div>
+
+        {/* Subtle Border Effect */}
+        <motion.div
+          className="absolute inset-0 border-2 border-transparent"
+          animate={{
+            borderColor: isHovered ? "rgba(188, 156, 34, 0.5)" : "transparent"
+          }}
+          transition={{ duration: 0.3 }}
+        />
+
+        {/* Corner Label (Always Visible) */}
+        <motion.div 
+          className="absolute top-4 left-4 z-20"
+          initial={{ opacity: 1 }}
+          animate={{ opacity: isHovered ? 0 : 1 }}
+          transition={{ duration: 0.3 }}
+        >
+          <span className="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm text-white text-xs font-medium rounded-full border border-white/30 drop-shadow-sm">
+            {text}
+          </span>
+        </motion.div>
+      </Link>
+    </motion.div>
+  );
+};
+
+export default FlowingMenu;

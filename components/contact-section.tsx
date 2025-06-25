@@ -1,6 +1,7 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
+import StarBorder from "@/components/ui/StarBorder"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -325,9 +326,15 @@ export function ContactSection() {
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >
-                      <Button type="submit" size="lg" className="w-full bg-[#bc9c22] hover:bg-[#a08820] text-white font-semibold shadow-lg hover:shadow-xl transition-shadow duration-300 drop-shadow-md">
-                        Submit Booking Request
-                      </Button>
+                      <StarBorder
+                        as="button"
+                        type="submit"
+                        className="w-full"
+                        color="#ffd700"
+                        speed="3s"
+                      >
+                        <span className="text-lg font-bold">Submit Booking Request</span>
+                      </StarBorder>
                     </motion.div>
                   </form>
                 </Form>
