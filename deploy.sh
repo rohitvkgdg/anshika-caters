@@ -89,21 +89,64 @@ fi
 # Save PM2 configuration
 pm2 save
 
+# Remove duplicate Nginx configurations to prevent conflicts
+log_info "Cleaning up duplicate Nginx configurations..."
+if [ -L "$NGINX_SITES_ENABLED/$APP_NAME" ]; then
+    rm $NGINX_SITES_ENABLED/$APP_NAME
+    log_info "Removed existing Nginx symlink"
+fi
+
+if [ -f "$NGINX_SITES_AVAILABLE/$APP_NAME" ]; then
+    rm $NGINX_SITES_AVAILABLE/$APP_NAME
+    log_info "Removed existing Nginx configuration"
+fi
+
+# Also check for any other conflicting configurations
+find $NGINX_SITES_ENABLED -name "*anshika*" -type l -delete 2>/dev/null || true
+find $NGINX_SITES_AVAILABLE -name "*anshika*" -type f -delete 2>/dev/null || true
+
 # Setup Nginx configuration
 log_info "Setting up Nginx configuration..."
-if [ ! -f "$NGINX_SITES_AVAILABLE/$APP_NAME" ]; then
-    if [ -f "nginx.conf" ]; then
-        cp nginx.conf $NGINX_SITES_AVAILABLE/$APP_NAME
-        log_info "Nginx configuration copied"
-    else
-        log_warn "nginx.conf not found. Creating basic configuration..."
-        cat > $NGINX_SITES_AVAILABLE/$APP_NAME << 'EOF'
+# Create a simple, clean configuration without rate limiting zones
+cat > $NGINX_SITES_AVAILABLE/$APP_NAME << 'EOF'
 server {
     listen 80;
-    server_name your-domain.com;
+    server_name acaterers.com www.acaterers.com;
 
+    # Basic security headers
+    add_header X-Frame-Options "SAMEORIGIN" always;
+    add_header X-XSS-Protection "1; mode=block" always;
+    add_header X-Content-Type-Options "nosniff" always;
+
+    # Gzip compression
+    gzip on;
+    gzip_vary on;
+    gzip_min_length 1024;
+    gzip_types
+        text/plain
+        text/css
+        text/xml
+        text/javascript
+        application/javascript
+        application/xml+rss
+        application/json
+        image/svg+xml;
+
+    # Static files caching
+    location ~* \.(jpg|jpeg|png|gif|ico|css|js|woff|woff2|ttf|svg)$ {
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+        try_files $uri $uri/ @nextjs;
+    }
+
+    # Main application
     location / {
-        proxy_pass http://localhost:3000;
+        try_files $uri $uri/ @nextjs;
+    }
+
+    # Proxy to Next.js application
+    location @nextjs {
+        proxy_pass http://127.0.0.1:3000;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
@@ -112,18 +155,26 @@ server {
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
         proxy_cache_bypass $http_upgrade;
+        proxy_read_timeout 86400;
+    }
+
+    # Health check endpoint
+    location /health {
+        proxy_pass http://127.0.0.1:3000/api/health;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        access_log off;
     }
 }
 EOF
-    fi
-    log_warn "Please update the domain name in $NGINX_SITES_AVAILABLE/$APP_NAME"
-fi
+
+log_info "Nginx configuration created"
+log_warn "Please update 'acaterers.com' with your actual domain in: $NGINX_SITES_AVAILABLE/$APP_NAME"
 
 # Enable Nginx site
-if [ ! -L "$NGINX_SITES_ENABLED/$APP_NAME" ]; then
-    ln -s $NGINX_SITES_AVAILABLE/$APP_NAME $NGINX_SITES_ENABLED/$APP_NAME
-    log_info "Nginx site enabled"
-fi
+log_info "Enabling Nginx site..."
+ln -s $NGINX_SITES_AVAILABLE/$APP_NAME $NGINX_SITES_ENABLED/$APP_NAME
+log_info "Nginx site enabled"
 
 # Test Nginx configuration
 log_info "Testing Nginx configuration..."
