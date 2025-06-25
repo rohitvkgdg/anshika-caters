@@ -40,10 +40,10 @@ export function Navigation() {
   return (
     <Navbar className="fixed top-0 z-50">
       {/* Desktop Navigation */}
-      <NavBody className="bg-[#fdfaf5]/70 backdrop-blur-2xl shadow-lg">
+      <NavBody className="bg-[#fdfaf5]/70 backdrop-blur-2xl shadow-lg border-b border-white/20">
         {/* Logo */}
         <motion.div 
-          className="relative z-20"
+          className="relative z-20 drop-shadow-md"
           whileHover={{ scale: 1.05 }} 
           transition={{ duration: 0.2 }}
         >
@@ -51,6 +51,7 @@ export function Navigation() {
             <motion.div 
               whileHover={{ rotate: 360 }} 
               transition={{ duration: 0.6 }}
+              className="drop-shadow-md"
             >
               <Image 
                 src="/AC.png" 
@@ -66,14 +67,14 @@ export function Navigation() {
         {/* Navigation Items */}
         <NavItems 
           items={navItems} 
-          className="text-[#021631] hover:text-[#bc9c22]"
+          className="text-[#021631] hover:text-[#bc9c22] drop-shadow-sm text-shadow-sm"
           onItemClick={handleNavClick}
         />
 
         {/* CTA Button */}
         <div className="relative z-20">
           <Link href="/contact" onClick={handleNavClick}>
-            <InteractiveHoverButton className="bg-[#bc9c22] hover:bg-[#a08820] text-white border-[#bc9c22] font-semibold">
+            <InteractiveHoverButton className="bg-[#bc9c22] hover:bg-[#a08820] text-white border-[#bc9c22] font-semibold shadow-lg hover:shadow-xl transition-shadow duration-200">
               Plan Event
             </InteractiveHoverButton>
           </Link>
@@ -87,10 +88,11 @@ export function Navigation() {
           <motion.div
             whileHover={{ scale: 1.05 }} 
             transition={{ duration: 0.2 }}
+            className="drop-shadow-md"
           >
             <Link href="/" className="flex items-center space-x-2" onClick={handleNavClick}>
               <motion.div 
-                className="relative"
+                className="relative drop-shadow-md"
                 whileHover={{ rotate: 360 }} 
                 transition={{ duration: 0.6 }}
               >
@@ -102,7 +104,7 @@ export function Navigation() {
                   className="rounded-full" 
                 />
               </motion.div>
-              <span className="text-xl font-serif text-[#021631] font-bold">
+              <span className="text-xl font-serif text-[#021631] font-bold drop-shadow-md">
                 Anshika Caters
               </span>
             </Link>
@@ -125,7 +127,7 @@ export function Navigation() {
             <div key={i} className="border-b border-[#bc9c22]/20 last:border-0">
               <Link
                 href={item.link}
-                className="block py-3 font-medium text-[#021631] hover:text-[#bc9c22] transition-colors text-lg"
+                className="block py-3 font-medium text-[#021631] hover:text-[#bc9c22] transition-colors text-lg drop-shadow-sm"
                 onClick={() => {
                   handleMobileItemClick()
                   handleNavClick()
@@ -141,7 +143,7 @@ export function Navigation() {
               handleMobileItemClick()
               handleNavClick()
             }}>
-              <InteractiveHoverButton className="bg-[#bc9c22] hover:bg-[#a08820] text-white border-[#bc9c22] font-semibold w-full">
+              <InteractiveHoverButton className="bg-[#bc9c22] hover:bg-[#a08820] text-white border-[#bc9c22] font-semibold w-full shadow-lg hover:shadow-xl transition-shadow duration-200">
                 Book Tasting
               </InteractiveHoverButton>
             </Link>

@@ -19,7 +19,7 @@ export function WhatsAppFloat() {
       <Button
         asChild
         size="icon"
-        className="bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg h-14 w-14"
+        className="bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-xl hover:shadow-2xl transition-shadow duration-300 h-14 w-14 drop-shadow-lg"
         aria-label="Chat on WhatsApp"
       >
         <motion.a

@@ -56,7 +56,7 @@ export function FeaturedEventsSection() {
   }
 
   return (
-    <section className="py-20 bg-gradient-to-br from-[#021631] to-[#1a365d] text-white" ref={ref}>
+    <section className="py-20 bg-[#021631] text-white" ref={ref}>
       <div className="flex flex-col mx-0 w-full px-0">
         <motion.div
           className="text-center mb-12"
@@ -65,14 +65,14 @@ export function FeaturedEventsSection() {
           animate={isInView ? "visible" : "hidden"}
         >
           <motion.h2
-            className="text-4xl md:text-5xl font-serif text-white mb-6"
+            className="text-4xl md:text-5xl font-serif text-white mb-6 drop-shadow-lg"
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             transition={{ duration: 0.8 }}
           >
             Featured{" "}
             <motion.span
-              className="text-[#bc9c22] bg-gradient-to-r from-[#bc9c22] to-[#d4af37] bg-clip-text text-transparent"
+              className="text-[#bc9c22] bg-gradient-to-r from-[#bc9c22] to-[#d4af37] bg-clip-text text-transparent drop-shadow-md"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
               transition={{ delay: 0.3, duration: 0.6 }}
@@ -81,7 +81,7 @@ export function FeaturedEventsSection() {
             </motion.span>
           </motion.h2>
           <motion.p
-            className="text-xl text-gray-300 max-w-3xl mx-auto"
+            className="text-xl text-gray-300 max-w-3xl mx-auto drop-shadow-sm"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ delay: 0.5, duration: 0.8 }}
@@ -91,7 +91,7 @@ export function FeaturedEventsSection() {
         </motion.div>
 
         <motion.div
-          className="w-full h-[60vh] overflow-hidden shadow-2xl bg-gradient-to-br from-[#bc9c22] to-[#d4af37]"
+          className="w-full h-[60vh] overflow-hidden shadow-2xl bg-gradient-to-br from-[#bc9c22] to-[#d4af37] hover:shadow-3xl transition-shadow duration-500"
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
@@ -105,7 +105,7 @@ export function FeaturedEventsSection() {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ delay: 0.8, duration: 0.6 }}
         >
-          <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-300 max-w-2xl mx-auto drop-shadow-sm">
             Hover over each event type to discover our specialized catering solutions tailored for your unique needs.
           </p>
         </motion.div>

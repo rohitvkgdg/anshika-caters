@@ -107,7 +107,7 @@ export function ProcessSection() {
           {steps.map((step, index) => (
             <motion.div
               key={index}
-              className="text-center relative group"
+              className="text-center bg-[#0d223d] p-4 rounded-lg relative group"
               variants={stepVariants}
               whileHover={{
                 y: -10,

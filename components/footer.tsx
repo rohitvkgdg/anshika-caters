@@ -13,10 +13,10 @@ export function Footer() {
           {/* Brand */}
           <div className="space-y-4">
             <Link href="/" className="flex items-center space-x-2">
-              <Image src={"/AC.png"} alt="Anshika Caters Logo" width={80} height={80} className="rounded-full" />
-              <span className="text-2xl font-serif font-bold">Anshika Caters</span>
+              <Image src={"/AC.png"} alt="Anshika Caters Logo" width={80} height={80} className="rounded-full drop-shadow-lg" />
+              <span className="text-2xl font-serif font-bold drop-shadow-md">Anshika Caters</span>
             </Link>
-            <p className="text-gray-300">Creating unforgettable culinary experiences for your most precious moments.</p>
+            <p className="text-gray-300 drop-shadow-sm">Creating unforgettable culinary experiences for your most precious moments.</p>
             <div className="flex space-x-4">
               <Instagram className="w-5 h-5 text-[#bc9c22] hover:text-white cursor-pointer transition-colors" />
               <Facebook className="w-5 h-5 text-[#bc9c22] hover:text-white cursor-pointer transition-colors" />
@@ -26,7 +26,7 @@ export function Footer() {
 
           {/* Services */}
           <div>
-            <h3 className="text-lg font-serif text-[#bc9c22] mb-4">Services</h3>
+            <h3 className="text-lg font-serif text-[#bc9c22] mb-4 drop-shadow-sm">Services</h3>
             <ul className="space-y-2 text-gray-300">
               <li>
                 <Link href="/wedding-packages" className="hover:text-[#bc9c22]">
@@ -113,7 +113,7 @@ export function Footer() {
               />
               <Button 
                 size="sm" 
-                className="w-full bg-[#bc9c22] hover:bg-[#a08820] text-[#021631] font-semibold"
+                className="w-full bg-[#bc9c22] hover:bg-[#a08820] text-[#021631] font-semibold shadow-lg hover:shadow-xl transition-shadow duration-300 drop-shadow-md"
               >
                 Subscribe
               </Button>

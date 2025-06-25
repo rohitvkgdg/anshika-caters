@@ -116,7 +116,7 @@ export function ContactSection() {
   }
 
   return (
-    <section className="py-20 bg-[#fdfaf5]" ref={ref}>
+    <section className="py-20 bg-[#021631]" ref={ref}>
       <div className="container mx-auto px-4">
         <motion.div
           className="text-center mb-16"
@@ -124,10 +124,10 @@ export function ContactSection() {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-4xl md:text-5xl font-serif text-[#021631] mb-6">
+          <h2 className="text-4xl md:text-5xl font-serif text-white mb-6 drop-shadow-lg">
             Book Your{" "}
             <motion.span
-              className="text-[#bc9c22]"
+              className="text-[#bc9c22] drop-shadow-md"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
               transition={{ delay: 0.3, duration: 0.6 }}
@@ -136,7 +136,7 @@ export function ContactSection() {
             </motion.span>
           </h2>
           <motion.p
-            className="text-xl text-gray-600 max-w-3xl mx-auto"
+            className="text-xl text-gray-400 max-w-3xl mx-auto drop-shadow-sm"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ delay: 0.5, duration: 0.8 }}
@@ -147,21 +147,21 @@ export function ContactSection() {
         </motion.div>
 
         <motion.div
-          className="grid lg:grid-cols-2 gap-12"
+          className="grid bg- lg:grid-cols-2 gap-12"
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
         >
           {/* Contact Form */}
           <motion.div variants={formVariants}>
-            <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <Card className="border-0 bg-[#0d223d] shadow-lg hover:shadow-xl transition-shadow duration-300 drop-shadow-sm">
               <CardHeader>
-                <CardTitle className="text-2xl font-serif text-[#021631]">Get Started Today</CardTitle>
+                <CardTitle className="text-2xl font-serif text-white drop-shadow-sm">Get Started Today</CardTitle>
               </CardHeader>
               <CardContent>
                 <Form {...form}>
                   <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                    <div className="grid md:grid-cols-2 gap-4">
+                    <div className="grid md:grid-cols-2 gap-4 text-white">
                       <FormField
                         control={form.control}
                         name="brideName"
@@ -169,7 +169,7 @@ export function ContactSection() {
                           <FormItem>
                             <FormLabel>Bride's Name</FormLabel>
                             <FormControl>
-                              <Input placeholder="Enter bride's name" {...field} className="border-gray-300 focus:border-[#bc9c22] transition-colors duration-300" />
+                              <Input placeholder="Enter bride's name" {...field} className="border-gray-500 text-white focus:border-[#bc9c22] transition-colors duration-300" />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -182,7 +182,7 @@ export function ContactSection() {
                           <FormItem>
                             <FormLabel>Groom's Name</FormLabel>
                             <FormControl>
-                              <Input placeholder="Enter groom's name" {...field} className="border-gray-300 focus:border-[#bc9c22] transition-colors duration-300" />
+                              <Input placeholder="Enter groom's name" {...field} className="border-gray-500 text-white focus:border-[#bc9c22] transition-colors duration-300" />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -190,7 +190,7 @@ export function ContactSection() {
                       />
                     </div>
                     
-                    <div className="grid md:grid-cols-2 gap-4">
+                    <div className="grid md:grid-cols-2 gap-4 text-white">
                       <FormField
                         control={form.control}
                         name="email"
@@ -198,7 +198,7 @@ export function ContactSection() {
                           <FormItem>
                             <FormLabel>Email Address</FormLabel>
                             <FormControl>
-                              <Input type="email" placeholder="Enter email address" {...field} className="border-gray-300 focus:border-[#bc9c22] transition-colors duration-300" />
+                              <Input type="email" placeholder="Enter email address" {...field} className="border-gray-500 text-white focus:border-[#bc9c22] transition-colors duration-300" />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -211,7 +211,7 @@ export function ContactSection() {
                           <FormItem>
                             <FormLabel>Phone Number</FormLabel>
                             <FormControl>
-                              <Input type="tel" placeholder="Enter phone number" {...field} className="border-gray-300 focus:border-[#bc9c22] transition-colors duration-300" />
+                              <Input type="tel" placeholder="Enter phone number" {...field} className="border-gray-500 text-white focus:border-[#bc9c22] transition-colors duration-300" />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -219,7 +219,7 @@ export function ContactSection() {
                       />
                     </div>
                     
-                    <div className="grid md:grid-cols-2 gap-4">
+                    <div className="grid md:grid-cols-2 gap-4 text-white">
                       <FormField
                         control={form.control}
                         name="weddingDate"
@@ -227,7 +227,7 @@ export function ContactSection() {
                           <FormItem>
                             <FormLabel>Wedding Date</FormLabel>
                             <FormControl>
-                              <Input type="date" {...field} className="border-gray-300 focus:border-[#bc9c22] transition-colors duration-300" />
+                              <Input type="date" {...field} className="border-gray-500 text-white focus:border-[#bc9c22] transition-colors duration-300" />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -241,7 +241,7 @@ export function ContactSection() {
                             <FormLabel>Guest Count</FormLabel>
                             <FormControl>
                               <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                <SelectTrigger className="border-gray-300 focus:border-[#bc9c22] transition-colors duration-300">
+                                <SelectTrigger className="border-gray-500 text-white focus:border-[#bc9c22] transition-colors duration-300">
                                   <SelectValue placeholder="Select guest count" />
                                 </SelectTrigger>
                                 <SelectContent className="bg-[#fdfaf5]">
@@ -260,7 +260,7 @@ export function ContactSection() {
                       />
                     </div>
                     
-                    <div className="grid md:grid-cols-2 gap-4">
+                    <div className="grid md:grid-cols-2 gap-4 text-white">
                       <FormField
                         control={form.control}
                         name="venue"
@@ -268,7 +268,7 @@ export function ContactSection() {
                           <FormItem>
                             <FormLabel>Wedding Venue</FormLabel>
                             <FormControl>
-                              <Input placeholder="Enter wedding venue" {...field} className="border-gray-300 focus:border-[#bc9c22] transition-colors duration-300" />
+                              <Input placeholder="Enter wedding venue" {...field} className="border-gray-500 text-white focus:border-[#bc9c22] transition-colors duration-300" />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -282,7 +282,7 @@ export function ContactSection() {
                             <FormLabel>Service Type</FormLabel>
                             <FormControl>
                               <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                <SelectTrigger className="border-gray-300 focus:border-[#bc9c22] transition-colors duration-300">
+                                <SelectTrigger className="border-gray-500 text-white focus:border-[#bc9c22] transition-colors duration-300">
                                   <SelectValue placeholder="Select service type" />
                                 </SelectTrigger>
                                 <SelectContent className="bg-[#fdfaf5]">
@@ -306,12 +306,14 @@ export function ContactSection() {
                       name="message"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Tell us about your dream wedding</FormLabel>
+                          <FormLabel className="text-white">Tell us about your dream wedding</FormLabel>
                           <FormControl>
                             <Textarea
                               placeholder="Share your vision, dietary requirements, special requests, and any other details..."
-                              className="border-gray-300 min-h-[120px] focus:border-[#bc9c22] transition-colors duration-300"
+                              className="border-gray-500 text-white min-h-[120px] focus:border-[#bc9c22] transition-colors duration-300 resize-none"
                               {...field}
+                              autoComplete="off"
+                              style={{ resize: 'none' }}
                             />
                           </FormControl>
                           <FormMessage />
@@ -323,8 +325,8 @@ export function ContactSection() {
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >
-                      <Button type="submit" size="lg" className="w-full bg-[#bc9c22] hover:bg-[#a08820] text-[#021631] font-semibold shadow-lg">
-                        Book Your Tasting Session
+                      <Button type="submit" size="lg" className="w-full bg-[#bc9c22] hover:bg-[#a08820] text-white font-semibold shadow-lg hover:shadow-xl transition-shadow duration-300 drop-shadow-md">
+                        Submit Booking Request
                       </Button>
                     </motion.div>
                   </form>
@@ -335,7 +337,7 @@ export function ContactSection() {
 
           {/* Contact Information */}
           <motion.div className="space-y-8" variants={contactInfoVariants}>
-            <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <Card className="border-0 shadow-lg bg-[#0d223d] hover:shadow-xl transition-shadow duration-300">
               <CardContent className="p-8">
                 {[
                   { icon: Phone, title: "Call Us", info: "+91 98765 43210" },
@@ -355,13 +357,13 @@ export function ContactSection() {
                       whileHover={{ rotate: 360, scale: 1.1 }}
                       transition={{ duration: 0.6 }}
                     >
-                      <contact.icon className="w-6 h-6 text-[#bc9c22] mr-4 group-hover:text-[#021631] transition-colors duration-300" />
+                      <contact.icon className="w-6 h-6 text-[#bc9c22] mr-4 group-hover:text-white transition-colors duration-300" />
                     </motion.div>
                     <div>
-                      <div className="font-semibold text-[#021631] group-hover:text-[#bc9c22] transition-colors duration-300">
+                      <div className="font-semibold text-gray-200 group-hover:text-white transition-colors duration-300">
                         {contact.title}
                       </div>
-                      <div className="text-gray-600 group-hover:text-gray-800 transition-colors duration-300">
+                      <div className="text-gray-400 group-hover:text-gray-200 transition-colors duration-300">
                         {contact.info}
                       </div>
                     </div>
@@ -371,7 +373,7 @@ export function ContactSection() {
             </Card>
 
             <motion.div
-              className="bg-[#021631] text-white p-8 rounded-lg relative overflow-hidden"
+              className="bg-[#0d223d] text-white p-8 rounded-lg relative overflow-hidden"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
               transition={{ delay: 0.8, duration: 0.6 }}

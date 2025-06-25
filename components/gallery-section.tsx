@@ -53,7 +53,7 @@ export function GallerySection() {
   ]
 
   return (
-    <section className="py-20 bg-gradient-to-b from-white via-gray-50/30 to-white relative overflow-hidden" ref={ref}>
+    <section className="py-20 bg-[#021631] text-white relative overflow-hidden" ref={ref}>
       {/* Animated background elements */}
       
       <div className="flex flex-col mx-0 w-full px-auto relative z-10">
@@ -66,7 +66,7 @@ export function GallerySection() {
         >
           <Alert className="border-[#bc9c22] bg-[#bc9c22]/5 w-fit">
             <Calendar className="h-4 w-4" />
-            <AlertDescription className="text-[#021631]">
+            <AlertDescription className="text-white">
               <strong>Winter Wedding Season:</strong> Book now and save 15% on all packages! Limited slots available for December 2024 - February 2025.
             </AlertDescription>
           </Alert>
@@ -80,7 +80,7 @@ export function GallerySection() {
           transition={{ duration: 0.8 }}
         >
           <motion.h2 
-            className="text-4xl md:text-5xl font-serif text-[#021631] mb-6"
+            className="text-4xl md:text-5xl font-serif text-white mb-6"
             animate={{
               y: [0, -5, 0],
             }}
@@ -101,7 +101,7 @@ export function GallerySection() {
             </motion.span>
           </motion.h2>
           <motion.p
-            className="text-md md:text-xl text-gray-600 max-w-3xl mx-auto"
+            className="text-md md:text-xl text-gray-400 max-w-3xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ delay: 0.5, duration: 0.8 }}
@@ -117,10 +117,10 @@ export function GallerySection() {
         >
           <CircularGallery 
             items={galleryImages} 
-            bend={1.2}
-            textColor="#757575"
+            bend={1}
+            textColor="white"
             borderRadius={0.05}
-            font="bold 16px serif"
+            font="bold 14px serif"
           />
         </motion.div>
       </div>

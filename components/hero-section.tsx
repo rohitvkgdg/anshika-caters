@@ -85,7 +85,7 @@ export function HeroSection() {
       <motion.div 
         className="absolute inset-0 z-0"
         initial={{ scale: 1.05, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
+        animate={{ scale: 1, opacity: 0.8 }}
         transition={{ duration: 2, ease: "easeOut" }}
       >
         <div className="relative w-full h-full">
@@ -182,10 +182,11 @@ export function HeroSection() {
         animate="visible"
       >
         <motion.h1
-          className="text-5xl md:text-7xl lg:text-8xl font-serif mb-8 leading-tight"
+          className="text-5xl md:text-7xl lg:text-8xl font-serif mb-8 leading-tight drop-shadow-2xl"
           variants={itemVariants}
         >
           <motion.span
+            className="drop-shadow-lg"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
@@ -194,7 +195,7 @@ export function HeroSection() {
           </motion.span>
           <br />
           <motion.span 
-            className="text-[#bc9c22] bg-gradient-to-r from-[#bc9c22] to-[#d4af37] bg-clip-text text-transparent"
+            className="text-[#bc9c22] bg-gradient-to-r from-[#bc9c22] to-[#d4af37] bg-clip-text text-transparent drop-shadow-lg"
             initial={{ opacity: 0, x: -30, scale: 0.9 }}
             animate={{ opacity: 1, x: 0, scale: 1 }}
             transition={{ delay: 1.2, duration: 0.8, ease: "easeOut" }}
@@ -204,7 +205,7 @@ export function HeroSection() {
         </motion.h1>
         
         <motion.p
-          className="text-xl md:text-2xl mb-10 text-gray-200 max-w-3xl mx-auto leading-relaxed"
+          className="text-xl md:text-2xl mb-10 text-gray-200 max-w-3xl mx-auto leading-relaxed drop-shadow-md"
           variants={itemVariants}
         >
           Where culinary artistry meets timeless elegance. Creating unforgettable moments for over two decades.
@@ -221,7 +222,7 @@ export function HeroSection() {
             className="relative"
           >
             <Link href="/contact">
-              <InteractiveHoverButton className="bg-[#bc9c22] hover:bg-[#a08820] text-white border-[#bc9c22] px-12 py-4 text-lg font-semibold shadow-2xl ring-2 ring-white/20 backdrop-blur-sm">
+              <InteractiveHoverButton className="bg-[#bc9c22] hover:bg-[#a08820] text-white border-[#bc9c22] px-12 py-4 text-lg font-semibold shadow-2xl ring-2 ring-white/20 backdrop-blur-sm hover:shadow-3xl hover:ring-white/30 transition-all duration-300 drop-shadow-lg">
                 Plan With Us
               </InteractiveHoverButton>
             </Link>
@@ -231,7 +232,7 @@ export function HeroSection() {
             <Button
               size="lg"
               variant="outline"
-              className="text-white border-white/80 hover:bg-white hover:text-[#021631] px-10 py-6 text-lg bg-white/10 backdrop-blur-lg shadow-2xl hover:shadow-white/20 transition-all duration-300 border-2"
+              className="text-white hover:bg-white/10 hover:text-white px-10 py-7 text-lg bg-white/20 backdrop-blur-lg shadow-2xl hover:shadow-white/20 transition-all duration-300 drop-shadow-lg rounded-full hover:drop-shadow-xl"
               asChild
             >
               <Link href="/menus">Explore Menus</Link>

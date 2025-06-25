@@ -77,7 +77,7 @@ export function ServicesSection() {
   }
 
   return (
-    <section className="py-20 bg-white" ref={ref}>
+    <section className="py-20 bg-[#021631]" ref={ref}>
       <div className="container mx-auto px-4">
         <motion.div
           className="text-center mb-16"
@@ -86,14 +86,14 @@ export function ServicesSection() {
           animate={isInView ? "visible" : "hidden"}
         >
           <motion.h2
-            className="text-4xl md:text-5xl font-serif text-[#021631] mb-6"
+            className="text-4xl md:text-5xl font-serif text-white mb-6 drop-shadow-lg"
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             transition={{ duration: 0.8 }}
           >
             Curated{" "}
             <motion.span
-              className="text-[#bc9c22]"
+              className="text-[#bc9c22] drop-shadow-md"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
               transition={{ delay: 0.3, duration: 0.6 }}
@@ -102,7 +102,7 @@ export function ServicesSection() {
             </motion.span>
           </motion.h2>
           <motion.p
-            className="text-xl text-gray-600 max-w-3xl mx-auto"
+            className="text-xl text-gray-600 max-w-3xl mx-auto drop-shadow-sm"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ delay: 0.5, duration: 0.8 }}
@@ -147,10 +147,10 @@ export function ServicesSection() {
                     
                     {/* Content Section */}
                     <div className="flex-1 p-4 sm:p-6 flex flex-col">
-                      <h3 className="text-lg sm:text-xl font-serif text-[#021631] mb-3">
+                      <h3 className="text-lg sm:text-xl font-serif text-[#021631] mb-3 drop-shadow-sm">
                         {service.title}
                       </h3>
-                      <p className="text-sm sm:text-base text-gray-600 mb-4">
+                      <p className="text-sm sm:text-base text-gray-600 mb-4 drop-shadow-sm">
                         {service.description}
                       </p>
                       <div className="flex flex-wrap gap-2">
@@ -183,7 +183,7 @@ export function ServicesSection() {
             className="flex items-center justify-center w-full md:w-auto"
           >
             <Link href="/menu-builder" className="w-full md:w-auto">
-              <InteractiveHoverButton className="bg-[#bc9c22] hover:bg-[#a08820] text-white text-center border-[#bc9c22] font-semibold px-8 py-3 shadow-lg h-12 w-full md:w-auto">
+              <InteractiveHoverButton className="bg-[#bc9c22] hover:bg-[#a08820] text-white text-center border-[#bc9c22] font-semibold px-8 py-3 shadow-lg hover:shadow-xl transition-shadow duration-300 h-12 w-full md:w-auto drop-shadow-md">
           Build Your Menu
               </InteractiveHoverButton>
             </Link>
@@ -196,7 +196,7 @@ export function ServicesSection() {
             <Button
               size="lg"
               variant="outline"
-              className="border-[#021631] text-[#021631] hover:bg-[#021631] hover:text-white px-8 shadow-lg h-12 w-full md:w-auto"
+              className="text-[#021631] border-gray-100 bg-gray-200 hover:bg-gray-300 px-8 shadow-lg hover:shadow-xl transition-shadow duration-300 h-12 w-full md:w-auto rounded-full drop-shadow-sm"
               asChild
             >
               <Link href="/budget-calculator">Calculate Budget</Link>

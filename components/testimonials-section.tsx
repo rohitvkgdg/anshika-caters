@@ -54,7 +54,7 @@ export function TestimonialsSection() {
       rotateX: 0,
       transition: {
         duration: 0.8,
-        ease: "easeOut",
+        ease: "easeOut" as const,
       },
     },
   }
@@ -66,13 +66,13 @@ export function TestimonialsSection() {
       scale: 1,
       transition: {
         duration: 0.3,
-        ease: "backOut",
+        ease: "backOut" as const,
       },
     },
   }
 
   return (
-    <section className="py-20 bg-[#fdfaf5]" ref={ref}>
+    <section className="py-20 bg-[#021631]" ref={ref}>
       <div className="container mx-auto px-4">
         <motion.div
           className="text-center mb-16"
@@ -80,7 +80,7 @@ export function TestimonialsSection() {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-4xl md:text-5xl font-serif text-[#021631] mb-6">
+          <h2 className="text-4xl md:text-5xl font-serif text-white mb-6">
             Love Stories &{" "}
             <motion.span
               className="text-[#bc9c22]"
@@ -92,7 +92,7 @@ export function TestimonialsSection() {
             </motion.span>
           </h2>
           <motion.p
-            className="text-xl text-gray-600 max-w-3xl mx-auto"
+            className="text-xl text-gray-400 max-w-3xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ delay: 0.5, duration: 0.8 }}
@@ -117,7 +117,7 @@ export function TestimonialsSection() {
                 transition: { duration: 0.3 },
               }}
             >
-              <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 h-full group">
+              <Card className="border-0 bg-[#0d223d] shadow-lg hover:shadow-xl transition-all duration-300 h-full group">
                 <CardContent className="p-8">
                   <motion.div
                     className="flex mb-4"
@@ -145,7 +145,7 @@ export function TestimonialsSection() {
                   </motion.div>
                   
                   <motion.p
-                    className="text-gray-700 mb-6 italic leading-relaxed group-hover:text-gray-800 transition-colors duration-300"
+                    className="text-gray-400 mb-6 italic leading-relaxed group-hover:text-gray-300 transition-colors duration-300"
                     initial={{ opacity: 0 }}
                     animate={isInView ? { opacity: 1 } : { opacity: 0 }}
                     transition={{ delay: 0.8 + index * 0.1 }}
@@ -174,7 +174,7 @@ export function TestimonialsSection() {
                     </motion.div>
                     <div>
                       <motion.div
-                        className="font-semibold text-[#021631] group-hover:text-[#bc9c22] transition-colors duration-300"
+                        className="font-semibold text-gray-400 group-hover:text-white transition-colors duration-300"
                         whileHover={{ scale: 1.05 }}
                       >
                         {testimonial.name}
