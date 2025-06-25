@@ -30,10 +30,15 @@ log_error() {
     echo -e "${RED}[ERROR]${NC} $1"
 }
 
-# Check if running as root
+# Check if running as root and handle appropriately
 if [[ $EUID -eq 0 ]]; then
-   log_error "This script should not be run as root"
-   exit 1
+   log_warn "Running as root user. This is acceptable for VPS deployment."
+   log_warn "Make sure to secure your server properly after deployment."
+   USER="root"
+   GROUP="root"
+else
+   USER=$(whoami)
+   GROUP=$(id -gn)
 fi
 
 # Check if Bun is installed
@@ -47,6 +52,17 @@ fi
 # Environment setup
 ENVIRONMENT=${1:-production}
 log_info "Deploying to $ENVIRONMENT environment using Bun"
+
+# Create app directory if it doesn't exist
+log_info "Setting up application directory..."
+mkdir -p $APP_DIR
+
+# Copy application files to deployment directory
+log_info "Copying application files..."
+if [ "$PWD" != "$APP_DIR" ]; then
+    cp -r . $APP_DIR/
+    log_info "Files copied to $APP_DIR"
+fi
 
 # Create logs directory
 mkdir -p $APP_DIR/logs
@@ -76,33 +92,57 @@ pm2 save
 # Setup Nginx configuration
 log_info "Setting up Nginx configuration..."
 if [ ! -f "$NGINX_SITES_AVAILABLE/$APP_NAME" ]; then
-    sudo cp nginx.conf $NGINX_SITES_AVAILABLE/$APP_NAME
+    if [ -f "nginx.conf" ]; then
+        cp nginx.conf $NGINX_SITES_AVAILABLE/$APP_NAME
+        log_info "Nginx configuration copied"
+    else
+        log_warn "nginx.conf not found. Creating basic configuration..."
+        cat > $NGINX_SITES_AVAILABLE/$APP_NAME << 'EOF'
+server {
+    listen 80;
+    server_name your-domain.com;
+
+    location / {
+        proxy_pass http://localhost:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+EOF
+    fi
     log_warn "Please update the domain name in $NGINX_SITES_AVAILABLE/$APP_NAME"
 fi
 
 # Enable Nginx site
 if [ ! -L "$NGINX_SITES_ENABLED/$APP_NAME" ]; then
-    sudo ln -s $NGINX_SITES_AVAILABLE/$APP_NAME $NGINX_SITES_ENABLED/$APP_NAME
+    ln -s $NGINX_SITES_AVAILABLE/$APP_NAME $NGINX_SITES_ENABLED/$APP_NAME
+    log_info "Nginx site enabled"
 fi
 
 # Test Nginx configuration
 log_info "Testing Nginx configuration..."
-sudo nginx -t
+nginx -t
 
 # Reload Nginx
 log_info "Reloading Nginx..."
-sudo systemctl reload nginx
+systemctl reload nginx
 
 # Setup log rotation
 log_info "Setting up log rotation..."
-sudo tee /etc/logrotate.d/$APP_NAME > /dev/null <<EOF
+tee /etc/logrotate.d/$APP_NAME > /dev/null <<EOF
 $APP_DIR/logs/*.log {
     daily
     missingok
     rotate 14
     compress
     notifempty
-    create 0640 $USER $USER
+    create 0640 $USER $GROUP
     postrotate
         pm2 reloadLogs
     endscript
@@ -114,7 +154,8 @@ log_info "Application status:"
 pm2 show $APP_NAME
 
 log_warn "Don't forget to:"
-log_warn "1. Update domain name in Nginx configuration"
-log_warn "2. Setup SSL certificate with: sudo certbot --nginx -d yourdomain.com"
-log_warn "3. Configure firewall: sudo ufw allow 'Nginx Full'"
+log_warn "1. Update domain name in Nginx configuration: nano $NGINX_SITES_AVAILABLE/$APP_NAME"
+log_warn "2. Setup SSL certificate with: certbot --nginx -d yourdomain.com"
+log_warn "3. Configure firewall: ufw allow 'Nginx Full'"
 log_warn "4. Verify Bun version: bun --version"
+log_warn "5. For security, consider creating a non-root user for future deployments"
