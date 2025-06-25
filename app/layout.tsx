@@ -6,6 +6,8 @@ import { Navigation } from "@/components/navigation"
 import { ScrollProgress } from "@/components/ui/scroll-progress"
 import { Footer } from "@/components/footer"
 import { Toaster } from "@/components/ui/toaster"
+import { LoadingProvider } from "@/components/loading-context"
+import { ClientLayout } from "@/components/client-layout"
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -34,11 +36,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${playfair.variable} ${playfairSerif.variable} font-sans`}>
-        <ScrollProgress className="top-[0px]"/>
-        <Navigation />
-        {children}
-        <Footer />
-        <Toaster />
+        <LoadingProvider>
+          <ClientLayout>
+            {children}
+          </ClientLayout>
+        </LoadingProvider>
       </body>
     </html>
   )

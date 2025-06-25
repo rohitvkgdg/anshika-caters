@@ -244,7 +244,7 @@ export function ContactSection() {
                                 <SelectTrigger className="border-gray-300 focus:border-[#bc9c22] transition-colors duration-300">
                                   <SelectValue placeholder="Select guest count" />
                                 </SelectTrigger>
-                                <SelectContent>
+                                <SelectContent className="bg-[#fdfaf5]">
                                   <SelectItem value="1-50">1-50 guests</SelectItem>
                                   <SelectItem value="51-100">51-100 guests</SelectItem>
                                   <SelectItem value="101-200">101-200 guests</SelectItem>
@@ -285,7 +285,7 @@ export function ContactSection() {
                                 <SelectTrigger className="border-gray-300 focus:border-[#bc9c22] transition-colors duration-300">
                                   <SelectValue placeholder="Select service type" />
                                 </SelectTrigger>
-                                <SelectContent>
+                                <SelectContent className="bg-[#fdfaf5]">
                                   <SelectItem value="full-catering">Full Wedding Catering</SelectItem>
                                   <SelectItem value="cocktail-reception">Cocktail Reception</SelectItem>
                                   <SelectItem value="mehendi-catering">Mehendi Ceremony</SelectItem>
@@ -384,7 +384,7 @@ export function ContactSection() {
                 transition={{ duration: 3, repeat: Infinity, repeatDelay: 2 }}
               />
               <h3 className="text-2xl font-serif mb-4 text-[#bc9c22] relative z-10">Limited Availability</h3>
-              <p className="mb-4 relative z-10">Only 6 bookings left for Winter '25 season. Secure your date today!</p>
+              <p className="mb-4 relative z-10">Only limited bookings left for Winter '25 season. Secure your date today!</p>
               <div className="text-sm text-gray-300 relative z-10">
                 *Complimentary tasting sessions available for bookings above ₹2 lakhs
               </div>

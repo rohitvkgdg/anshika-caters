@@ -183,7 +183,7 @@ export function ServicesSection() {
             className="flex items-center justify-center w-full md:w-auto"
           >
             <Link href="/menu-builder" className="w-full md:w-auto">
-              <InteractiveHoverButton className="bg-[#bc9c22] hover:bg-[#a08820] text-white border-[#bc9c22] font-semibold px-8 py-3 shadow-lg h-12 w-full md:w-auto">
+              <InteractiveHoverButton className="bg-[#bc9c22] hover:bg-[#a08820] text-white text-center border-[#bc9c22] font-semibold px-8 py-3 shadow-lg h-12 w-full md:w-auto">
           Build Your Menu
               </InteractiveHoverButton>
             </Link>
