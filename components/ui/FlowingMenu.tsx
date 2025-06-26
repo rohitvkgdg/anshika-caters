@@ -20,7 +20,7 @@ interface FlowingMenuProps {
 const FlowingMenu: React.FC<FlowingMenuProps> = ({ items = [] }) => {
   return (
     <div className="w-full h-full">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 h-full gap-0">
+      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 h-full gap-0">
         {items.map((item, idx) => (
           <MenuItem key={idx} {...item} index={idx} />
         ))}
@@ -36,6 +36,7 @@ const MenuItem: React.FC<MenuItemProps & { index: number }> = ({
   index 
 }) => {
   const [isHovered, setIsHovered] = React.useState(false);
+  const [isTouched, setIsTouched] = React.useState(false);
 
   const containerVariants = {
     initial: { opacity: 0, y: 30 },
@@ -77,22 +78,26 @@ const MenuItem: React.FC<MenuItemProps & { index: number }> = ({
     }
   };
 
+  const isActive = isHovered || isTouched;
+
   return (
     <motion.div
-      className="relative h-full min-h-[500px] lg:min-h-[600px] overflow-hidden group"
+      className="relative h-full min-h-[200px] sm:min-h-[250px] md:min-h-[350px] lg:min-h-[450px] xl:min-h-[550px] overflow-hidden group cursor-pointer"
       variants={containerVariants}
       initial="initial"
       animate="animate"
       transition={containerTransition}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onTouchStart={() => setIsTouched(true)}
+      onTouchEnd={() => setIsTouched(false)}
     >
       <Link href={link} className="block w-full h-full relative">{/* Background Image */}
         <motion.div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{ backgroundImage: `url(${image})` }}
           variants={imageVariants}
-          animate={isHovered ? "hovered" : "normal"}
+          animate={isActive ? "hovered" : "normal"}
           transition={{ duration: 0.4, ease: "easeInOut" }}
         />
 
@@ -100,35 +105,35 @@ const MenuItem: React.FC<MenuItemProps & { index: number }> = ({
         <motion.div
           className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30"
           initial={{ opacity: 0.7 }}
-          animate={{ opacity: isHovered ? 0.9 : 0.7 }}
+          animate={{ opacity: isActive ? 0.9 : 0.7 }}
           transition={{ duration: 0.4 }}
         />
 
         {/* Text Content */}
         <div className="absolute inset-0 flex items-center justify-center z-10">
           <motion.div
-            className="text-center px-6"
+            className="text-center px-2 sm:px-4 md:px-6"
             variants={textVariants}
-            animate={isHovered ? "hovered" : "normal"}
+            animate={isActive ? "hovered" : "normal"}
             transition={{ duration: 0.4, ease: "easeOut" }}
           >
             <motion.h3
-              className="text-lg md:text-xl lg:text-2xl font-serif text-white font-bold drop-shadow-lg"
+              className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-serif text-white font-bold drop-shadow-lg leading-tight"
               initial={{ opacity: 0 }}
-              animate={{ opacity: isHovered ? 1 : 0 }}
-              transition={{ duration: 0.3, delay: isHovered ? 0.1 : 0 }}
+              animate={{ opacity: isActive ? 1 : 0 }}
+              transition={{ duration: 0.3, delay: isActive ? 0.1 : 0 }}
             >
               {text}
             </motion.h3>
             
             <motion.div
-              className="mt-4 inline-block"
+              className="mt-3 sm:mt-4 inline-block"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ 
-                opacity: isHovered ? 1 : 0,
-                scale: isHovered ? 1 : 0.8
+                opacity: isActive ? 1 : 0,
+                scale: isActive ? 1 : 0.8
               }}
-              transition={{ duration: 0.3, delay: isHovered ? 0.2 : 0 }}
+              transition={{ duration: 0.3, delay: isActive ? 0.2 : 0 }}
             >
               <StarBorder
                 as="span"
@@ -136,10 +141,10 @@ const MenuItem: React.FC<MenuItemProps & { index: number }> = ({
                 color="#ffd700"
                 speed="3s"
               >
-                <span className="inline-flex items-center text-sm font-bold">
+                <span className="inline-flex items-center text-xs sm:text-sm font-bold">
                   Explore More
                   <svg 
-                    className="ml-2 w-4 h-4" 
+                    className="ml-1 sm:ml-2 w-3 h-3 sm:w-4 sm:h-4" 
                     fill="none" 
                     stroke="currentColor" 
                     viewBox="0 0 24 24"
@@ -161,19 +166,19 @@ const MenuItem: React.FC<MenuItemProps & { index: number }> = ({
         <motion.div
           className="absolute inset-0 border-2 border-transparent"
           animate={{
-            borderColor: isHovered ? "rgba(188, 156, 34, 0.5)" : "transparent"
+            borderColor: isActive ? "rgba(188, 156, 34, 0.5)" : "transparent"
           }}
           transition={{ duration: 0.3 }}
         />
 
         {/* Corner Label (Always Visible) */}
         <motion.div 
-          className="absolute top-4 left-4 z-20"
+          className="absolute top-1 left-1 sm:top-2 sm:left-2 md:top-3 md:left-3 lg:top-4 lg:left-4 z-20"
           initial={{ opacity: 1 }}
-          animate={{ opacity: isHovered ? 0 : 1 }}
+          animate={{ opacity: isActive ? 0 : 1 }}
           transition={{ duration: 0.3 }}
         >
-          <span className="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm text-white text-xs font-medium rounded-full border border-white/30 drop-shadow-sm">
+          <span className="inline-block px-1.5 py-0.5 sm:px-2 sm:py-1 md:px-3 md:py-1 bg-white/20 backdrop-blur-sm text-white text-xs font-medium rounded-full border border-white/30 drop-shadow-sm">
             {text}
           </span>
         </motion.div>

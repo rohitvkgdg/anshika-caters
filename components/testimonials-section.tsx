@@ -187,6 +187,38 @@ export function TestimonialsSection() {
             </motion.div>
           ))}
         </motion.div>
+        
+        {/* Scroll hint for contact section */}
+        <motion.div
+          className="flex flex-col items-center mt-16 text-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ delay: 1.5, duration: 0.8 }}
+        >
+          <motion.p
+            className="text-gray-300 text-lg mb-4 font-medium"
+            whileHover={{ scale: 1.05 }}
+          >
+            Ready to plan your special event?
+          </motion.p>
+          <motion.div
+            className="flex flex-col items-center"
+            animate={{ 
+              y: [0, 10, 0],
+            }}
+            transition={{ 
+              duration: 2,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          >
+            <span className="text-[#bc9c22] text-sm font-semibold mb-2">Scroll down</span>
+            <motion.div
+              className="w-6 h-6 border-b-2 border-r-2 border-[#bc9c22] transform rotate-45"
+              whileHover={{ scale: 1.2 }}
+            />
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   )

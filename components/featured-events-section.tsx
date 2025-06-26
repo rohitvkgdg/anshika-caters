@@ -3,11 +3,19 @@
 import { motion } from "framer-motion"
 import { useInView } from "framer-motion"
 import { useRef } from "react"
+import { useSectionAnimation } from "@/hooks/use-section-animation"
 import FlowingMenu from "@/components/ui/FlowingMenu"
 
 export function FeaturedEventsSection() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
+
+  // Add GSAP section animation
+  useSectionAnimation('featured-events', {
+    animation: 'fadeInUp',
+    duration: 1.2,
+    stagger: 0.2
+  })
 
   const featuredEvents = [
     {
@@ -56,19 +64,21 @@ export function FeaturedEventsSection() {
   }
 
   return (
-    <section className="py-20 bg-[#021631] text-white" ref={ref}>
+    <section className="py-12 sm:py-16 md:py-20 bg-[#021631] text-white" ref={ref}>
       <div className="flex flex-col mx-0 w-full px-0">
         <motion.div
-          className="text-center mb-12"
+          className="text-center mb-8 sm:mb-10 md:mb-12 px-4"
           variants={titleVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
+          data-animate
         >
           <motion.h2
-            className="text-4xl md:text-5xl font-serif text-white mb-6 drop-shadow-lg"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif text-white mb-4 sm:mb-6 drop-shadow-lg leading-tight"
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             transition={{ duration: 0.8 }}
+            data-animate
           >
             Featured{" "}
             <motion.span
@@ -81,20 +91,22 @@ export function FeaturedEventsSection() {
             </motion.span>
           </motion.h2>
           <motion.p
-            className="text-xl text-gray-300 max-w-3xl mx-auto drop-shadow-sm"
+            className="text-lg sm:text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto drop-shadow-sm leading-relaxed px-2"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ delay: 0.5, duration: 0.8 }}
+            data-animate
           >
             From intimate celebrations to grand corporate gatherings, we create memorable experiences for every occasion.
           </motion.p>
         </motion.div>
 
         <motion.div
-          className="w-full h-[60vh] overflow-hidden shadow-2xl hover:shadow-3xl transition-shadow duration-500"
+          className="w-full h-[60vh] sm:h-[55vh] md:h-[60vh] lg:h-[65vh] xl:h-[70vh] overflow-hidden shadow-2xl hover:shadow-3xl transition-shadow duration-500"
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
+          data-animate
         >
           <FlowingMenu items={featuredEvents} />
         </motion.div>

@@ -129,7 +129,7 @@ export function ServicesSection() {
               }}
             >
                 <SpotlightCard 
-                  spotlightColor="rgba(188, 156, 34, 0.4)" 
+                  spotlightColor="rgba(188, 156, 34, 0.6)" 
                   className="h-full"
                 >
                   <motion.div
@@ -148,10 +148,10 @@ export function ServicesSection() {
                     
                     {/* Content Section */}
                     <div className="flex-1 p-4 sm:p-6 flex flex-col">
-                      <h3 className="text-lg sm:text-xl font-serif text-[#021631] mb-3 drop-shadow-sm">
+                      <h3 className="text-lg sm:text-xl font-serif text-gray-200 mb-3 drop-shadow-sm">
                         {service.title}
                       </h3>
-                      <p className="text-sm sm:text-base text-gray-600 mb-4 drop-shadow-sm">
+                      <p className="text-sm sm:text-base text-gray-400 mb-4 drop-shadow-sm">
                         {service.description}
                       </p>
                       <div className="flex flex-wrap gap-2">
@@ -159,7 +159,7 @@ export function ServicesSection() {
                           <Badge 
                             key={idx} 
                             variant="secondary" 
-                            className="bg-[#bc9c22]/10 text-[#021631] hover:bg-[#bc9c22]/20 transition-colors duration-300 text-xs sm:text-sm"
+                            className="bg-[#bc9c22]/10 text-gray-400 hover:bg-[#bc9c22]/20 transition-colors duration-300 text-xs sm:text-sm"
                           >
                             {feature}
                           </Badge>

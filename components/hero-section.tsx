@@ -187,7 +187,7 @@ export function HeroSection() {
           variants={itemVariants}
         >
           <motion.span
-            className="drop-shadow-lg"
+            className="drop-shadow-2xl font-bold"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
@@ -196,7 +196,7 @@ export function HeroSection() {
           </motion.span>
           <br />
           <motion.span 
-            className="text-[#bc9c22] bg-gradient-to-r from-[#bc9c22] to-[#d4af37] bg-clip-text text-transparent drop-shadow-lg"
+            className="text-[#bc9c22] bg-gradient-to-r font-bold from-[#bc9c22] to-[#d4af37] bg-clip-text text-transparent drop-shadow-2xl"
             initial={{ opacity: 0, x: -30, scale: 0.9 }}
             animate={{ opacity: 1, x: 0, scale: 1 }}
             transition={{ delay: 1.2, duration: 0.8, ease: "easeOut" }}
@@ -206,7 +206,7 @@ export function HeroSection() {
         </motion.h1>
         
         <motion.p
-          className="text-xl md:text-2xl mb-10 text-gray-200 max-w-3xl mx-auto leading-relaxed drop-shadow-md"
+          className="text-xl md:text-2xl mb-10 font-semibold text-gray-200 max-w-3xl mx-auto leading-relaxed drop-shadow-xl"
           variants={itemVariants}
         >
           Where culinary artistry meets timeless elegance. Creating unforgettable moments for over two decades.
@@ -229,7 +229,7 @@ export function HeroSection() {
                 color="#ffd700"
                 speed="3s"
               >
-                <span className="text-lg font-bold px-8 py-2">Plan With Us</span>
+                <span className="text-lg font-semibold px-8 py-2">Plan With Us</span>
               </StarBorder>
             </Link>
           </motion.div>
@@ -238,7 +238,7 @@ export function HeroSection() {
             <Button
               size="lg"
               variant="outline"
-              className="text-white hover:bg-white/10 hover:text-white px-10 py-6 text-lg bg-white/20 backdrop-blur-lg shadow-2xl hover:shadow-white/20 transition-all duration-300 drop-shadow-lg rounded-full hover:drop-shadow-xl"
+              className="text-white font-semibold hover:bg-white/10 hover:text-white px-10 py-6 text-lg bg-white/20 backdrop-blur-lg shadow-2xl hover:shadow-white/20 transition-all duration-300 drop-shadow-lg rounded-full hover:drop-shadow-xl"
               asChild
             >
               <Link href="/menus">Explore Menus</Link>

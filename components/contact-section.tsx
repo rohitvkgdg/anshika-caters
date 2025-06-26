@@ -15,6 +15,7 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import { useToast } from "@/hooks/use-toast"
+import { useSectionAnimation } from "@/hooks/use-section-animation"
 
 const formSchema = z.object({
   brideName: z.string().min(2, "Bride's name is required"),
@@ -32,6 +33,12 @@ export function ContactSection() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
   const { toast } = useToast()
+
+  // Add GSAP section animation for consistent entrance effects
+  useSectionAnimation('contact', {
+    duration: 1.2,
+    stagger: 0.2
+  })
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),

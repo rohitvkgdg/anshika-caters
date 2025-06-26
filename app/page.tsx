@@ -12,28 +12,42 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-[#fdfaf5]">
       {/* Hero Section */}
-      <HeroSection />
+      <section id="hero">
+        <HeroSection />
+      </section>
 
       {/* Social Proof */}
       <SocialProof />
 
       {/* Services */}
-      <ServicesSection />
+      <section id="services">
+        <ServicesSection />
+      </section>
 
       {/* Featured Events */}
-      <FeaturedEventsSection />
+      <section id="featured-events">
+        <FeaturedEventsSection />
+      </section>
 
       {/* Process */}
-      <ProcessSection />
+      <section id="process">
+        <ProcessSection />
+      </section>
 
       {/* Gallery */}
-      <GallerySection />
+      <section id="gallery">
+        <GallerySection />
+      </section>
 
       {/* Testimonials */}
-      <TestimonialsSection />
+      <section id="testimonials">
+        <TestimonialsSection />
+      </section>
 
       {/* Contact */}
-      <ContactSection />
+      <section id="contact">
+        <ContactSection />
+      </section>
 
       {/* WhatsApp Float */}
       <WhatsAppFloat />
