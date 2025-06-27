@@ -67,7 +67,7 @@ export function GallerySection() {
           <Alert className="border-[#bc9c22] bg-[#bc9c22]/5 w-fit">
             <Calendar className="h-4 w-4" />
             <AlertDescription className="text-white">
-              <strong>Winter Wedding Season:</strong> Book now and save 15% on all packages! Limited slots available for December 2024 - February 2025.
+              <strong>Winter Wedding Season:</strong> Book now and get a flat 20% off* your first event!
             </AlertDescription>
           </Alert>
         </motion.div>

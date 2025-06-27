@@ -15,17 +15,16 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import { useToast } from "@/hooks/use-toast"
-import { useSectionAnimation } from "@/hooks/use-section-animation"
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover"
+import { Calendar as CalendarComponent } from "./ui/calendar"
+import { cn } from "@/lib/utils"
+import { format } from "date-fns"
 
 const formSchema = z.object({
-  brideName: z.string().min(2, "Bride's name is required"),
-  groomName: z.string().min(2, "Groom's name is required"),
-  email: z.string().email("Please enter a valid email address"),
+  name: z.string().min(2, "Name is required"),
   phone: z.string().min(10, "Please enter a valid phone number"),
   weddingDate: z.string().min(1, "Please select a wedding date"),
   guestCount: z.string().min(1, "Please specify guest count"),
-  venue: z.string().min(2, "Please enter wedding venue"),
-  serviceType: z.string().min(1, "Please select a service type"),
   message: z.string().min(10, "Please provide more details about your requirements"),
 })
 
@@ -34,23 +33,13 @@ export function ContactSection() {
   const isInView = useInView(ref, { once: true, margin: "-100px" })
   const { toast } = useToast()
 
-  // Add GSAP section animation for consistent entrance effects
-  useSectionAnimation('contact', {
-    duration: 1.2,
-    stagger: 0.2
-  })
-
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      brideName: "",
-      groomName: "",
-      email: "",
+      name: "",
       phone: "",
       weddingDate: "",
       guestCount: "",
-      venue: "",
-      serviceType: "",
       message: "",
     },
   })
@@ -133,14 +122,14 @@ export function ContactSection() {
           transition={{ duration: 0.8 }}
         >
           <h2 className="text-4xl md:text-5xl font-serif text-white mb-6 drop-shadow-lg">
-            Book Your{" "}
+            Start Planning{" "}
             <motion.span
               className="text-[#bc9c22] drop-shadow-md"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
               transition={{ delay: 0.3, duration: 0.6 }}
             >
-              Dream Tasting
+              Your Perfect Event
             </motion.span>
           </h2>
           <motion.p
@@ -149,8 +138,7 @@ export function ContactSection() {
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ delay: 0.5, duration: 0.8 }}
           >
-            Ready to start planning your perfect wedding? Let's discuss your vision over a complimentary tasting
-            session.
+            From weddings to corporate celebrations — we handle it all with flawless planning, elegant décor, and unforgettable cuisine.
           </motion.p>
         </motion.div>
 
@@ -169,55 +157,26 @@ export function ContactSection() {
               <CardContent>
                 <Form {...form}>
                   <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                    <div className="grid md:grid-cols-2 gap-4 text-white">
                       <FormField
                         control={form.control}
-                        name="brideName"
+                        name="name"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Bride's Name</FormLabel>
+                            <FormLabel className="text-gray-200">Name</FormLabel>
                             <FormControl>
-                              <Input placeholder="Enter bride's name" {...field} className="border-gray-500 text-white focus:border-[#bc9c22] transition-colors duration-300" />
+                              <Input placeholder="Enter your name" {...field} className="border-gray-500 text-white focus:border-[#bc9c22] transition-colors duration-300" />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
                         )}
                       />
-                      <FormField
-                        control={form.control}
-                        name="groomName"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Groom's Name</FormLabel>
-                            <FormControl>
-                              <Input placeholder="Enter groom's name" {...field} className="border-gray-500 text-white focus:border-[#bc9c22] transition-colors duration-300" />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    </div>
                     
-                    <div className="grid md:grid-cols-2 gap-4 text-white">
-                      <FormField
-                        control={form.control}
-                        name="email"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Email Address</FormLabel>
-                            <FormControl>
-                              <Input type="email" placeholder="Enter email address" {...field} className="border-gray-500 text-white focus:border-[#bc9c22] transition-colors duration-300" />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
                       <FormField
                         control={form.control}
                         name="phone"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Phone Number</FormLabel>
+                            <FormLabel className="text-gray-200">Phone Number</FormLabel>
                             <FormControl>
                               <Input type="tel" placeholder="Enter phone number" {...field} className="border-gray-500 text-white focus:border-[#bc9c22] transition-colors duration-300" />
                             </FormControl>
@@ -225,20 +184,41 @@ export function ContactSection() {
                           </FormItem>
                         )}
                       />
-                    </div>
-                    
-                    <div className="grid md:grid-cols-2 gap-4 text-white">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <FormField
                         control={form.control}
                         name="weddingDate"
                         render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Wedding Date</FormLabel>
-                            <FormControl>
-                              <Input type="date" {...field} className="border-gray-500 text-white focus:border-[#bc9c22] transition-colors duration-300" />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
+                            <FormItem>
+                              <FormLabel className="text-gray-200">Wedding Date</FormLabel>
+                              <FormControl>
+                                <Popover>
+                                  <PopoverTrigger asChild>
+                                    <Button
+                                      variant="outline"
+                                      className={cn(
+                                      "w-full justify-start text-left font-normal border-gray-500 text-gray-200 focus:border-[#bc9c22] transition-colors duration-300 hover:text-gray-200",
+                                      !field.value
+                                      )}
+                                    >
+                                      <Calendar className="mr-1 h-2" />
+                                      {field.value ? format(new Date(field.value), "PPP") : <span>Pick a date</span>}
+                                    </Button>
+                                  </PopoverTrigger>
+                                  <PopoverContent className="w-auto p-2 bg-[#0d223d] border-gray-500">
+                                    <CalendarComponent
+                                      mode="single"
+                                      selected={field.value ? new Date(field.value) : undefined}
+                                      onSelect={(date) => field.onChange(date?.toISOString().split('T')[0])}
+                                      disabled={(date) => date < new Date()}
+                                      initialFocus
+                                      className="text-white bg-[#0d223d]"
+                                    />
+                                  </PopoverContent>
+                                </Popover>
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
                         )}
                       />
                       <FormField
@@ -246,13 +226,13 @@ export function ContactSection() {
                         name="guestCount"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Guest Count</FormLabel>
+                            <FormLabel className="text-gray-200">Guest Count</FormLabel>
                             <FormControl>
                               <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                <SelectTrigger className="border-gray-500 text-white focus:border-[#bc9c22] transition-colors duration-300">
+                                <SelectTrigger className="border-gray-500 text-gray-200 focus:border-[#bc9c22] transition-colors duration-300">
                                   <SelectValue placeholder="Select guest count" />
                                 </SelectTrigger>
-                                <SelectContent className="bg-[#fdfaf5]">
+                                <SelectContent className="bg-[#0d223d] text-gray-200 border-gray-500">
                                   <SelectItem value="1-50">1-50 guests</SelectItem>
                                   <SelectItem value="51-100">51-100 guests</SelectItem>
                                   <SelectItem value="101-200">101-200 guests</SelectItem>
@@ -267,54 +247,12 @@ export function ContactSection() {
                         )}
                       />
                     </div>
-                    
-                    <div className="grid md:grid-cols-2 gap-4 text-white">
-                      <FormField
-                        control={form.control}
-                        name="venue"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Wedding Venue</FormLabel>
-                            <FormControl>
-                              <Input placeholder="Enter wedding venue" {...field} className="border-gray-500 text-white focus:border-[#bc9c22] transition-colors duration-300" />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      <FormField
-                        control={form.control}
-                        name="serviceType"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Service Type</FormLabel>
-                            <FormControl>
-                              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                <SelectTrigger className="border-gray-500 text-white focus:border-[#bc9c22] transition-colors duration-300">
-                                  <SelectValue placeholder="Select service type" />
-                                </SelectTrigger>
-                                <SelectContent className="bg-[#fdfaf5]">
-                                  <SelectItem value="full-catering">Full Wedding Catering</SelectItem>
-                                  <SelectItem value="cocktail-reception">Cocktail Reception</SelectItem>
-                                  <SelectItem value="mehendi-catering">Mehendi Ceremony</SelectItem>
-                                  <SelectItem value="sangam-catering">Sangam Ceremony</SelectItem>
-                                  <SelectItem value="reception-dinner">Reception Dinner</SelectItem>
-                                  <SelectItem value="custom-package">Custom Package</SelectItem>
-                                </SelectContent>
-                              </Select>
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    </div>
-                    
                     <FormField
                       control={form.control}
                       name="message"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-white">Tell us about your dream wedding</FormLabel>
+                          <FormLabel className="text-gray-200">Tell us about your dream wedding</FormLabel>
                           <FormControl>
                             <Textarea
                               placeholder="Share your vision, dietary requirements, special requests, and any other details..."
@@ -354,9 +292,9 @@ export function ContactSection() {
             <Card className="border-0 shadow-lg bg-[#0d223d] hover:shadow-xl transition-shadow duration-300">
               <CardContent className="p-8">
                 {[
-                  { icon: Phone, title: "Call Us", info: "+91 98765 43210" },
-                  { icon: Mail, title: "Email Us", info: "hello@anshikacaters.com" },
-                  { icon: MapPin, title: "Visit Us", info: "123 Culinary Street, Mumbai, India" },
+                  { icon: Phone, title: "Call Us", info: "+91 73111 29675" },
+                  { icon: Mail, title: "Email Us", info: "contact@acaterers.com" },
+                  { icon: MapPin, title: "Visit Us", info: "C-32/47, Chandua Chhitupur, Vidya Vihar Colony, Shivpurwa, Varanasi, Uttar Pradesh, India" },
                   { icon: Calendar, title: "Business Hours", info: "Mon-Sat: 9AM-8PM, Sun: 10AM-6PM" },
                 ].map((contact, index) => (
                   <motion.div

@@ -13,22 +13,22 @@ export function ProcessSection() {
     {
       icon: MessageCircle,
       title: "Share Your Vision",
-      description: "Tell us about your dream wedding. We listen to every detail and understand your preferences.",
+      description: "Tell us about your event — whether it’s a wedding or corporate gathering. We’ll understand your goals, style, and preferences.",
     },
     {
       icon: Menu,
-      title: "Explore Packages",
-      description: "Choose from our curated packages or let us create a custom menu just for you.",
+      title: "Design the Experience",
+      description: "We craft a personalized event plan, covering everything from themes and décor to logistics, entertainment, and catering.",
     },
     {
       icon: ChefHat,
-      title: "Taste. Approve. Relax.",
-      description: "Experience our flavors firsthand with a complimentary tasting session.",
+      title: "Confirm & Prepare",
+      description: "Once you're happy with the plan, we finalize the details and coordinate everything behind the scenes — so you don’t have to.",
     },
     {
       icon: PartyPopper,
-      title: "Celebrate Your Perfect Day",
-      description: "Sit back and enjoy while we handle every culinary detail of your special day.",
+      title: "Enjoy Your Perfect Event",
+      description: "Relax and celebrate while we bring your event to life — flawlessly executed, beautifully styled, and unforgettable.",
     },
   ]
 
@@ -94,7 +94,7 @@ export function ProcessSection() {
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ delay: 0.5, duration: 0.8 }}
           >
-            Our seamless process ensures your wedding catering is handled with precision and care.
+            Our all-in-one event planning process ensures every detail — from décor to dining — is handled with care and creativity.
           </motion.p>
         </motion.div>
 

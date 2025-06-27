@@ -3,19 +3,11 @@
 import { motion } from "framer-motion"
 import { useInView } from "framer-motion"
 import { useRef } from "react"
-import { useSectionAnimation } from "@/hooks/use-section-animation"
 import FlowingMenu from "@/components/ui/FlowingMenu"
 
 export function FeaturedEventsSection() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
-
-  // Add GSAP section animation
-  useSectionAnimation('featured-events', {
-    animation: 'fadeInUp',
-    duration: 1.2,
-    stagger: 0.2
-  })
 
   const featuredEvents = [
     {

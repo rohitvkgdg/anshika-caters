@@ -23,7 +23,7 @@ export function WhatsAppFloat() {
         aria-label="Chat on WhatsApp"
       >
         <motion.a
-          href="https://wa.me/916375237349"
+          href="https://wa.me/917311129675"
           target="_blank"
           rel="noopener noreferrer"
           whileHover={{ 

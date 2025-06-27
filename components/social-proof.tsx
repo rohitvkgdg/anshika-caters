@@ -11,7 +11,7 @@ export function SocialProof() {
 
   const stats = [
     { icon: Calendar, number: "20+", label: "Years of Culinary Excellence" },
-    { icon: Users, number: "1000+", label: "Weddings Across India" },
+    { icon: Users, number: "1000+", label: "Events Across India" },
     { icon: Award, number: "50+", label: "Luxury Venue Partners" },
     { icon: Star, number: "4.9", label: "Average Client Rating" },
   ]
@@ -35,7 +35,7 @@ export function SocialProof() {
       scale: 1,
       transition: {
         duration: 0.6,
-        ease: "easeOut",
+        ease: "easeOut" as const,
       },
     },
   }
@@ -47,7 +47,7 @@ export function SocialProof() {
       scale: 1,
       transition: {
         duration: 0.8,
-        ease: "backOut",
+        ease: "backOut" as const,
         delay: 0.2,
       },
     },

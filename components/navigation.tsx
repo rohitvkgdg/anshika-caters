@@ -15,21 +15,21 @@ import {
   MobileNavToggle 
 } from "@/components/ui/resizable-navbar"
 import { useLoading } from "@/components/loading-context"
-import { useSmoothScrollContext } from "@/components/smooth-scroll-provider"
+import { useLenis } from "@/hooks/use-lenis"
 import Image from "next/image"
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
   const { setIsLoading } = useLoading()
-  const { activeSection, scrollToSection, activeSections } = useSmoothScrollContext()
+  const { scrollTo } = useLenis()
 
   const navItems = [
-    { name: "Home", link: "#hero", sectionIndex: 0 },
-    { name: "Services", link: "#services", sectionIndex: 1 },
-    { name: "Events", link: "#featured-events", sectionIndex: 2 },
-    { name: "Gallery", link: "#gallery", sectionIndex: 4 },
-    { name: "Testimonials", link: "#testimonials", sectionIndex: 5 },
-    { name: "Contact", link: "#contact", sectionIndex: 6 },
+    { name: "Home", link: "#hero" },
+    { name: "Services", link: "#services" },
+    { name: "Events", link: "#featured-events" },
+    { name: "Gallery", link: "#gallery" },
+    { name: "Testimonials", link: "#testimonials" },
+    { name: "Contact", link: "#contact" },
   ]
 
   const handleMobileItemClick = () => {
@@ -37,21 +37,11 @@ export function Navigation() {
   }
 
   const handleLogoClick = () => {
-    scrollToSection(0) // Go to hero section
+    scrollTo(0)
   }
 
-  const handleContactClick = () => {
-    // Contact is now part of smooth scroll, so use scrollToSection
-    scrollToSection(6) // Contact section index
-  }
   const handleNavItemClick = (item: typeof navItems[0]) => {
-    if (item.sectionIndex >= 0) {
-      // Internal smooth scroll
-      scrollToSection(item.sectionIndex)
-    } else {
-      // External navigation - let the link handle it
-      setIsLoading(true)
-    }
+    scrollTo(item.link)
   }
 
   return (
@@ -86,29 +76,12 @@ export function Navigation() {
           className="absolute inset-0 hidden flex-1 flex-row items-center justify-center space-x-1 text-sm transition duration-200 lg:flex lg:space-x-1 text-black font-bold drop-shadow-sm text-shadow-sm"
         >
           {navItems.map((item, idx) => {
-            // Special handling for Gallery nav item - it should be active for both process (3) and gallery (4) sections
-            const isActive = item.name === "Gallery" 
-              ? (activeSection === activeSections[3] || activeSection === activeSections[4]) // process or gallery sections
-              : item.sectionIndex >= 0 
-                ? activeSection === activeSections[item.sectionIndex]
-                : false;
-            
             return (
               <button
                 key={`nav-${idx}`}
                 onClick={() => handleNavItemClick(item)}
-                className={`relative px-3 py-2 font-bold transition-colors duration-200 ${
-                  isActive 
-                    ? "text-[#bc9c22]" 
-                    : "text-gray-800 hover:text-[#bc9c22]"
-                }`}
+                className="relative px-3 py-2 font-bold transition-colors duration-200 text-gray-800 hover:text-[#bc9c22]"
               >
-                {isActive && (
-                  <motion.div
-                    layoutId="activeNav"
-                    className="absolute inset-0 h-full w-full rounded-full bg-[#bc9c22]/10"
-                  />
-                )}
                 <span className="relative z-20">{item.name}</span>
               </button>
             )
@@ -117,7 +90,7 @@ export function Navigation() {
 
         {/* CTA Button */}
         <div className="relative z-20">
-          <Link href="/contact" onClick={handleContactClick}>
+          <Link href="/contact" onClick={() => handleNavItemClick({ name: "Contact", link: "#contact" })}>
             <InteractiveHoverButton className="bg-[#bc9c22] hover:bg-[#a08820] text-white border-0 font-semibold shadow-lg hover:shadow-xl transition-shadow duration-200">
               Plan Event
             </InteractiveHoverButton>
@@ -184,7 +157,7 @@ export function Navigation() {
           <div className="pt-4">
             <Link href="/contact" onClick={() => {
               handleMobileItemClick()
-              handleContactClick()
+              handleNavItemClick({ name: "Contact", link: "#contact" })
             }}>
               <InteractiveHoverButton className="bg-[#bc9c22] hover:bg-[#a08820] text-white border-[#bc9c22] font-semibold w-full shadow-lg hover:shadow-xl transition-shadow duration-200">
                 Book Tasting
