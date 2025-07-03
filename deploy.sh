@@ -59,9 +59,23 @@ mkdir -p $APP_DIR
 
 # Copy application files to deployment directory
 log_info "Copying application files..."
-if [ "$PWD" != "$APP_DIR" ]; then
-    cp -r . $APP_DIR/
-    log_info "Files copied to $APP_DIR"
+SOURCE_DIR="$PWD"
+TARGET_DIR="$APP_DIR"
+
+# Get absolute paths to ensure proper comparison
+SOURCE_ABS=$(realpath "$SOURCE_DIR")
+TARGET_ABS=$(realpath "$TARGET_DIR")
+
+if [ "$SOURCE_ABS" != "$TARGET_ABS" ]; then
+    log_info "Copying from $SOURCE_ABS to $TARGET_ABS"
+    # Remove existing files except logs and node_modules to avoid conflicts
+    find "$TARGET_DIR" -maxdepth 1 -not -name "logs" -not -name "node_modules" -not -name "." -not -name ".." -exec rm -rf {} + 2>/dev/null || true
+    
+    # Copy files excluding certain directories
+    rsync -av --exclude='node_modules' --exclude='logs' --exclude='.git' --exclude='dist' --exclude='.next' "$SOURCE_DIR/" "$TARGET_DIR/"
+    log_info "Files copied to $TARGET_DIR"
+else
+    log_info "Source and target directories are the same. Skipping file copy."
 fi
 
 # Create logs directory
