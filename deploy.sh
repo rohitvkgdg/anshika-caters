@@ -68,12 +68,33 @@ TARGET_ABS=$(realpath "$TARGET_DIR")
 
 if [ "$SOURCE_ABS" != "$TARGET_ABS" ]; then
     log_info "Copying from $SOURCE_ABS to $TARGET_ABS"
+    
+    # Ensure target directory exists and is clean
+    mkdir -p "$TARGET_DIR"
+    
     # Remove existing files except logs and node_modules to avoid conflicts
+    log_info "Cleaning target directory (preserving logs and node_modules)..."
     find "$TARGET_DIR" -maxdepth 1 -not -name "logs" -not -name "node_modules" -not -name "." -not -name ".." -exec rm -rf {} + 2>/dev/null || true
     
-    # Copy files excluding certain directories
-    rsync -av --exclude='node_modules' --exclude='logs' --exclude='.git' --exclude='dist' --exclude='.next' "$SOURCE_DIR/" "$TARGET_DIR/"
-    log_info "Files copied to $TARGET_DIR"
+    # Copy files excluding certain directories with verbose output
+    log_info "Syncing files..."
+    if rsync -av --exclude='node_modules/' --exclude='logs/' --exclude='.git/' --exclude='dist/' --exclude='.next/' --exclude='bun.lockb' "$SOURCE_DIR/" "$TARGET_DIR/"; then
+        log_info "Files copied successfully to $TARGET_DIR"
+    else
+        log_error "Failed to copy files"
+        exit 1
+    fi
+    
+    # Verify critical files exist
+    log_info "Verifying critical files..."
+    for file in "package.json" "components/loading-context.tsx" "components/client-layout.tsx" "components/hero-section.tsx"; do
+        if [ ! -f "$TARGET_DIR/$file" ]; then
+            log_error "Critical file missing: $file"
+            exit 1
+        else
+            log_info "✓ Found: $file"
+        fi
+    done
 else
     log_info "Source and target directories are the same. Skipping file copy."
 fi
@@ -84,11 +105,79 @@ mkdir -p $APP_DIR/logs
 # Install/Update dependencies
 log_info "Installing dependencies with Bun..."
 cd $APP_DIR
-bun install --production
+
+# Verify we're in the right directory and files exist
+if [ ! -f "package.json" ]; then
+    log_error "package.json not found in $APP_DIR"
+    exit 1
+fi
+
+# Clean install to avoid any cached dependency issues
+if [ -d "node_modules" ]; then
+    log_info "Removing existing node_modules for clean install..."
+    rm -rf node_modules
+fi
+
+if [ -f "bun.lockb" ]; then
+    log_info "Removing bun.lockb for fresh dependency resolution..."
+    rm -f bun.lockb
+fi
+
+# Install dependencies
+log_info "Installing fresh dependencies..."
+if ! bun install; then
+    log_error "Failed to install dependencies"
+    exit 1
+fi
+
+# Verify critical dependencies are installed
+log_info "Verifying dependencies..."
+if [ ! -d "node_modules" ]; then
+    log_error "node_modules directory not created"
+    exit 1
+fi
 
 # Build the application
 log_info "Building application with Bun..."
-bun run build
+
+# Verify tsconfig.json exists
+if [ ! -f "tsconfig.json" ]; then
+    log_error "tsconfig.json not found"
+    exit 1
+fi
+
+# Verify components directory exists
+if [ ! -d "components" ]; then
+    log_error "components directory not found"
+    exit 1
+fi
+
+# List components for debugging
+log_info "Available components:"
+ls -la components/ | head -10
+
+# Set NODE_ENV for production build
+export NODE_ENV=production
+
+# Build with detailed output
+log_info "Starting build process..."
+if ! bun run build; then
+    log_error "Build failed"
+    log_error "Checking for common issues..."
+    
+    # Check if @/ path resolution is working
+    if [ ! -f "components/loading-context.tsx" ]; then
+        log_error "components/loading-context.tsx is missing"
+    fi
+    
+    if [ ! -f "components/client-layout.tsx" ]; then
+        log_error "components/client-layout.tsx is missing"
+    fi
+    
+    exit 1
+fi
+
+log_info "Build completed successfully"
 
 # Setup PM2 ecosystem
 log_info "Setting up PM2..."
