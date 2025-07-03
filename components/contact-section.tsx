@@ -1,6 +1,5 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
 import StarBorder from "@/components/ui/StarBorder"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -15,10 +14,6 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import { useToast } from "@/hooks/use-toast"
-import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover"
-import { Calendar as CalendarComponent } from "./ui/calendar"
-import { cn } from "@/lib/utils"
-import { format } from "date-fns"
 
 const formSchema = z.object({
   name: z.string().min(2, "Name is required"),
@@ -192,30 +187,12 @@ export function ContactSection() {
                             <FormItem>
                               <FormLabel className="text-gray-200">Wedding Date</FormLabel>
                               <FormControl>
-                                <Popover>
-                                  <PopoverTrigger asChild>
-                                    <Button
-                                      variant="outline"
-                                      className={cn(
-                                      "w-full justify-start text-left font-normal border-gray-500 text-gray-200 focus:border-[#bc9c22] transition-colors duration-300 hover:text-gray-200",
-                                      !field.value
-                                      )}
-                                    >
-                                      <Calendar className="mr-1 h-2" />
-                                      {field.value ? format(new Date(field.value), "PPP") : <span>Pick a date</span>}
-                                    </Button>
-                                  </PopoverTrigger>
-                                  <PopoverContent className="w-auto p-2 bg-[#0d223d] border-gray-500">
-                                    <CalendarComponent
-                                      mode="single"
-                                      selected={field.value ? new Date(field.value) : undefined}
-                                      onSelect={(date) => field.onChange(date?.toISOString().split('T')[0])}
-                                      disabled={(date) => date < new Date()}
-                                      initialFocus
-                                      className="text-white bg-[#0d223d]"
-                                    />
-                                  </PopoverContent>
-                                </Popover>
+                                <Input 
+                                  type="date"
+                                  min={new Date().toISOString().split('T')[0]}
+                                  className="border-gray-500 text-gray-200 focus:border-[#bc9c22] transition-colors duration-300 bg-transparent"
+                                  {...field}
+                                />
                               </FormControl>
                               <FormMessage />
                             </FormItem>

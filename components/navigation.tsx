@@ -8,7 +8,6 @@ import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button
 import { 
   Navbar, 
   NavBody, 
-  NavItems, 
   MobileNav, 
   MobileNavHeader, 
   MobileNavMenu, 
