@@ -14,22 +14,22 @@ export function TestimonialsSection() {
   const testimonials = [
     {
       name: "Priya & Arjun Sharma",
-      location: "Mumbai",
-      image: "/placeholder.svg?height=80&width=80",
+      location: "Varanasi",
+      image: "/couple-image-1.webp?height=80&width=80",
       rating: 5,
-      text: "Anshika Caters made our wedding absolutely magical. The food was exceptional, and every guest couldn't stop praising the flavors. They handled everything with such grace and professionalism.",
+      text: "Anshika Caterers made our wedding absolutely magical. The food was exceptional, and every guest couldn't stop praising the flavors. They handled everything with such grace and professionalism.",
     },
     {
       name: "Kavya & Rohit Gupta",
-      location: "Delhi",
-      image: "/placeholder.svg?height=80&width=80",
+      location: "Varanasi",
+      image: "/couple-image-2.webp?height=80&width=80",
       rating: 5,
       text: "From the initial consultation to the final service, everything was perfect. The team understood our vision and delivered beyond our expectations. Highly recommended for luxury weddings.",
     },
     {
       name: "Ananya & Vikram Singh",
       location: "Jaipur",
-      image: "/placeholder.svg?height=80&width=80",
+      image: "/couple-image-3.webp?height=80&width=80",
       rating: 5,
       text: "The attention to detail was remarkable. Every dish was a masterpiece, and the presentation was stunning. Our families are still talking about the incredible food months later.",
     },
@@ -186,38 +186,6 @@ export function TestimonialsSection() {
               </Card>
             </motion.div>
           ))}
-        </motion.div>
-        
-        {/* Scroll hint for contact section */}
-        <motion.div
-          className="flex flex-col items-center mt-16 text-center"
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ delay: 1.5, duration: 0.8 }}
-        >
-          <motion.p
-            className="text-gray-300 text-lg mb-4 font-medium"
-            whileHover={{ scale: 1.05 }}
-          >
-            Ready to plan your special event?
-          </motion.p>
-          <motion.div
-            className="flex flex-col items-center"
-            animate={{ 
-              y: [0, 10, 0],
-            }}
-            transition={{ 
-              duration: 2,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          >
-            <span className="text-[#bc9c22] text-sm font-semibold mb-2">Scroll down</span>
-            <motion.div
-              className="w-6 h-6 border-b-2 border-r-2 border-[#bc9c22] transform rotate-45"
-              whileHover={{ scale: 1.2 }}
-            />
-          </motion.div>
         </motion.div>
       </div>
     </section>

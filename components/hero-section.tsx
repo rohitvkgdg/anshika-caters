@@ -1,7 +1,6 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button"
 import StarBorder from "@/components/ui/StarBorder"
 import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
@@ -25,6 +24,11 @@ export function HeroSection() {
       src: "/hero-3.webp",
       alt: "Wedding reception celebration",
       fallback: "/placeholder.svg?height=1080&width=1920&text=Wedding+Reception"
+    },
+    {
+      src: "/hero-4.webp",
+      alt: "Wedding reception celebration",
+      fallback: "/placeholder.svg?height=1080&width=1920&text=Wedding+Reception"
     }
   ]
 
@@ -32,7 +36,7 @@ export function HeroSection() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImageIndex((prev) => (prev + 1) % heroImages.length)
-    }, 7000) // Change image every 7 seconds
+    }, 6000) // Change image every 7 seconds
 
     return () => clearInterval(interval)
   }, [heroImages.length])
@@ -86,10 +90,10 @@ export function HeroSection() {
       <motion.div 
         className="absolute inset-0 z-0"
         initial={{ scale: 1.05, opacity: 0 }}
-        animate={{ scale: 1, opacity: 0.8 }}
+        animate={{ scale: 1, opacity: 0.9 }}
         transition={{ duration: 2, ease: "easeOut" }}
       >
-        <div className="relative w-full h-full">
+        <div className="relative w-full h-full bg-[#1a1a1a]">
           {/* Preload all images for better performance */}
           {heroImages.map((image, index) => (
             <div key={`preload-${index}`} className="hidden">
@@ -101,47 +105,54 @@ export function HeroSection() {
             <motion.div
               key={currentImageIndex}
               className="absolute inset-0"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 1, ease: "easeInOut" }}
+              initial={{ opacity: 0, scale: 1.05 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ 
+                duration: 1.2, 
+                ease: [0.4, 0.0, 0.2, 1],
+                opacity: { duration: 0.8 },
+                scale: { duration: 1.5 }
+              }}
             >
               <motion.img
                 src={heroImages[currentImageIndex].src}
                 alt={heroImages[currentImageIndex].alt}
-                className="w-full h-full object-cover"
-                initial={{ scale: 1.05 }}
+                className="w-full h-full object-cover object-center"
+                initial={{ scale: 1.08 }}
                 animate={{ scale: 1 }}
-                transition={{ duration: 7, ease: "easeOut" }}
+                transition={{ 
+                  duration: 7, 
+                  ease: "linear",
+                  type: "tween"
+                }}
                 onError={(e) => {
                   console.error(`Failed to load image: ${heroImages[currentImageIndex].src}`)
-                  // Fallback to placeholder
                   e.currentTarget.src = "/placeholder.svg?height=1080&width=1920&text=Hero+Image"
                 }}
               />
             </motion.div>
           </AnimatePresence>
           
-          {/* Subtle animated gradients */}
+          {/* Professional gradient overlay */}
           <motion.div 
-            className="absolute inset-0 bg-gradient-to-r from-[#021631]/70 via-transparent to-[#021631]/50"
+            className="absolute inset-0 bg-gradient-to-br from-black/65 via-black/35 to-black/55"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 2, delay: 0.5 }}
+            transition={{ duration: 1.5, delay: 0.3 }}
           />
           
-          {/* Animated overlay with breathing effect */}
+          {/* Subtle animated accent overlay */}
           <motion.div 
-            className="absolute inset-0 bg-[#021631]/40"
+            className="absolute inset-0"
+            style={{
+              background: "linear-gradient(45deg, rgba(2,22,49,0.3), rgba(188,156,34,0.08))"
+            }}
             animate={{ 
-              background: [
-                "linear-gradient(45deg, rgba(2,22,49,0.4), rgba(188,156,34,0.1))",
-                "linear-gradient(45deg, rgba(2,22,49,0.5), rgba(188,156,34,0.05))",
-                "linear-gradient(45deg, rgba(2,22,49,0.4), rgba(188,156,34,0.1))"
-              ]
+              opacity: [0.8, 0.9, 0.8]
             }}
             transition={{ 
-              duration: 6, 
+              duration: 8, 
               repeat: Infinity, 
               ease: "easeInOut" 
             }}
@@ -187,7 +198,7 @@ export function HeroSection() {
           variants={itemVariants}
         >
           <motion.span
-            className="drop-shadow-2xl font-bold"
+            className="drop-shadow-2xl font-extrabold"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
@@ -196,7 +207,7 @@ export function HeroSection() {
           </motion.span>
           <br />
           <motion.span 
-            className="text-[#bc9c22] bg-gradient-to-r font-bold from-[#bc9c22] to-[#d4af37] bg-clip-text text-transparent drop-shadow-2xl"
+            className="text-[#bc9c22] bg-gradient-to-r font-black from-[#bc9c22] to-[#d4af37] bg-clip-text text-transparent drop-shadow-2xl"
             initial={{ opacity: 0, x: -30, scale: 0.9 }}
             animate={{ opacity: 1, x: 0, scale: 1 }}
             transition={{ delay: 1.2, duration: 0.8, ease: "easeOut" }}
@@ -218,7 +229,6 @@ export function HeroSection() {
         >
           <motion.div 
             variants={buttonVariants} 
-            whileHover="hover" 
             whileTap="tap"
             className="relative"
           >
@@ -234,7 +244,7 @@ export function HeroSection() {
             </Link>
           </motion.div>
           
-          <motion.div variants={buttonVariants} whileHover="hover" whileTap="tap">
+          <motion.div variants={buttonVariants} whileTap="tap">
             <Button
               size="lg"
               variant="outline"

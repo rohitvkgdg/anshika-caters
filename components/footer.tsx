@@ -14,7 +14,7 @@ export function Footer() {
           <div className="space-y-4">
             <Link href="/" className="flex items-center space-x-2">
               <Image src={"/AC.png"} alt="Anshika Caters Logo" width={80} height={80} className="rounded-full drop-shadow-lg" />
-              <span className="text-2xl font-serif font-bold drop-shadow-md">Anshika Caters</span>
+              <span className="text-2xl font-serif font-bold drop-shadow-md">Anshika Caterers</span>
             </Link>
             <p className="text-gray-300 drop-shadow-sm">Creating unforgettable culinary experiences for your most precious moments.</p>
             <div className="flex space-x-4">
@@ -84,18 +84,18 @@ export function Footer() {
             <div className="space-y-3 text-gray-300">
               <div className="flex items-center">
                 <Phone className="w-4 h-4 mr-2 text-[#bc9c22]" />
-                <span>+91 98765 43210</span>
+                <span>+91 73111 29675</span>
               </div>
               <div className="flex items-center">
                 <Mail className="w-4 h-4 mr-2 text-[#bc9c22]" />
-                <span>hello@anshikacaters.com</span>
+                <span>contact@acaterers.com</span>
               </div>
               <div className="flex items-start">
                 <MapPin className="w-4 h-4 mr-2 text-[#bc9c22] mt-1" />
                 <span>
-                  123 Culinary Street
+                  C-32/47, Chandua Chhitupur, Vidya Vihar Colony, Shivpurwa
                   <br />
-                  Mumbai, India 400001
+                  Varanasi, Uttar Pradesh, India
                 </span>
               </div>
             </div>
@@ -125,7 +125,7 @@ export function Footer() {
         
         <div className="flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-400 text-sm">
-            © 2024 Anshika Caters. All rights reserved.
+            © 2024 Anshika Caterers. All rights reserved.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <Link href="/privacy" className="text-gray-400 hover:text-[#bc9c22] text-sm transition-colors">

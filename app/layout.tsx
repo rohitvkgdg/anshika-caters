@@ -2,10 +2,6 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Playfair_Display } from "next/font/google"
 import "./globals.css"
-import { Navigation } from "@/components/navigation"
-import { ScrollProgress } from "@/components/ui/scroll-progress"
-import { Footer } from "@/components/footer"
-import { Toaster } from "@/components/ui/toaster"
 import { LoadingProvider } from "@/components/loading-context"
 import { ClientLayout } from "@/components/client-layout"
 
@@ -21,11 +17,20 @@ const playfairSerif = Playfair_Display({
 })
 
 export const metadata: Metadata = {
-  title: "Anshika Caters - Premium Wedding & Luxury Event Catering",
+  title: "Anshika Caterers - Best Caterers In Varanasi",
   description:
-    "Your Dream Wedding Seamlessly Crafted. 20+ years of culinary excellence, 1000+ weddings across India. Premium wedding catering services.",
+    "Your Dream Wedding Seamlessly Crafted. 20+ years of culinary excellence, 1000+ weddings across India. Premium event catering services.",
   keywords:
     "wedding catering, luxury events, Indian wedding catering, premium catering services, Mumbai wedding caterers",
+  icons: {
+    icon: [
+      { url: "/AC.png", sizes: "16x16", type: "image/png" },
+      { url: "/AC.png", sizes: "32x32", type: "image/png" },
+    ],
+    apple: [
+      { url: "/AC.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
 }
 
 export default function RootLayout({
@@ -34,8 +39,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={`${playfair.variable} ${playfairSerif.variable} font-sans`}>
+    <html lang="en" className="no-horizontal-overflow">
+      <body className={`${playfair.variable} ${playfairSerif.variable} font-sans no-horizontal-overflow`}>
         <LoadingProvider>
           <ClientLayout>
             {children}
