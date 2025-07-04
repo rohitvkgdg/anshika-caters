@@ -151,8 +151,8 @@ if [ ! -d "node_modules/next" ]; then
     exit 1
 fi
 
-if [ ! -d "node_modules/@tailwindcss/postcss" ]; then
-    log_error "@tailwindcss/postcss not found"
+if [ ! -d "node_modules/tailwindcss" ]; then
+    log_error "tailwindcss not found"
     exit 1
 fi
 

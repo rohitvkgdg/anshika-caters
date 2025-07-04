@@ -55,9 +55,9 @@ export function GallerySection() {
   return (
     <section className="py-20 bg-[#021631] text-white relative overflow-hidden" ref={ref}>
 
-      <div className="flex flex-col mx-10 w-full px-auto relative z-10">
+      <div className="flex flex-col w-full relative z-10">
         {/* Alert Banner */}
-        <div className="flex mb-8 mx-4 md:mx-10 justify-center w-[90%] md:w-[70%]">
+        <div className="flex justify-center mb-8 px-4 w-full">
           <Alert className="border-[#bc9c22] bg-[#bc9c22]/5 text-[#bc9c22] max-w-2xl w-full">
             <Calendar className="h-4 w-4" />
             <AlertDescription className="text-white">
@@ -67,7 +67,7 @@ export function GallerySection() {
         </div>
 
         {/* Section Header */}
-        <div className="text-center mx-4 md:mx-8 lg:mx-16">
+        <div className="text-center mx-4 md:mx-8 lg:mx-16 px-4 md:px-8 lg:px-16">
           <h2 className="text-4xl md:text-5xl font-serif text-white mb-6">
             Our{" "}
             <span className="text-[#bc9c22]">
