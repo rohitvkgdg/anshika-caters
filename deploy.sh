@@ -156,6 +156,11 @@ if [ ! -d "node_modules/@tailwindcss/postcss" ]; then
     exit 1
 fi
 
+if [ ! -d "node_modules/sonner" ]; then
+    log_error "sonner not found (required for toast functionality)"
+    exit 1
+fi
+
 log_info "All dependencies verified successfully"
 
 # Build the application
