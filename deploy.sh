@@ -151,6 +151,11 @@ if [ ! -d "node_modules/next" ]; then
     exit 1
 fi
 
+if [ ! -d "node_modules/@tailwindcss/postcss" ]; then
+    log_error "@tailwindcss/postcss not found"
+    exit 1
+fi
+
 log_info "All dependencies verified successfully"
 
 # Build the application
