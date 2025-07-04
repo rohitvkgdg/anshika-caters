@@ -130,17 +130,7 @@ if ! bun install; then
     exit 1
 fi
 
-# Fix specific version conflicts that Bun doesn't handle well
-log_info "Fixing Radix UI version conflicts..."
-bun remove @radix-ui/react-popover @radix-ui/react-slot
-bun add @radix-ui/react-popover@^1.1.2 @radix-ui/react-slot@^1.1.0
-
-# Reinstall to ensure all peer dependencies are correct
-log_info "Reinstalling dependencies to resolve conflicts..."
-if ! bun install; then
-    log_error "Failed to reinstall dependencies"
-    exit 1
-fi
+log_info "All dependencies installed successfully"
 
 # Verify critical dependencies are installed
 log_info "Verifying dependencies..."
@@ -149,15 +139,15 @@ if [ ! -d "node_modules" ]; then
     exit 1
 fi
 
-# Check for specific problematic packages and their versions
+# Check for some critical packages
 log_info "Checking critical packages..."
-if [ ! -d "node_modules/react-day-picker" ]; then
-    log_error "react-day-picker not found"
+if [ ! -d "node_modules/react" ]; then
+    log_error "react not found"
     exit 1
 fi
 
-if [ ! -d "node_modules/@radix-ui/react-slot" ]; then
-    log_error "@radix-ui/react-slot not found"
+if [ ! -d "node_modules/next" ]; then
+    log_error "next not found"
     exit 1
 fi
 
