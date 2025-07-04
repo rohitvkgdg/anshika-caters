@@ -78,7 +78,7 @@ if [ "$SOURCE_ABS" != "$TARGET_ABS" ]; then
     
     # Copy files excluding certain directories with verbose output
     log_info "Syncing files..."
-    if rsync -av --exclude='node_modules/' --exclude='logs/' --exclude='.git/' --exclude='dist/' --exclude='.next/' --exclude='bun.lockb' --exclude='components/ui/calendar.tsx' "$SOURCE_DIR/" "$TARGET_DIR/"; then
+    if rsync -av --exclude='node_modules/' --exclude='logs/' --exclude='.git/' --exclude='dist/' --exclude='.next/' --exclude='bun.lockb' "$SOURCE_DIR/" "$TARGET_DIR/"; then
         log_info "Files copied successfully to $TARGET_DIR"
     else
         log_error "Failed to copy files"
