@@ -35,7 +35,7 @@
         "@radix-ui/react-tooltip": "latest",
         "@studio-freight/lenis": "latest",
         "@tabler/icons-react": "latest",
-        "@tailwindcss/postcss": "^4.1.11",
+        "@tailwindcss/postcss": "latest",
         "autoprefixer": "latest",
         "class-variance-authority": "latest",
         "clsx": "latest",
