@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
 import Image from "next/image"
+import { ASSETS } from "@/lib/assets"
 
 export function Footer() {
   return (
@@ -13,7 +14,7 @@ export function Footer() {
           {/* Brand */}
           <div className="space-y-4">
             <Link href="/" className="flex items-center space-x-2">
-              <Image src={"/AC.png"} alt="Anshika Caters Logo" width={80} height={80} className="rounded-full drop-shadow-lg" />
+              <Image src={ASSETS.logo} alt="Anshika Caters Logo" width={80} height={80} className="rounded-full drop-shadow-lg" />
               <span className="text-2xl font-serif font-bold drop-shadow-md">Anshika Caterers</span>
             </Link>
             <p className="text-gray-300 drop-shadow-sm">Creating unforgettable culinary experiences for your most precious moments.</p>

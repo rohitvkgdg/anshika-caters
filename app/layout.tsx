@@ -4,6 +4,7 @@ import { Playfair_Display } from "next/font/google"
 import "./globals.css"
 import { LoadingProvider } from "@/components/loading-context"
 import { ClientLayout } from "@/components/client-layout"
+import { ASSETS } from "@/lib/assets"
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -24,11 +25,11 @@ export const metadata: Metadata = {
     "wedding catering, luxury events, Indian wedding catering, premium catering services, Mumbai wedding caterers",
   icons: {
     icon: [
-      { url: "/AC.png", sizes: "16x16", type: "image/png" },
-      { url: "/AC.png", sizes: "32x32", type: "image/png" },
+      { url: ASSETS.logo, sizes: "16x16", type: "image/png" },
+      { url: ASSETS.logo, sizes: "32x32", type: "image/png" },
     ],
     apple: [
-      { url: "/AC.png", sizes: "180x180", type: "image/png" },
+      { url: ASSETS.logo, sizes: "180x180", type: "image/png" },
     ],
   },
 }

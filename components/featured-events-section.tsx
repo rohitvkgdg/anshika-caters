@@ -4,6 +4,7 @@ import { motion } from "framer-motion"
 import { useInView } from "framer-motion"
 import { useRef } from "react"
 import FlowingMenu from "@/components/ui/FlowingMenu"
+import { ASSETS } from "@/lib/assets"
 
 export function FeaturedEventsSection() {
   const ref = useRef(null)
@@ -13,22 +14,22 @@ export function FeaturedEventsSection() {
     {
       link: "/destination-weddings",
       text: "Destination Weddings",
-      image: "/feature-events-1.webp"
+      image: ASSETS.events.feature1
     },
     {
       link: "/ghat-side-weddings",
       text: "Ghat Side Weddings",
-      image: "/feature-events-2.webp"
+      image: ASSETS.events.feature2
     },
     {
       link: "/royal-weddings",
       text: "Royal Weddings",
-      image: "/feature-events-3.webp"
+      image: ASSETS.events.feature3
     },
     {
       link: "/classic-weddings",
       text: "Classic Weddings",
-      image: "/feature-events-4.webp"
+      image: ASSETS.events.feature4
     }
   ]
 

@@ -5,30 +5,31 @@ import StarBorder from "@/components/ui/StarBorder"
 import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
 import { useState, useEffect } from "react"
+import { ASSETS } from "@/lib/assets"
 
 export function HeroSection() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   
   const heroImages = [
     {
-      src: "/hero-1.webp",
+      src: ASSETS.hero.hero1,
       alt: "Elegant wedding catering setup",
-      fallback: "/placeholder.svg?height=1080&width=1920&text=Wedding+Catering"
+      fallback: ASSETS.other.placeholder
     },
     {
-      src: "/hero-2.webp", 
+      src: ASSETS.hero.hero2, 
       alt: "Luxury dining arrangement",
-      fallback: "/placeholder.svg?height=1080&width=1920&text=Luxury+Dining"
+      fallback: ASSETS.other.placeholder
     },
     {
-      src: "/hero-3.webp",
+      src: ASSETS.hero.hero3,
       alt: "Wedding reception celebration",
-      fallback: "/placeholder.svg?height=1080&width=1920&text=Wedding+Reception"
+      fallback: ASSETS.other.placeholder
     },
     {
-      src: "/hero-4.webp",
+      src: ASSETS.hero.hero4,
       alt: "Wedding reception celebration",
-      fallback: "/placeholder.svg?height=1080&width=1920&text=Wedding+Reception"
+      fallback: ASSETS.other.placeholder
     }
   ]
 
@@ -251,7 +252,7 @@ export function HeroSection() {
               className="text-white font-semibold hover:bg-white/10 hover:text-white px-10 py-6 text-lg bg-white/20 backdrop-blur-lg shadow-2xl hover:shadow-white/20 transition-all duration-300 drop-shadow-lg rounded-full hover:drop-shadow-xl"
               asChild
             >
-              <Link href="/menus">Explore Events</Link>
+              <Link href="/events">Explore Events</Link>
             </Button>
           </motion.div>
         </motion.div>

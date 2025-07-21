@@ -9,6 +9,7 @@ import Link from "next/link"
 import { motion } from "framer-motion"
 import { useInView } from "framer-motion"
 import { useRef } from "react"
+import { ASSETS } from "@/lib/assets"
 
 export function ServicesSection() {
   const ref = useRef(null)
@@ -16,13 +17,13 @@ export function ServicesSection() {
 
   const services = [
     {
-      image: "/wedding-1.webp",
+      image: ASSETS.wedding.wedding1,
       title: "Personal Events",
       description: "Tailored menus for weddings, anniversaries, and family gatherings. Celebrate with flavors that resonate.",
       features: ["Traditional Indian Cuisine", "Fusion Delicacies", "Live Cooking Stations", "Custom Desserts"],
     },
     {
-      image: "/stack-1.webp",
+      image: ASSETS.stacks.stack1,
       title: "Corporate Events",
       description: "Elegant catering for conferences, product launches, and corporate parties. Impress your guests with our gourmet offerings.",
       features: ["Business Lunches", "Cocktail Receptions", "Themed Buffets", "Custom Branding Options"],

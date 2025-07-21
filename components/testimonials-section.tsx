@@ -6,6 +6,7 @@ import Image from "next/image"
 import { motion } from "framer-motion"
 import { useInView } from "framer-motion"
 import { useRef } from "react"
+import { ASSETS } from "@/lib/assets"
 
 export function TestimonialsSection() {
   const ref = useRef(null)
@@ -15,21 +16,21 @@ export function TestimonialsSection() {
     {
       name: "Priya & Arjun Sharma",
       location: "Varanasi",
-      image: "/couple-image-1.webp?height=80&width=80",
+      image: ASSETS.couples.couple1,
       rating: 5,
       text: "Anshika Caterers made our wedding absolutely magical. The food was exceptional, and every guest couldn't stop praising the flavors. They handled everything with such grace and professionalism.",
     },
     {
       name: "Kavya & Rohit Gupta",
       location: "Varanasi",
-      image: "/couple-image-2.webp?height=80&width=80",
+      image: ASSETS.couples.couple2,
       rating: 5,
       text: "From the initial consultation to the final service, everything was perfect. The team understood our vision and delivered beyond our expectations. Highly recommended for luxury weddings.",
     },
     {
       name: "Ananya & Vikram Singh",
       location: "Jaipur",
-      image: "/couple-image-3.webp?height=80&width=80",
+      image: ASSETS.couples.couple3,
       rating: 5,
       text: "The attention to detail was remarkable. Every dish was a masterpiece, and the presentation was stunning. Our families are still talking about the incredible food months later.",
     },
@@ -165,7 +166,7 @@ export function TestimonialsSection() {
                       transition={{ duration: 0.2 }}
                     >
                       <Image
-                        src={testimonial.image || "/placeholder.svg"}
+                        src={testimonial.image || ASSETS.other.placeholder}
                         alt={testimonial.name}
                         width={60}
                         height={60}

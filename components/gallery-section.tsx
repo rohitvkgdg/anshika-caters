@@ -7,6 +7,7 @@ import Link from "next/link"
 import { motion, useInView, useScroll, useTransform } from "framer-motion"
 import { useRef } from "react"
 import { Calendar } from "lucide-react"
+import { ASSETS } from "@/lib/assets"
 
 export function GallerySection() {
   const ref = useRef(null)
@@ -27,30 +28,33 @@ export function GallerySection() {
 
   const galleryImages = [
     {
-      image: "/stack-1.webp?height=400&width=600",
+      image: ASSETS.stacks.stack1,
       text: "Live Cooking Station"
     },
     {
-      image: "/stack-2.webp?height=400&width=600",
+      image: ASSETS.stacks.stack2,
       text: "Gourmet Food Presentation"
     },
     {
-      image: "/stack-3.webp?height=400&width=600",
+      image: ASSETS.stacks.stack3,
       text: "Traditional Indian Cuisine"
     },
     {
-      image: "/stack-4.webp?height=400&width=600",
+      image: ASSETS.stacks.stack4,
       text: "Luxury Event Catering"
     },
     {
-      image: "/stack-5.webp?height=400&width=600",
+      image: ASSETS.stacks.stack5,
       text: "Wedding Dessert Table"
     },
     {
-      image: "/stack-6.webp?height=400&width=600",
+      image: ASSETS.stacks.stack6,
       text: "Elegant Wedding Setup"
     },
   ]
+
+  // Debug: Log the generated URLs
+  console.log('Gallery images URLs:', galleryImages.map(img => img.image))
 
   return (
     <section className="py-20 bg-[#021631] text-white relative overflow-hidden" ref={ref}>

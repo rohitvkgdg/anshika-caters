@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion"
 import { useEffect, useState } from "react"
+import { ASSETS } from "@/lib/assets"
 import Image from "next/image"
 
 interface LoadingScreenProps {
@@ -58,14 +59,13 @@ export function LoadingScreen({ isLoading, onComplete, isInitialLoad = false }: 
               ease: "easeInOut"
             }}
           >
-            <Image
-              src="/AC.png"
-              alt="Anshika Caters Logo"
-              width={200}
-              height={200}
-              className="object-contain"
-              priority
-            />
+                      <Image
+            src={ASSETS.logo}
+            alt="Anshika Caterers"
+            width={150}
+            height={60}
+            className="mb-6"
+          />
           </motion.div>
         </motion.div>
       )}
