@@ -22,7 +22,7 @@ export default function EventsPage() {
       icon: Heart,
       title: "Wedding Events",
       description: "Beautiful wedding ceremonies and receptions with traditional and modern catering options.",
-      href: "/wedding-events",
+      href: "/wedding-events- varanasi",
       image: ASSETS.wedding.wedding1,
       features: ["Wedding Ceremonies", "Receptions", "Sangeet", "Mehendi"]
     },
@@ -30,7 +30,7 @@ export default function EventsPage() {
       icon: PartyPopper,
       title: "Personal Celebrations",
       description: "Birthdays, anniversaries, and special occasions made memorable with our catering services.",
-      href: "/personal-events",
+      href: "/personal-events-varanasi",
       image: ASSETS.events.feature1,
       features: ["Birthday Parties", "Anniversaries", "Family Gatherings", "Special Occasions"]
     }
