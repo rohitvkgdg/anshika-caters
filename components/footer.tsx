@@ -10,14 +10,14 @@ export function Footer() {
   return (
     <footer className="bg-[#021631] text-white">
       <div className="container mx-auto px-4 py-16">
-        <div className="grid md:grid-cols-4 gap-8">
+        <div className="grid md:grid-cols-6 gap-8">
           {/* Brand */}
           <div className="space-y-4">
             <Link href="/" className="flex items-center space-x-2">
               <Image src={ASSETS.logo} alt="Anshika Caters Logo" width={80} height={80} className="rounded-full drop-shadow-lg" />
-              <span className="text-2xl font-serif font-bold drop-shadow-md">Anshika Caterers</span>
+              <span className="text-2xl font-serif font-medium drop-shadow-md">Anshika Caterers</span>
             </Link>
-            <p className="text-gray-300 drop-shadow-sm">Creating unforgettable culinary experiences for your most precious moments.</p>
+            <p className="text-gray-300 drop-shadow-sm font-sans font-light">Creating unforgettable culinary experiences for your most precious moments.</p>
             <div className="flex space-x-4">
               <Instagram className="w-5 h-5 text-[#bc9c22] hover:text-white cursor-pointer transition-colors" />
               <Facebook className="w-5 h-5 text-[#bc9c22] hover:text-white cursor-pointer transition-colors" />
@@ -28,7 +28,7 @@ export function Footer() {
           {/* Services */}
           <div>
             <h3 className="text-lg font-serif text-[#bc9c22] mb-4 drop-shadow-sm">Services</h3>
-            <ul className="space-y-2 text-gray-300">
+            <ul className="space-y-2 text-gray-300 font-sans font-light">
               <li>
                 <Link href="/wedding-packages" className="hover:text-[#bc9c22]">
                   Wedding Catering
@@ -55,7 +55,7 @@ export function Footer() {
           {/* Quick Links */}
           <div>
             <h3 className="text-lg font-serif text-[#bc9c22] mb-4">Quick Links</h3>
-            <ul className="space-y-2 text-gray-300">
+            <ul className="space-y-2 text-gray-300 font-sans font-light">
               <li>
                 <Link href="/about" className="hover:text-[#bc9c22]">
                   About Us
@@ -82,7 +82,7 @@ export function Footer() {
           {/* Contact */}
           <div>
             <h3 className="text-lg font-serif text-[#bc9c22] mb-4">Contact</h3>
-            <div className="space-y-3 text-gray-300">
+            <div className="space-y-3 text-gray-300 font-sans font-light">
               <div className="flex items-center">
                 <Phone className="w-4 h-4 mr-2 text-[#bc9c22]" />
                 <span>+91 73111 29675</span>
@@ -102,10 +102,10 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Newsletter Subscription */}
-          <div>
+          {/* Newsletter Subscription - Takes 2 columns */}
+          <div className="md:col-span-2">
             <h3 className="text-lg font-serif text-[#bc9c22] mb-4">Stay Updated</h3>
-            <p className="text-gray-300 mb-4 text-sm">Get exclusive offers and wedding catering tips delivered to your inbox.</p>
+            <p className="text-gray-300 mb-4 text-sm font-sans font-light">Get exclusive offers and wedding catering tips delivered to your inbox.</p>
             <div className="space-y-3">
               <Input 
                 placeholder="Enter your email" 
@@ -114,7 +114,7 @@ export function Footer() {
               />
               <Button 
                 size="sm" 
-                className="w-full bg-[#bc9c22] hover:bg-[#a08820] text-[#021631] font-semibold shadow-lg hover:shadow-xl transition-shadow duration-300 drop-shadow-md"
+                className="w-full bg-[#bc9c22] hover:bg-[#a08820] text-[#021631] font-medium shadow-lg hover:shadow-xl transition-shadow duration-300 drop-shadow-md"
               >
                 Subscribe
               </Button>

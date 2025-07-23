@@ -68,7 +68,7 @@ export function CorporateGallery() {
   }
 
   return (
-    <section ref={ref} className="py-24 bg-white">
+    <section ref={ref} className="py-24 bg-[#021631]">
       <div className="container mx-auto px-4">
         <motion.div
           variants={containerVariants}
@@ -78,13 +78,13 @@ export function CorporateGallery() {
         >
           <motion.h2 
             variants={itemVariants}
-            className="text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-6"
+            className="text-4xl md:text-5xl font-serif font-medium text-white mb-6"
           >
             Corporate Event <span className="text-[#bc9c22]">Gallery</span>
           </motion.h2>
           <motion.p 
             variants={itemVariants}
-            className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
+            className="text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed font-sans font-light"
           >
             Showcasing our professional corporate event setups and catering excellence
           </motion.p>
@@ -98,7 +98,7 @@ export function CorporateGallery() {
         >
           {galleryImages.map((image, index) => (
             <motion.div key={index} variants={itemVariants}>
-              <Card className="overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300 group">
+              <Card className="overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300 group bg-gradient-to-br from-[#0d223d] to-[#1a2d44]">
                 <div className="relative aspect-[4/3] overflow-hidden">
                   <motion.img
                     src={image.src}
@@ -111,7 +111,7 @@ export function CorporateGallery() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   <div className="absolute bottom-4 left-4 right-4 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <h3 className="font-semibold text-lg drop-shadow-lg">
+                    <h3 className="font-medium text-lg drop-shadow-lg font-serif">
                       {image.title}
                     </h3>
                   </div>

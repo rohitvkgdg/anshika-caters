@@ -14,7 +14,7 @@ export function CorporateProcess() {
     {
       icon: MessageSquare,
       title: "Share Your Event Goals",
-      description: "Let us know what you're planning — we listen carefully.",
+      description: "Tell us about your corporate event vision and requirements. We listen carefully to understand your objectives and expectations.",
       number: "01"
     },
     {
@@ -74,7 +74,7 @@ export function CorporateProcess() {
   }
 
   return (
-    <section ref={ref} className="py-24 bg-gradient-to-b from-gray-50 to-white">
+    <section ref={ref} className="py-24 bg-[#021631]">
       <div className="container mx-auto px-4">
         <motion.div
           variants={containerVariants}
@@ -84,13 +84,13 @@ export function CorporateProcess() {
         >
           <motion.h2 
             variants={itemVariants}
-            className="text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-6"
+            className="text-4xl md:text-5xl font-serif font-medium text-white mb-6"
           >
             How It <span className="text-[#bc9c22]">Works</span>
           </motion.h2>
           <motion.p 
             variants={itemVariants}
-            className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
+            className="text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed font-sans font-light"
           >
             Our simple 4-step process ensures your corporate event is perfectly planned and executed
           </motion.p>
@@ -103,7 +103,7 @@ export function CorporateProcess() {
           className="relative"
         >
           {/* Connection Lines */}
-          <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-px bg-gray-200 transform -translate-y-1/2 z-0">
+          <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-px bg-gray-600 transform -translate-y-1/2 z-0">
             <motion.div
               variants={lineVariants}
               className="h-full bg-gradient-to-r from-[#bc9c22] to-[#d4af37] origin-left"
@@ -112,12 +112,12 @@ export function CorporateProcess() {
 
           <div className="grid lg:grid-cols-4 gap-8 relative z-10">
             {steps.map((step, index) => (
-              <motion.div key={index} variants={itemVariants}>
-                <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-white">
-                  <CardContent className="p-8 text-center relative">
+              <motion.div key={index} variants={itemVariants} className="h-full">
+                <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-[#0d223d] to-[#1a2d44] h-full">
+                  <CardContent className="p-8 text-center relative h-full flex flex-col">
                     {/* Step Number */}
                     <motion.div
-                      className="absolute -top-4 left-1/2 transform -translate-x-1/2 w-8 h-8 bg-[#bc9c22] text-white rounded-full flex items-center justify-center font-bold text-sm"
+                      className="absolute -top-4 left-1/2 transform -translate-x-1/2 w-8 h-8 bg-[#bc9c22] text-white rounded-full flex items-center justify-center font-medium text-sm"
                       whileHover={{ scale: 1.1 }}
                       transition={{ duration: 0.3 }}
                     >
@@ -126,17 +126,17 @@ export function CorporateProcess() {
 
                     {/* Icon */}
                     <motion.div
-                      className="inline-flex items-center justify-center w-16 h-16 bg-[#bc9c22]/10 rounded-full mb-6 mt-4"
+                      className="flex items-center justify-center w-16 h-16 bg-[#bc9c22]/10 rounded-full mb-6 mt-4 mx-auto"
                       whileHover={{ scale: 1.1, rotate: 5 }}
                       transition={{ duration: 0.3 }}
                     >
                       <step.icon className="w-8 h-8 text-[#bc9c22]" />
                     </motion.div>
 
-                    <h3 className="text-xl font-bold text-gray-900 mb-4">
+                    <h3 className="text-xl font-serif font-medium text-white mb-4">
                       {step.title}
                     </h3>
-                    <p className="text-gray-600 leading-relaxed">
+                    <p className="text-gray-300 leading-relaxed font-sans font-light flex-grow flex items-center">
                       {step.description}
                     </p>
                   </CardContent>

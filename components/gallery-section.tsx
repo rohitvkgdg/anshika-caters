@@ -78,7 +78,7 @@ export function GallerySection() {
               Masterpieces
             </span>
           </h2>
-          <p className="text-md md:text-xl text-gray-400 max-w-3xl mx-auto">
+          <p className="text-md text-gray-300 max-w-3xl mx-auto font-sans">
             Every event tells a story. Here are some of our favorite chapters we've had the honor to create.
           </p>
         </div>

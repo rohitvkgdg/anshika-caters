@@ -57,7 +57,7 @@ export function CorporateFAQ() {
   }
 
   return (
-    <section ref={ref} className="py-24 bg-gradient-to-b from-gray-50 to-white">
+    <section ref={ref} className="py-24 bg-[#021631]">
       <div className="container mx-auto px-4">
         <motion.div
           variants={containerVariants}
@@ -67,13 +67,13 @@ export function CorporateFAQ() {
         >
           <motion.h2 
             variants={itemVariants}
-            className="text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-6"
+            className="text-4xl md:text-5xl font-serif font-medium text-white mb-6"
           >
             Frequently Asked <span className="text-[#bc9c22]">Questions</span>
           </motion.h2>
           <motion.p 
             variants={itemVariants}
-            className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
+            className="text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed font-sans font-light"
           >
             Get answers to common questions about our corporate event services
           </motion.p>
@@ -90,12 +90,12 @@ export function CorporateFAQ() {
               <motion.div key={index} variants={itemVariants}>
                 <AccordionItem 
                   value={`item-${index}`}
-                  className="bg-white shadow-lg rounded-lg border-0 overflow-hidden"
+                  className="bg-gradient-to-br from-[#0d223d] to-[#1a2d44] shadow-lg rounded-lg border-0 overflow-hidden"
                 >
-                  <AccordionTrigger className="px-8 py-6 text-left text-lg font-semibold text-gray-900 hover:text-[#bc9c22] transition-colors [&[data-state=open]]:text-[#bc9c22]">
+                  <AccordionTrigger className="px-8 py-6 text-left text-lg font-medium text-white hover:text-[#bc9c22] transition-colors [&[data-state=open]]:text-[#bc9c22]">
                     {faq.question}
                   </AccordionTrigger>
-                  <AccordionContent className="px-8 pb-6 text-gray-600 leading-relaxed">
+                  <AccordionContent className="px-8 pb-6 text-gray-300 leading-relaxed">
                     {faq.answer}
                   </AccordionContent>
                 </AccordionItem>

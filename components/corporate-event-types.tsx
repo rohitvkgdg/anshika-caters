@@ -1,46 +1,40 @@
 "use client"
 
-import { Rocket, Presentation, PartyPopper, Users, UtensilsCrossed } from 'lucide-react'
 import { motion } from "framer-motion"
 import { useInView } from "framer-motion"
 import { useRef } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import FlowingMenu from "@/components/ui/FlowingMenu"
+import { ASSETS } from "@/lib/assets"
 
 export function CorporateEventTypes() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
 
-  const eventTypes = [
+  const corporateEventTypes = [
     {
-      icon: Rocket,
-      title: "Product Launches",
+      link: "/corporate-product-launches",
+      text: "Product Launches",
       description: "Make a lasting first impression with elegant setups, branding, and media-ready catering.",
-      color: "from-blue-500 to-blue-600"
+      image: ASSETS.corporate.corporateDecor
     },
     {
-      icon: Presentation,
-      title: "Seminars",
+      link: "/corporate-seminars",
+      text: "Seminars",
       description: "Create a polished environment for important discussions and presentations.",
-      color: "from-green-500 to-green-600"
+      image: ASSETS.corporate.seminars
     },
     {
-      icon: PartyPopper,
-      title: "Corporate Parties",
+      link: "/corporate-parties",
+      text: "Corporate Parties",
       description: "Celebrate achievements with stylish décor, live counters, and music-ready layouts.",
-      color: "from-purple-500 to-purple-600"
+      image: ASSETS.corporate.corporateParties
     },
     {
-      icon: Users,
-      title: "Team-Building",
+      link: "/corporate-team-building",
+      text: "Team-Building",
       description: "Relaxed outdoor or casual indoor settings with easy menus and fun setups.",
-      color: "from-orange-500 to-orange-600"
+      image: ASSETS.corporate.teamBuilding
     },
-    {
-      icon: UtensilsCrossed,
-      title: "Business Dinners",
-      description: "Beautifully plated meals or buffet spreads tailored for formal gatherings.",
-      color: "from-red-500 to-red-600"
-    }
   ]
 
   const containerVariants = {
@@ -48,79 +42,70 @@ export function CorporateEventTypes() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.1,
+        duration: 0.8,
+        staggerChildren: 0.1,
       },
     },
   }
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 50, scale: 0.9 },
+  const titleVariants = {
+    hidden: { opacity: 0, y: 30 },
     visible: {
       opacity: 1,
       y: 0,
-      scale: 1,
       transition: {
-        duration: 0.6,
-        ease: "easeOut" as const,
+        duration: 0.8,
+        ease: [0.25, 0.1, 0.25, 1] as const,
       },
     },
   }
 
   return (
-    <section ref={ref} className="py-24 bg-gradient-to-b from-gray-50 to-white">
-      <div className="container mx-auto px-4">
+    <section className="py-12 sm:py-16 md:py-20 bg-[#021631] text-white" ref={ref}>
+      <div className="flex flex-col mx-0 w-full px-0">
         <motion.div
-          variants={containerVariants}
+          className="text-center mb-8 sm:mb-10 md:mb-12 px-4"
+          variants={titleVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="text-center mb-16"
+          data-animate
         >
-          <motion.h2 
-            variants={itemVariants}
-            className="text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-6"
+          <motion.h2
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif text-white mb-4 sm:mb-6 drop-shadow-lg leading-tight"
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            transition={{ duration: 0.8 }}
+            data-animate
           >
-            Corporate Event Types <span className="text-[#bc9c22]">We Handle</span>
+            Corporate Event{" "}
+            <motion.span
+              className="text-[#bc9c22] bg-gradient-to-r from-[#bc9c22] to-[#d4af37] bg-clip-text text-transparent drop-shadow-md"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+              transition={{ delay: 0.3, duration: 0.6 }}
+            >
+              Types
+            </motion.span>
           </motion.h2>
-          <motion.p 
-            variants={itemVariants}
-            className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
+          <motion.p
+            className="text-base sm:text-lg text-gray-300 max-w-3xl mx-auto drop-shadow-sm leading-relaxed px-2 font-sans font-light"
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ delay: 0.5, duration: 0.8 }}
+            data-animate
           >
-            Professional planning and execution for every type of corporate gathering
+            Professional planning and execution for every type of corporate gathering and business event.
           </motion.p>
         </motion.div>
 
         <motion.div
+          className="w-full h-[60vh] sm:h-[55vh] md:h-[60vh] lg:h-[65vh] xl:h-[70vh] overflow-hidden shadow-2xl hover:shadow-3xl transition-shadow duration-500"
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+          data-animate
         >
-          {eventTypes.map((eventType, index) => (
-            <motion.div key={index} variants={itemVariants}>
-              <Card className="h-full border-0 shadow-lg hover:shadow-xl transition-all duration-300 group overflow-hidden">
-                <CardHeader className="pb-4">
-                  <div className="flex items-center space-x-4">
-                    <motion.div
-                      className={`inline-flex items-center justify-center w-12 h-12 bg-gradient-to-r ${eventType.color} rounded-lg text-white`}
-                      whileHover={{ scale: 1.1, rotate: 5 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <eventType.icon className="w-6 h-6" />
-                    </motion.div>
-                    <CardTitle className="text-xl font-bold text-gray-900 group-hover:text-[#bc9c22] transition-colors">
-                      {eventType.title}
-                    </CardTitle>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-600 leading-relaxed">
-                    {eventType.description}
-                  </p>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
+          <FlowingMenu items={corporateEventTypes} />
         </motion.div>
       </div>
     </section>

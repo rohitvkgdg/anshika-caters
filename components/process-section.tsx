@@ -89,7 +89,7 @@ export function ProcessSection() {
             </motion.span>
           </h2>
           <motion.p
-            className="text-xl text-gray-300 max-w-3xl mx-auto"
+            className="text-lg text-gray-300 max-w-3xl mx-auto font-sans font-light"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ delay: 0.5, duration: 0.8 }}
@@ -123,7 +123,7 @@ export function ProcessSection() {
                   <step.icon className="w-10 h-10 text-[#021631] group-hover:text-[#bc9c22] transition-colors duration-300" />
                 </motion.div>
                 <motion.div
-                  className="absolute -bottom-3 -right-2 w-8 h-8 bg-white text-[#021631] rounded-full flex items-center justify-center text-sm font-bold"
+                  className="absolute -bottom-3 -right-2 w-8 h-8 bg-white text-[#021631] rounded-full flex items-center justify-center text-sm font-medium"
                   initial={{ scale: 0 }}
                   animate={isInView ? { scale: 1 } : { scale: 0 }}
                   transition={{ delay: 0.5 + index * 0.1, duration: 0.4, type: "spring" }}
@@ -141,7 +141,7 @@ export function ProcessSection() {
               </motion.h3>
               
               <motion.p
-                className="text-gray-300 group-hover:text-gray-100 transition-colors duration-300"
+                className="text-gray-300 group-hover:text-gray-100 transition-colors duration-300 font-sans font-light"
                 initial={{ opacity: 0 }}
                 animate={isInView ? { opacity: 1 } : { opacity: 0 }}
                 transition={{ delay: 0.8 + index * 0.1 }}

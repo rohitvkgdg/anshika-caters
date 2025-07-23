@@ -84,7 +84,7 @@ export function FeaturedEventsSection() {
             </motion.span>
           </motion.h2>
           <motion.p
-            className="text-lg sm:text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto drop-shadow-sm leading-relaxed px-2"
+            className="text-base sm:text-lg text-gray-300 max-w-3xl mx-auto drop-shadow-sm leading-relaxed px-2 font-sans font-light"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ delay: 0.5, duration: 0.8 }}

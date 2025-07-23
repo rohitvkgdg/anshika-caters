@@ -1,17 +1,18 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Playfair_Display } from "next/font/google"
+import { Inter } from "next/font/google"
+import { Cinzel } from "next/font/google"
 import "./globals.css"
 import { LoadingProvider } from "@/components/loading-context"
 import { ClientLayout } from "@/components/client-layout"
 import { ASSETS } from "@/lib/assets"
 
-const playfair = Playfair_Display({
+const inter = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
 })
 
-const playfairSerif = Playfair_Display({
+const cinzel = Cinzel({
   subsets: ["latin"],
   variable: "--font-serif",
   weight: ["400", "500", "600", "700", "800", "900"],
@@ -41,7 +42,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="no-horizontal-overflow">
-      <body className={`${playfair.variable} ${playfairSerif.variable} font-sans no-horizontal-overflow`}>
+      <body className={`${inter.variable} ${cinzel.variable} font-sans no-horizontal-overflow`}>
         <LoadingProvider>
           <ClientLayout>
             {children}

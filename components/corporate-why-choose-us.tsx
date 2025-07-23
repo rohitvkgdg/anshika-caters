@@ -58,7 +58,7 @@ export function CorporateWhyChooseUs() {
   }
 
   return (
-    <section ref={ref} className="py-24 bg-white">
+    <section ref={ref} className="py-24 bg-[#021631]">
       <div className="container mx-auto px-4">
         <motion.div
           variants={containerVariants}
@@ -68,13 +68,13 @@ export function CorporateWhyChooseUs() {
         >
           <motion.h2 
             variants={itemVariants}
-            className="text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-6"
+            className="text-4xl md:text-5xl font-serif font-medium text-white mb-6"
           >
-            Why Choose <span className="text-[#bc9c22]">Anshika Caters</span>
+            Why Choose <span className="text-[#bc9c22]">Anshika Caterers</span>
           </motion.h2>
           <motion.p 
             variants={itemVariants}
-            className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
+            className="text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed font-sans font-light"
           >
             Professional corporate event planning and catering services that exceed expectations
           </motion.p>
@@ -88,19 +88,19 @@ export function CorporateWhyChooseUs() {
         >
           {features.map((feature, index) => (
             <motion.div key={index} variants={itemVariants}>
-              <Card className="h-full border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-gradient-to-b from-white to-gray-50">
-                <CardContent className="p-8 text-center">
+              <Card className="h-full border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-gradient-to-b from-[#0d223d] to-[#1a2d44]">
+                <CardContent className="p-8 flex flex-col items-center justify-center">
                   <motion.div
-                    className="inline-flex items-center justify-center w-16 h-16 bg-[#bc9c22]/10 rounded-full mb-6"
+                    className="flex items-center justify-center w-16 h-16 bg-[#bc9c22]/20 rounded-full mb-6"
                     whileHover={{ scale: 1.1, rotate: 5 }}
                     transition={{ duration: 0.3 }}
                   >
                     <feature.icon className="w-8 h-8 text-[#bc9c22]" />
                   </motion.div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-4">
+                  <h3 className="text-xl font-serif font-medium text-white mb-4 text-center">
                     {feature.title}
                   </h3>
-                  <p className="text-gray-600 leading-relaxed">
+                  <p className="text-gray-300 leading-relaxed font-sans font-light text-center">
                     {feature.description}
                   </p>
                 </CardContent>

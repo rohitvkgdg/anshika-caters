@@ -1,7 +1,7 @@
 import { CorporateHeroSection } from "@/components/corporate-hero-section"
 import { CorporateWhyChooseUs } from "@/components/corporate-why-choose-us"
 import { CorporateEventTypes } from "@/components/corporate-event-types"
-import { CorporateGallery } from "@/components/corporate-gallery"
+import { CorporateGalleryShowcase } from "@/components/corporate-gallery-showcase"
 import { CorporateProcess } from "@/components/corporate-process"
 import { CorporateTestimonials } from "@/components/corporate-testimonials"
 import { CorporateFAQ } from "@/components/corporate-faq"
@@ -28,7 +28,7 @@ export default function CorporateEventsVaranasiPage() {
 
       {/* Gallery */}
       <section id="gallery">
-        <CorporateGallery />
+        <CorporateGalleryShowcase />
       </section>
 
       {/* How It Works */}

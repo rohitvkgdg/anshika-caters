@@ -80,14 +80,14 @@ export function SocialProof() {
               </motion.div>
               
               <motion.div
-                className="text-3xl md:text-4xl font-bold text-[#bc9c22] mb-2"
+                className="text-3xl md:text-4xl font-serif font-medium text-[#bc9c22] mb-2"
                 variants={numberVariants}
               >
                 {stat.number}
               </motion.div>
               
               <motion.div
-                className="text-sm md:text-base text-gray-300 group-hover:text-white transition-colors duration-300"
+                className="text-sm md:text-base text-gray-300 group-hover:text-white transition-colors duration-300 font-sans font-light"
                 initial={{ opacity: 0 }}
                 animate={isInView ? { opacity: 1 } : { opacity: 0 }}
                 transition={{ delay: 0.5 + index * 0.1 }}

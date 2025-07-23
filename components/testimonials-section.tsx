@@ -93,7 +93,7 @@ export function TestimonialsSection() {
             </motion.span>
           </h2>
           <motion.p
-            className="text-xl text-gray-400 max-w-3xl mx-auto"
+            className="text-lg text-gray-400 max-w-3xl mx-auto font-sans font-light"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ delay: 0.5, duration: 0.8 }}
@@ -146,7 +146,7 @@ export function TestimonialsSection() {
                   </motion.div>
                   
                   <motion.p
-                    className="text-gray-400 mb-6 italic leading-relaxed group-hover:text-gray-300 transition-colors duration-300"
+                    className="text-gray-400 mb-6 italic leading-relaxed group-hover:text-gray-300 transition-colors duration-300 font-sans font-light"
                     initial={{ opacity: 0 }}
                     animate={isInView ? { opacity: 1 } : { opacity: 0 }}
                     transition={{ delay: 0.8 + index * 0.1 }}
@@ -175,12 +175,12 @@ export function TestimonialsSection() {
                     </motion.div>
                     <div>
                       <motion.div
-                        className="font-semibold text-gray-400 group-hover:text-white transition-colors duration-300"
+                        className="font-light text-gray-400 group-hover:text-white transition-colors duration-300 font-sans"
                         whileHover={{ scale: 1.05 }}
                       >
                         {testimonial.name}
                       </motion.div>
-                      <div className="text-[#bc9c22] text-sm">{testimonial.location}</div>
+                      <div className="text-[#bc9c22] text-sm font-sans font-light">{testimonial.location}</div>
                     </div>
                   </motion.div>
                 </CardContent>

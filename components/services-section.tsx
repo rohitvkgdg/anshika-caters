@@ -104,7 +104,7 @@ export function ServicesSection() {
             </motion.span>
           </motion.h2>
           <motion.p
-            className="text-xl text-gray-600 max-w-3xl mx-auto drop-shadow-sm"
+            className="text-lg text-gray-300 max-w-3xl mx-auto drop-shadow-sm font-sans font-light"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ delay: 0.5, duration: 0.8 }}
@@ -152,7 +152,7 @@ export function ServicesSection() {
                       <h3 className="text-lg sm:text-xl font-serif text-gray-200 mb-3 drop-shadow-sm">
                         {service.title}
                       </h3>
-                      <p className="text-sm sm:text-base text-gray-400 mb-4 drop-shadow-sm">
+                      <p className="text-sm sm:text-base text-gray-400 mb-4 drop-shadow-sm font-sans font-light">
                         {service.description}
                       </p>
                       <div className="flex flex-wrap gap-2">
@@ -191,7 +191,7 @@ export function ServicesSection() {
                 color="#ffd700"
                 speed="3s"
               >
-                <span className="text-lg font-bold px-4">Build Your Menu</span>
+                <span className="text-lg font-medium px-4">Build Your Menu</span>
               </StarBorder>
             </Link>
           </motion.div>

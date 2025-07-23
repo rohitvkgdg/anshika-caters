@@ -72,13 +72,13 @@ export default function EventsPage() {
           >
             <motion.h1 
               variants={itemVariants}
-              className="text-4xl md:text-6xl font-serif font-bold text-white mb-6"
+              className="text-4xl md:text-6xl font-serif font-medium text-white mb-6"
             >
               Our <span className="text-yellow-200">Event Services</span>
             </motion.h1>
             <motion.p 
               variants={itemVariants}
-              className="text-xl text-white/90 max-w-3xl mx-auto leading-relaxed"
+              className="text-lg text-white/90 max-w-3xl mx-auto leading-relaxed font-light"
             >
               From intimate gatherings to grand celebrations, we bring your vision to life with exceptional planning and catering.
             </motion.p>
@@ -116,19 +116,19 @@ export default function EventsPage() {
                   </div>
 
                   <CardHeader>
-                    <CardTitle className="text-2xl font-bold text-gray-900 group-hover:text-[#bc9c22] transition-colors">
+                    <CardTitle className="text-2xl font-serif font-medium text-gray-900 group-hover:text-[#bc9c22] transition-colors">
                       {eventType.title}
                     </CardTitle>
                   </CardHeader>
 
                   <CardContent className="space-y-4">
-                    <p className="text-gray-600 leading-relaxed">
+                    <p className="text-gray-600 leading-relaxed font-light">
                       {eventType.description}
                     </p>
 
                     {/* Features */}
                     <div className="space-y-2">
-                      <h4 className="font-semibold text-gray-900">What We Offer:</h4>
+                      <h4 className="font-medium text-gray-900">What We Offer:</h4>
                       <ul className="space-y-1">
                         {eventType.features.map((feature, i) => (
                           <li key={i} className="text-sm text-gray-600 flex items-center">
@@ -140,7 +140,7 @@ export default function EventsPage() {
                     </div>
 
                     <Link href={eventType.href}>
-                      <Button className="w-full bg-[#bc9c22] hover:bg-[#a08820] text-white font-semibold">
+                      <Button className="w-full bg-[#bc9c22] hover:bg-[#a08820] text-white font-medium">
                         Learn More
                       </Button>
                     </Link>
@@ -170,7 +170,7 @@ export default function EventsPage() {
             </motion.h2>
             <motion.p 
               variants={itemVariants}
-              className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed mb-8"
+              className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed mb-8 font-light"
             >
               Contact us today to discuss your event requirements and get a customized quote.
             </motion.p>

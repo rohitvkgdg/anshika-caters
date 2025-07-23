@@ -28,10 +28,10 @@ export function Navigation() {
   const pathname = usePathname()
 
   const navItems = [
-    { name: "Home", link: "/" },
-    { name: "Gallery", link: "#gallery" },
-    { name: "Testimonials", link: "#testimonials" },
-    { name: "Contact", link: "#contact" },
+    { name: "HOME", link: "/" },
+    { name: "GALLERY", link: "#gallery" },
+    { name: "TESTIMONIALS", link: "#testimonials" },
+    { name: "CONTACT", link: "#contact" },
   ]
 
   const eventTypes = [
@@ -95,14 +95,14 @@ export function Navigation() {
 
         {/* Navigation Items */}
         <motion.div
-          className="absolute inset-0 hidden flex-1 flex-row items-center justify-center space-x-1 text-md transition duration-200 lg:flex lg:space-x-1 text-gray-100 font-bold drop-shadow-sm text-shadow-sm"
+          className="absolute inset-0 hidden flex-1 flex-row items-center justify-center space-x-1 text-sm transition duration-200 lg:flex lg:space-x-1 text-gray-100 drop-shadow-sm text-shadow-sm"
         >
           {/* Home Button */}
           <button
             onClick={() => handleNavItemClick(navItems[0])}
-            className="relative px-3 py-2 font-extrabold transition-colors duration-200 text-gray-100 hover:text-[#bc9c22]"
+            className="relative px-3 py-2 duration-200 hover:text-[#bc9c22]"
           >
-            <span className="relative z-20">Home</span>
+            <span className="relative z-20">HOME</span>
           </button>
 
           {/* Events Dropdown */}
@@ -112,9 +112,9 @@ export function Navigation() {
             onMouseLeave={() => setIsEventsDropdownOpen(false)}
           >
             <button
-              className="relative px-3 py-2 font-extrabold transition-colors duration-200 text-gray-100 hover:text-[#bc9c22] flex items-center"
+              className="relative px-3 py-2 duration-200 hover:text-[#bc9c22] flex items-center"
             >
-              <span className="relative z-20">Events</span>
+              <span className="relative z-20">EVENTS</span>
               <ChevronDown className={`ml-1 h-3 w-3 transition-transform duration-200 ${isEventsDropdownOpen ? 'rotate-180' : ''}`} />
             </button>
 
@@ -141,7 +141,7 @@ export function Navigation() {
                       >
                         <div className="flex items-center justify-between">
                           <div className="flex-1">
-                            <div className="font-semibold text-gray-800 group-hover:text-[#bc9c22] transition-colors">
+                            <div className="text-gray-800 group-hover:text-[#bc9c22] transition-colors">
                               {eventType.name}
                             </div>
                             <div className="text-sm text-gray-600 group-hover:text-[#bc9c22]/70 transition-colors mt-1">
@@ -164,7 +164,7 @@ export function Navigation() {
               <button
                 key={`nav-${idx + 1}`}
                 onClick={() => handleNavItemClick(item)}
-                className="relative px-3 py-2 font-extrabold transition-colors duration-200 text-gray-100 hover:text-[#bc9c22]"
+                className="relative px-3 py-2 transition-colors duration-200 text-gray-100 hover:text-[#bc9c22]"
               >
                 <span className="relative z-20">{item.name}</span>
               </button>
@@ -175,8 +175,8 @@ export function Navigation() {
         {/* CTA Button */}
         <div className="relative z-20">
           <Link href="/contact" onClick={() => handleNavItemClick({ name: "Contact", link: "#contact" })}>
-            <InteractiveHoverButton className="bg-[#bc9c22] hover:bg-[#a08820] text-white border-0 font-semibold shadow-lg hover:shadow-xl transition-shadow duration-200">
-              Plan Event
+            <InteractiveHoverButton className="bg-[#bc9c22] hover:bg-[#a08820] text-white border-0 shadow-lg hover:shadow-xl text-sm transition-shadow duration-200">
+              PLAN EVENT
             </InteractiveHoverButton>
           </Link>
         </div>
@@ -205,9 +205,7 @@ export function Navigation() {
                   className="rounded-full" 
                 />
               </motion.div>
-              <span className="text-lg font-serif text-gray-100 font-semibold drop-shadow-md">
-                Anshika Caterers
-              </span>
+              
             </button>
           </motion.div>
 
@@ -231,7 +229,7 @@ export function Navigation() {
                   handleNavItemClick(item)
                   handleMobileItemClick()
                 }}
-                className="block py-3 font-semibold  text-gray-200 hover:text-[#bc9c22] transition-colors text-lg drop-shadow-sm w-full text-left"
+                className="block py-3 font-medium  text-gray-200 hover:text-[#bc9c22] transition-colors text-lg drop-shadow-sm w-full text-left"
               >
                 {item.name}
               </button>
@@ -241,7 +239,7 @@ export function Navigation() {
           {/* Mobile Events Section */}
           <div className="border-b border-[#bc9c22]/20">
             <div className="py-3">
-              <div className="font-semibold text-gray-200 text-lg mb-2">Events</div>
+              <div className="font-medium text-gray-200 text-lg mb-2">EVENTS</div>
               {eventTypes.map((eventType, i) => (
                 <Link
                   key={i}
@@ -260,7 +258,7 @@ export function Navigation() {
               handleMobileItemClick()
               handleNavItemClick({ name: "Contact", link: "#contact" })
             }}>
-              <InteractiveHoverButton className="bg-[#bc9c22] hover:bg-[#a08820] text-white border-[#bc9c22] font-semibold w-full shadow-lg hover:shadow-xl transition-shadow duration-200">
+              <InteractiveHoverButton className="bg-[#bc9c22] hover:bg-[#a08820] text-white border-[#bc9c22] font-medium w-full shadow-lg hover:shadow-xl transition-shadow duration-200">
                 Plan Event
               </InteractiveHoverButton>
             </Link>
