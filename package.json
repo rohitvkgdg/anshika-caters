@@ -41,7 +41,7 @@
     "@radix-ui/react-toggle-group": "latest",
     "@radix-ui/react-tooltip": "latest",
     "@studio-freight/lenis": "latest",
-    "@tabler/icons-react": "latest",
+    "@tabler/icons-react": "^3.34.1",
     "autoprefixer": "latest",
     "class-variance-authority": "latest",
     "clsx": "latest",

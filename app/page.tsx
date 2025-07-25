@@ -10,7 +10,7 @@ import { WhatsAppFloat } from "@/components/whatsapp-float"
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-[#fdfaf5]">
+    <div className="min-h-screen bg-[#021631]">
       {/* Hero Section */}
       <section id="hero">
         <HeroSection />

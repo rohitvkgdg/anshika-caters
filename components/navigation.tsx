@@ -36,7 +36,7 @@ export function Navigation() {
 
   const eventTypes = [
     { name: "Corporate Events", href: "/corporate-events-varanasi", description: "Professional business events and catering" },
-    { name: "Wedding Events", href: "/wedding-events-varanasi", description: "Beautiful wedding ceremonies and receptions" },
+    { name: "Wedding Events", href: "/best-wedding-planner-in-varanasi", description: "Beautiful wedding ceremonies and receptions" },
     { name: "Personal Celebrations", href: "/personal-events-varanasi", description: "Birthdays, anniversaries, and special occasions" },
     { name: "View All Events", href: "/events", description: "Explore our complete event portfolio" },
   ]

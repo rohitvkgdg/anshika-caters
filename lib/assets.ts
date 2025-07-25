@@ -65,5 +65,21 @@ export const ASSETS = {
     get teamBuilding() { return getAssetUrl("Team-Building.webp", "corporate-images"); },
     get networking() { return getAssetUrl("guests-networking.webp", "corporate-images"); },
     get additional() { return getAssetUrl("image_2025-07-21_215024381.webp", "corporate-images"); },
+  },
+  weddingPlanning: {
+    get hero() { return getAssetUrl("Hero.webp", "wedding"); },
+    get mehendi() { return getAssetUrl("Mehendi.webp", "wedding"); },
+    get haldi() { return getAssetUrl("Haldi.webp", "wedding"); },
+    get ganeshPooja() { return getAssetUrl("ganesh-pooja.webp", "wedding"); },
+    get varmala() { return getAssetUrl("Varmala.webp", "wedding"); },
+    get pheraa() { return getAssetUrl("Pheraa.webp", "wedding"); },
+    get mangalsutra() { return getAssetUrl("Mangalsutra.webp", "wedding"); },
+    get vidaai() { return getAssetUrl("Vidaai.webp", "wedding"); },
+    get gallery1() { return getAssetUrl("image_2025-07-23_00-10-09.webp", "wedding"); },
+    get gallery2() { return getAssetUrl("image_2025-07-23_000512176.webp", "wedding"); },
+    get gallery3() { return getAssetUrl("image_2025-07-23_000619429.webp", "wedding"); },
+    get gallery4() { return getAssetUrl("image_2025-07-23_000812520.webp", "wedding"); },
+    get gallery5() { return getAssetUrl("image_2025-07-23_001226867.webp", "wedding"); },
+    get gallery6() { return getAssetUrl("image_2025-07-23_001310632.webp", "wedding"); },
   }
 };

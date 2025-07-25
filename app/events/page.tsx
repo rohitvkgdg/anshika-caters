@@ -22,7 +22,7 @@ export default function EventsPage() {
       icon: Heart,
       title: "Wedding Events",
       description: "Beautiful wedding ceremonies and receptions with traditional and modern catering options.",
-      href: "/wedding-events- varanasi",
+      href: "/best-wedding-planner-in-varanasi",
       image: ASSETS.wedding.wedding1,
       features: ["Wedding Ceremonies", "Receptions", "Sangeet", "Mehendi"]
     },
@@ -60,7 +60,7 @@ export default function EventsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#fdfaf5]">
+    <div className="min-h-screen bg-[#021631]">
       {/* Hero Section */}
       <section className="py-24 bg-gradient-to-br from-[#bc9c22] to-[#a08820]">
         <div className="container mx-auto px-4">
