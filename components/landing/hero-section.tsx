@@ -1,6 +1,5 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
 import StarBorder from "@/components/ui/StarBorder"
 import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
@@ -9,7 +8,7 @@ import { ASSETS } from "@/lib/assets"
 
 export function HeroSection() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
-  
+
   const heroImages = [
     {
       src: ASSETS.hero.hero1,
@@ -17,7 +16,7 @@ export function HeroSection() {
       fallback: ASSETS.other.placeholder
     },
     {
-      src: ASSETS.hero.hero2, 
+      src: ASSETS.hero.hero2,
       alt: "Luxury dining arrangement",
       fallback: ASSETS.other.placeholder
     },
@@ -88,7 +87,7 @@ export function HeroSection() {
 
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden">
-      <motion.div 
+      <motion.div
         className="absolute inset-0 z-0"
         initial={{ scale: 1.05, opacity: 0 }}
         animate={{ scale: 1, opacity: 0.9 }}
@@ -101,7 +100,7 @@ export function HeroSection() {
               <img src={image.src} alt={image.alt} />
             </div>
           ))}
-          
+
           <AnimatePresence mode="wait">
             <motion.div
               key={currentImageIndex}
@@ -109,8 +108,8 @@ export function HeroSection() {
               initial={{ opacity: 0, scale: 1.05 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ 
-                duration: 1.2, 
+              transition={{
+                duration: 1.2,
                 ease: [0.4, 0.0, 0.2, 1],
                 opacity: { duration: 0.8 },
                 scale: { duration: 1.5 }
@@ -122,8 +121,8 @@ export function HeroSection() {
                 className="w-full h-full object-cover object-center"
                 initial={{ scale: 1.08 }}
                 animate={{ scale: 1 }}
-                transition={{ 
-                  duration: 7, 
+                transition={{
+                  duration: 7,
                   ease: "linear",
                   type: "tween"
                 }}
@@ -134,28 +133,28 @@ export function HeroSection() {
               />
             </motion.div>
           </AnimatePresence>
-          
+
           {/* Professional gradient overlay */}
-          <motion.div 
+          <motion.div
             className="absolute inset-0 bg-gradient-to-br from-black/65 via-black/35 to-black/55"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1.5, delay: 0.3 }}
           />
-          
+
           {/* Subtle animated accent overlay */}
-          <motion.div 
+          <motion.div
             className="absolute inset-0"
             style={{
               background: "linear-gradient(45deg, rgba(2,22,49,0.3), rgba(188,156,34,0.08))"
             }}
-            animate={{ 
+            animate={{
               opacity: [0.8, 0.9, 0.8]
             }}
-            transition={{ 
-              duration: 8, 
-              repeat: Infinity, 
-              ease: "easeInOut" 
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: "easeInOut"
             }}
           />
         </div>
@@ -166,11 +165,10 @@ export function HeroSection() {
             <button
               key={index}
               onClick={() => setCurrentImageIndex(index)}
-              className={`relative overflow-hidden rounded-full transition-all duration-300 ${
-                index === currentImageIndex 
-                  ? 'bg-[#bc9c22] w-10 h-3' 
-                  : 'bg-white/40 hover:bg-white/60 w-3 h-3'
-              }`}
+              className={`relative overflow-hidden rounded-full transition-all duration-300 ${index === currentImageIndex
+                ? 'bg-[#bc9c22] w-10 h-3'
+                : 'bg-white/40 hover:bg-white/60 w-3 h-3'
+                }`}
               aria-label={`Go to slide ${index + 1}`}
             >
               {index === currentImageIndex && (
@@ -207,7 +205,7 @@ export function HeroSection() {
             Your Dream Events
           </motion.span>
           <br />
-          <motion.span 
+          <motion.span
             className="text-[#bc9c22] bg-gradient-to-r font-semibold from-[#bc9c22] to-[#d4af37] bg-clip-text text-transparent drop-shadow-2xl"
             initial={{ opacity: 0, x: -30, scale: 0.9 }}
             animate={{ opacity: 1, x: 0, scale: 1 }}
@@ -216,24 +214,24 @@ export function HeroSection() {
             Seamlessly Crafted
           </motion.span>
         </motion.h1>
-        
+
         <motion.p
           className="text-md md:text-xl mb-10 text-gray-200 max-w-3xl mx-auto leading-relaxed drop-shadow-xl font-sans font-light"
           variants={itemVariants}
         >
           From décor and planning to gourmet catering, we handle every detail to Make your event unforgettable.
         </motion.p>
-        
+
         <motion.div
           className="flex flex-col sm:flex-row gap-6 justify-center items-center"
           variants={itemVariants}
         >
-          <motion.div 
-            variants={buttonVariants} 
+          <motion.div
+            variants={buttonVariants}
             whileTap="tap"
             className="relative"
           >
-            <Link href="/contact">
+            <Link href="#contact">
               <StarBorder
                 as="div"
                 className="inline-block"
@@ -244,16 +242,14 @@ export function HeroSection() {
               </StarBorder>
             </Link>
           </motion.div>
-          
-          <motion.div variants={buttonVariants} whileTap="tap">
-            <Button
-              size="default"
-              variant="outline"
-              className="text-white hover:bg-white/10 hover:text-white px-10 py-6 text-md bg-white/20 backdrop-blur-lg shadow-2xl hover:shadow-white/20 transition-all duration-300 drop-shadow-lg rounded-full hover:drop-shadow-xl"
-              asChild
-            >
-              <Link href="/events">EXPLORE EVENTS</Link>
-            </Button>
+          <motion.div
+            variants={buttonVariants}
+            whileTap="tap"
+            className="text-white hover:bg-white/20 hover:text-white px-6 py-3 text-md bg-white/30 backdrop-blur-lg hover:shadow-white/20 border-0 transition-all duration-300 drop-shadow-lg rounded-full hover:drop-shadow-xl transform shadow-[0_20px_50px_rgba(255,255,255,0.1)] hover:shadow-[0_25px_60px_rgba(255,255,255,0.2)]"
+          >
+            <Link href="#events">
+              <span className="text-md px-6 py-2">EXPLORE EVENTS</span>
+            </Link>
           </motion.div>
         </motion.div>
       </motion.div>

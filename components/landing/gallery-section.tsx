@@ -1,10 +1,8 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import CircularGallery from "@/components/ui/CircularGallery"
-import Link from "next/link"
-import { motion, useInView, useScroll, useTransform } from "framer-motion"
+import { motion, useScroll, useTransform } from "framer-motion"
 import { useRef } from "react"
 import { Calendar } from "lucide-react"
 import { ASSETS } from "@/lib/assets"
@@ -12,8 +10,6 @@ import { ASSETS } from "@/lib/assets"
 export function GallerySection() {
   const ref = useRef(null)
   const galleryRef = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: "-100px" })
-  const isGalleryInView = useInView(galleryRef, { once: true, margin: "-50px" })
 
   // Scroll-based parallax effects
   const { scrollYProgress } = useScroll({
@@ -83,17 +79,16 @@ export function GallerySection() {
           </p>
         </div>
 
-        {/* Circular Gallery with Smooth Scroll Animation */}
         <motion.div
           ref={galleryRef}
-          className="relative mb-24 w-full h-[500px] md:h-[700px] overflow-hidden"
+          className="relative mb-12 w-full h-[500px] md:h-[700px] overflow-hidden"
         >
           <CircularGallery
             items={galleryImages}
             bend={1}
             textColor="white"
             borderRadius={0.05}
-            font="bold 14px serif"
+            font="extrabold 20px serif"
           />
         </motion.div>
       </div>

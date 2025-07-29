@@ -21,7 +21,7 @@ export const ASSETS = {
   get logo() { return getAssetUrl("AC.png", "landing"); },
   hero: {
     get hero1() { return getAssetUrl("hero-1.webp", "landing"); },
-    get hero2() { return getAssetUrl("hero-2.webp", "landing"); }, 
+    get hero2() { return getAssetUrl("hero-2.webp", "landing"); },
     get hero3() { return getAssetUrl("hero-3.webp", "landing"); },
     get hero4() { return getAssetUrl("hero-4.webp", "landing"); },
   },
@@ -81,5 +81,27 @@ export const ASSETS = {
     get gallery4() { return getAssetUrl("image_2025-07-23_000812520.webp", "wedding"); },
     get gallery5() { return getAssetUrl("image_2025-07-23_001226867.webp", "wedding"); },
     get gallery6() { return getAssetUrl("image_2025-07-23_001310632.webp", "wedding"); },
+  },
+  proposal: {
+    get hero() { return getAssetUrl("hero.webp", "proposal"); },
+    get ghatSideSunset() { return getAssetUrl("ghat-sunset.webp", "proposal"); },
+    get rooftopStars() { return getAssetUrl("rooftop-stars.webp", "proposal"); },
+    get droneShow() { return getAssetUrl("drone-show.webp", "proposal"); },
+    get privateConcert() { return getAssetUrl("private-concert.webp", "proposal"); },
+    get filmGame() { return getAssetUrl("a-film-a-game.webp", "proposal"); },
+    get intimateSimple() { return getAssetUrl("intimate-simple.webp", "proposal"); },
+  },
+  birthday: {
+    get hero() { return getAssetUrl("Hero.webp", "birthday"); },
+    get aestheticDecor() { return getAssetUrl("asthetic-decor.webp", "birthday/types"); },
+    get foodTalkAbout() { return getAssetUrl("food.webp", "birthday/types"); },
+    get returnGifts() { return getAssetUrl("return-gifts.webp", "birthday/types"); },
+    get personalMoments() { return getAssetUrl("moments.webp", "birthday/types"); },
+    get smoothPlanning() { return getAssetUrl("smooth-planning.webp", "birthday/types"); },
+    get gallery1() { return getAssetUrl("gallery-1.webp", "birthday/gallery"); },
+    get gallery2() { return getAssetUrl("gallery-2.webp", "birthday/gallery"); },
+    get gallery3() { return getAssetUrl("gallery-3.webp", "birthday/gallery"); },
+    get gallery4() { return getAssetUrl("gallery-4.webp", "birthday/gallery"); },
+    get gallery5() { return getAssetUrl("gallery-5.webp", "birthday/gallery"); },
   }
 };

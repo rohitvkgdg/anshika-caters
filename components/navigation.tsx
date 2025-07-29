@@ -6,13 +6,13 @@ import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
 import { ChevronDown } from "lucide-react"
 import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button"
-import { 
-  Navbar, 
-  NavBody, 
-  MobileNav, 
-  MobileNavHeader, 
-  MobileNavMenu, 
-  MobileNavToggle 
+import {
+  Navbar,
+  NavBody,
+  MobileNav,
+  MobileNavHeader,
+  MobileNavMenu,
+  MobileNavToggle
 } from "@/components/ui/resizable-navbar"
 import { useLoading } from "@/components/loading-context"
 import { useLenis } from "@/hooks/use-lenis"
@@ -36,9 +36,9 @@ export function Navigation() {
 
   const eventTypes = [
     { name: "Corporate Events", href: "/corporate-events-varanasi", description: "Professional business events and catering" },
-    { name: "Wedding Events", href: "/best-wedding-planner-in-varanasi", description: "Beautiful wedding ceremonies and receptions" },
-    { name: "Personal Celebrations", href: "/personal-events-varanasi", description: "Birthdays, anniversaries, and special occasions" },
-    { name: "View All Events", href: "/events", description: "Explore our complete event portfolio" },
+    { name: "Wedding Planning", href: "/best-wedding-planner-in-varanasi", description: "Beautiful wedding ceremonies and receptions" },
+    { name: "Proposal Planning", href: "/best-proposal-planners-in-varanasi", description: "Magical proposal setups and romantic moments" },
+    { name: "Birthday Celebrations", href: "/birthday-planners-varanasi", description: "Memorable birthday parties and celebrations" },
   ]
 
   const handleMobileItemClick = () => {
@@ -73,21 +73,21 @@ export function Navigation() {
       {/* Desktop Navigation */}
       <NavBody className="bg-transparent/30 shadow-2xl border border-white/10">
         {/* Logo */}
-        <motion.div 
+        <motion.div
           className="relative z-20 drop-shadow-md"
-          whileHover={{ scale: 1.05 }} 
+          whileHover={{ scale: 1.05 }}
           transition={{ duration: 0.2 }}
         >
           <button onClick={handleLogoClick} className="flex items-center space-x-2">
             <motion.div
               className="drop-shadow-md"
             >
-              <Image 
-                src={ASSETS.logo} 
-                alt="Anshika Caters Logo" 
-                width={40} 
-                height={40} 
-                className="rounded-full" 
+              <Image
+                src={ASSETS.logo}
+                alt="Anshika Caters Logo"
+                width={40}
+                height={40}
+                className="rounded-full"
               />
             </motion.div>
           </button>
@@ -106,7 +106,7 @@ export function Navigation() {
           </button>
 
           {/* Events Dropdown */}
-          <div 
+          <div
             className="relative"
             onMouseEnter={() => setIsEventsDropdownOpen(true)}
             onMouseLeave={() => setIsEventsDropdownOpen(false)}
@@ -127,8 +127,8 @@ export function Navigation() {
                   exit={{ opacity: 0, y: -10 }}
                   transition={{ duration: 0.2 }}
                   className="absolute top-full left-0 mt-2 w-[320px] bg-white shadow-2xl rounded-xl border border-gray-200 z-[9999] overflow-hidden"
-                  style={{ 
-                    position: 'absolute', 
+                  style={{
+                    position: 'absolute',
                     zIndex: 9999
                   }}
                 >
@@ -187,40 +187,40 @@ export function Navigation() {
         <MobileNavHeader>
           {/* Mobile Logo */}
           <motion.div
-            whileHover={{ scale: 1.05 }} 
+            whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.2 }}
             className="drop-shadow-md"
           >
             <button onClick={handleLogoClick} className="flex items-center space-x-2">
-              <motion.div 
+              <motion.div
                 className="relative drop-shadow-md"
-                whileHover={{ rotate: 360 }} 
+                whileHover={{ rotate: 360 }}
                 transition={{ duration: 0.6 }}
               >
-                <Image 
-                  src={ASSETS.logo} 
-                  alt="Anshika Caters Logo" 
-                  width={40} 
-                  height={20} 
-                  className="rounded-full" 
+                <Image
+                  src={ASSETS.logo}
+                  alt="Anshika Caters Logo"
+                  width={40}
+                  height={20}
+                  className="rounded-full"
                 />
               </motion.div>
-              
+
             </button>
           </motion.div>
 
           {/* Mobile Toggle */}
-          <MobileNavToggle 
-            isOpen={isOpen} 
-            onClick={() => setIsOpen(!isOpen)} 
+          <MobileNavToggle
+            isOpen={isOpen}
+            onClick={() => setIsOpen(!isOpen)}
           />
         </MobileNavHeader>
 
         {/* Mobile Menu */}
-        <MobileNavMenu 
-          isOpen={isOpen} 
+        <MobileNavMenu
+          isOpen={isOpen}
           onClose={() => setIsOpen(false)}
-         
+
         >
           {navItems.map((item, i) => (
             <div key={i} className="border-b border-[#bc9c22]/20 last:border-0">

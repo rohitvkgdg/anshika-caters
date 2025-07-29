@@ -1,7 +1,6 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button"
 import StarBorder from "@/components/ui/StarBorder"
 import SpotlightCard from "@/components/ui/SpotlightCard"
 import { Badge } from "@/components/ui/badge"
@@ -18,9 +17,9 @@ export function ServicesSection() {
   const services = [
     {
       image: ASSETS.wedding.wedding1,
-      title: "Personal Events",
-      description: "Tailored menus for weddings, anniversaries, and family gatherings. Celebrate with flavors that resonate.",
-      features: ["Traditional Indian Cuisine", "Fusion Delicacies", "Live Cooking Stations", "Custom Desserts"],
+      title: "Wedding & Personal Events",
+      description: "Exquisite catering for weddings, proposals, birthdays, and family celebrations. Every moment made memorable.",
+      features: ["Wedding Planning", "Proposal Setups", "Birthday Celebrations", "Anniversary Parties"],
     },
     {
       image: ASSETS.stacks.stack1,
@@ -79,7 +78,7 @@ export function ServicesSection() {
   }
 
   return (
-    <section className="py-20 bg-[#021631]" ref={ref}>
+    <section className="events py-20 bg-[#021631]" ref={ref}>
       <div className="container mx-auto px-4">
         <motion.div
           className="text-center mb-16"
@@ -129,46 +128,46 @@ export function ServicesSection() {
                 transition: { duration: 0.3 },
               }}
             >
-                <SpotlightCard 
-                  spotlightColor="rgba(188, 156, 34, 0.6)" 
-                  className="h-full"
-                >
-                  <motion.div
+              <SpotlightCard
+                spotlightColor="rgba(188, 156, 34, 0.6)"
+                className="h-full"
+              >
+                <motion.div
                   whileHover={{ scale: 1.02 }}
                   transition={{ duration: 0.3 }}
                   className="h-full flex flex-col"
-                  >
-                    {/* Image Section - Responsive */}
-                    <div className="relative w-full h-48 sm:h-56 md:h-64 lg:h-72 rounded-lg overflow-hidden">
-                      <img 
+                >
+                  {/* Image Section - Responsive */}
+                  <div className="relative w-full h-48 sm:h-56 md:h-64 lg:h-72 rounded-lg overflow-hidden">
+                    <img
                       src={service.image}
                       alt={service.title}
                       className="h-full w-full object-cover rounded-lg"
-                      />
+                    />
+                  </div>
+
+                  {/* Content Section */}
+                  <div className="flex-1 p-4 sm:p-6 flex flex-col">
+                    <h3 className="text-lg sm:text-xl font-serif text-gray-200 mb-3 drop-shadow-sm">
+                      {service.title}
+                    </h3>
+                    <p className="text-sm sm:text-base text-gray-400 mb-4 drop-shadow-sm font-sans font-light">
+                      {service.description}
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {service.features.map((feature, idx) => (
+                        <Badge
+                          key={idx}
+                          variant="secondary"
+                          className="bg-[#bc9c22]/10 text-gray-400 hover:bg-[#bc9c22]/20 transition-colors duration-300 text-xs sm:text-sm"
+                        >
+                          {feature}
+                        </Badge>
+                      ))}
                     </div>
-                    
-                    {/* Content Section */}
-                    <div className="flex-1 p-4 sm:p-6 flex flex-col">
-                      <h3 className="text-lg sm:text-xl font-serif text-gray-200 mb-3 drop-shadow-sm">
-                        {service.title}
-                      </h3>
-                      <p className="text-sm sm:text-base text-gray-400 mb-4 drop-shadow-sm font-sans font-light">
-                        {service.description}
-                      </p>
-                      <div className="flex flex-wrap gap-2">
-                        {service.features.map((feature, idx) => (
-                          <Badge 
-                            key={idx} 
-                            variant="secondary" 
-                            className="bg-[#bc9c22]/10 text-gray-400 hover:bg-[#bc9c22]/20 transition-colors duration-300 text-xs sm:text-sm"
-                          >
-                            {feature}
-                          </Badge>
-                        ))}
-                      </div>
-                    </div>
-                  </motion.div>
-                </SpotlightCard>
+                  </div>
+                </motion.div>
+              </SpotlightCard>
             </motion.div>
           ))}
         </motion.div>

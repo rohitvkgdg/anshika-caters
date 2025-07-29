@@ -1,13 +1,13 @@
 "use client"
 
-import { WeddingHeroSection } from "@/components/wedding-hero-section"
-import { WeddingCeremonies } from "@/components/wedding-ceremonies"
-import { WeddingWhyChooseUs } from "@/components/wedding-why-choose-us"
-import { WeddingGalleryShowcase } from "@/components/wedding-gallery-showcase"
-import { WeddingProcess } from "@/components/wedding-process"
-import { WeddingTestimonials } from "@/components/wedding-testimonials"
-import { WeddingFAQ } from "@/components/wedding-faq"
-import { WeddingCTA } from "@/components/wedding-cta"
+import { WeddingHeroSection } from "@/components/wedding/wedding-hero-section"
+import { WeddingCeremonies } from "@/components/wedding/wedding-ceremonies"
+import { WeddingWhyChooseUs } from "@/components/wedding/wedding-why-choose-us"
+import { WeddingGalleryShowcase } from "@/components/wedding/wedding-gallery-showcase"
+import { WeddingProcess } from "@/components/wedding/wedding-process"
+import { WeddingTestimonials } from "@/components/wedding/wedding-testimonials"
+import { WeddingFAQ } from "@/components/wedding/wedding-faq"
+import { WeddingCTA } from "@/components/wedding/wedding-cta"
 import { WhatsAppFloat } from "@/components/whatsapp-float"
 
 export default function BestWeddingPlannerVaranasiPage() {
