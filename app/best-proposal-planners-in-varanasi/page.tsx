@@ -7,7 +7,10 @@ import { WhatsAppFloat } from "@/components/whatsapp-float"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-    robots: "index,follow"
+    robots: "index,follow",
+    alternates: {
+        canonical: "https://acaterers.com/best-proposal-planners-in-varanasi"
+    }
 }
 
 export default function BestProposalPlannersInVaranasiPage() {

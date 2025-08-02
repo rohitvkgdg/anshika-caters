@@ -10,6 +10,11 @@
         "NODE_ENV": "production",
         "PORT": 3000
       },
+      "env_production": {
+        "NODE_ENV": "production",
+        "PORT": 3000,
+        "NEXT_TELEMETRY_DISABLED": 1
+      },
       "error_file": "./logs/err.log",
       "out_file": "./logs/out.log",
       "log_file": "./logs/combined.log",
@@ -19,11 +24,27 @@
       "ignore_watch": [
         "node_modules",
         "logs",
-        ".next"
+        ".next",
+        ".git"
       ],
       "restart_delay": 4000,
       "max_restarts": 5,
-      "min_uptime": "10s"
+      "min_uptime": "10s",
+      "kill_timeout": 5000,
+      "wait_ready": true,
+      "listen_timeout": 10000,
+      "autorestart": true,
+      "node_args": "--max-old-space-size=1024"
     }
-  ]
+  ],
+  "deploy": {
+    "production": {
+      "user": "root",
+      "host": ["89.116.122.245"],
+      "ref": "origin/main",
+      "repo": "git@github.com:rohitvkgdg/anshika-caters.git",
+      "path": "/var/www/anshika-caters",
+      "post-deploy": "bun install && bun run build && pm2 reload ecosystem.config.json --env production"
+    }
+  }
 }

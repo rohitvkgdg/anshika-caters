@@ -1,52 +1,308 @@
-# 🚀 VPS Deployment Quick Start
+# 🚀 Anshika Caters - Complete Deployment Guide
 
-## Prerequisites Checklist
-- [ ] VPS with Ubuntu/Debian (2GB RAM minimum recommended)
-- [ ] Domain name configured to point to your VPS IP
-- [ ] SSH access to your VPS
+## Overview
+This guide covers both manual and automated CI/CD deployment for your Anshika Caters website on a Hostinger VPS with Arch Linux.
 
-## Quick Deployment Steps
+---
 
-### 1. Prepare Your VPS
+## 📋 Prerequisites
+
+- ✅ Hostinger VPS with Arch Linux
+- ✅ Domain: acaterers.com (configured in DNS)
+- ✅ SSH access as root
+- ✅ SSL certificate (Certbot/Let's Encrypt)
+
+---
+
+## 🎯 Option 1: Automated CI/CD Deployment (Recommended)
+
+### Step 1: Setup Your VPS (5 minutes)
+
+SSH into your VPS and run:
+```bash
+curl -fsSL https://raw.githubusercontent.com/rohitvkgdg/anshika-caters/main/scripts/setup-arch-vps.sh | bash
+```
+
+This script will:
+- Install Node.js, Bun, PM2, and Nginx
+- Configure Nginx for acaterers.com with SSL
+- Setup firewall and SSH keys
+- Prepare directories with proper permissions
+
+### Step 2: Configure GitHub Secrets
+
+Go to: `https://github.com/rohitvkgdg/anshika-caters/settings/secrets/actions`
+
+Add these secrets:
+- **VPS_HOST**: `89.116.122.245`
+- **VPS_USER**: `root`
+- **VPS_SSH_KEY**: Copy the private key from the setup script output
+
+### Step 3: Deploy
+
+```bash
+git add .
+git commit -m "Setup CI/CD deployment"
+git push origin main
+```
+
+GitHub Actions will automatically:
+- Run tests and build the application
+- Create backup of current deployment
+- Deploy new version with zero downtime
+- Run health checks
+- Rollback automatically if deployment fails
+
+### Monitoring Your Deployment
+
+- **Health Check**: https://acaterers.com/api/health
+- **GitHub Actions**: Repository → Actions tab
+- **VPS Status**: `ssh root@89.116.122.245 "pm2 status"`
+
+---
+
+## 🛠️ Option 2: Manual Deployment
+
+### Step 1: VPS Setup
+
 ```bash
 # Update system
-sudo apt update && sudo apt upgrade -y
+pacman -Syu --noconfirm
 
-# Install Node.js 20 LTS
-curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
-sudo apt-get install -y nodejs
+# Install required packages
+pacman -S --noconfirm nodejs npm git curl nginx
 
-# Install Bun (faster JavaScript runtime & package manager)
+# Install Bun
 curl -fsSL https://bun.sh/install | bash
-source ~/.bashrc
+export PATH="$HOME/.bun/bin:$PATH"
 
-# Install PM2 and Nginx
-sudo npm install -g pm2
-sudo apt install nginx git -y
+# Install PM2
+npm install -g pm2
+
+# Enable services
+systemctl enable nginx
+systemctl start nginx
 ```
 
-### 2. Deploy Your Application
+### Step 2: Deploy Application
+
 ```bash
-# Clone your repository
+# Create application directory
+mkdir -p /var/www/anshika-caters
 cd /var/www
-sudo git clone <your-repo-url> anshika-caters-web
-sudo chown -R $USER:$USER anshika-caters-web
-cd anshika-caters-web
 
-# Run deployment script
-./deploy.sh
+# Clone repository
+git clone https://github.com/rohitvkgdg/anshika-caters.git anshika-caters
+cd anshika-caters
+
+# Install dependencies and build
+bun install
+bun run build
+
+# Set permissions
+chown -R http:http /var/www/anshika-caters
+chmod -R 755 /var/www/anshika-caters
+
+# Create production environment file
+cp .env.production.example .env.production
+# Edit .env.production with your specific values
 ```
 
-### 3. Configure Domain
+### Step 3: Configure Nginx
+
 ```bash
-# Edit Nginx configuration
-sudo nano /etc/nginx/sites-available/anshika-caters
+# Create Nginx configuration
+cat > /etc/nginx/sites-available/anshika-caters << 'EOF'
+server {
+    listen 80;
+    server_name acaterers.com www.acaterers.com;
+    return 301 https://$server_name$request_uri;
+}
 
-# Replace 'yourdomain.com' with your actual domain name
+server {
+    listen 443 ssl http2;
+    server_name acaterers.com www.acaterers.com;
+
+    ssl_certificate /etc/letsencrypt/live/acaterers.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/acaterers.com/privkey.pem;
+    
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_prefer_server_ciphers off;
+    ssl_session_cache shared:SSL:10m;
+
+    gzip on;
+    gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;
+
+    location / {
+        proxy_pass http://localhost:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+EOF
+
+# Enable site
+mkdir -p /etc/nginx/sites-enabled
+ln -s /etc/nginx/sites-available/anshika-caters /etc/nginx/sites-enabled/
+
 # Test and reload Nginx
-sudo nginx -t
-sudo systemctl reload nginx
+nginx -t
+systemctl reload nginx
 ```
+
+### Step 4: Start Application
+
+```bash
+# Start with PM2
+cd /var/www/anshika-caters
+pm2 start ecosystem.config.json --env production
+
+# Save PM2 configuration
+pm2 save
+pm2 startup systemd
+```
+
+---
+
+## 🔍 Verification & Monitoring
+
+### Health Checks
+```bash
+# Local health check
+curl localhost:3000/api/health
+
+# Public health check
+curl https://acaterers.com/api/health
+
+# Expected response:
+{
+  "status": "healthy",
+  "timestamp": "2025-08-02T...",
+  "uptime": 123.45,
+  "environment": "production"
+}
+```
+
+### Monitoring Commands
+```bash
+# Check PM2 status
+pm2 status
+
+# View logs
+pm2 logs anshika-caters
+
+# Monitor in real-time
+pm2 monit
+
+# Check Nginx status
+systemctl status nginx
+
+# View Nginx logs
+tail -f /var/log/nginx/access.log
+tail -f /var/log/nginx/error.log
+```
+
+---
+
+## 🚨 Troubleshooting
+
+### Common Issues
+
+**Port 3000 already in use:**
+```bash
+lsof -ti:3000 | xargs kill -9
+pm2 restart anshika-caters
+```
+
+**Nginx 502 Bad Gateway:**
+```bash
+# Check if app is running
+pm2 status
+# Check Nginx config
+nginx -t
+# Restart services
+pm2 restart anshika-caters
+systemctl reload nginx
+```
+
+**SSL Certificate Issues:**
+```bash
+# Renew certificate
+certbot renew
+systemctl reload nginx
+```
+
+**Permission Errors:**
+```bash
+# Fix ownership
+chown -R http:http /var/www/anshika-caters
+chmod -R 755 /var/www/anshika-caters
+```
+
+---
+
+## 🔄 Updates & Maintenance
+
+### Manual Updates
+```bash
+cd /var/www/anshika-caters
+git pull origin main
+bun install
+bun run build
+pm2 restart anshika-caters
+```
+
+### Automated Updates (CI/CD)
+Simply push to the main branch - GitHub Actions handles everything automatically!
+
+### Backup Strategy
+- CI/CD automatically creates backups before each deployment
+- Manual backup: `tar -czf backup-$(date +%Y%m%d).tar.gz /var/www/anshika-caters`
+
+---
+
+## 🔒 Security Checklist
+
+- ✅ SSL certificate installed and configured
+- ✅ Firewall configured (SSH + HTTP/HTTPS only)
+- ✅ SSH key authentication (for CI/CD)
+- ✅ Regular system updates
+- ✅ Nginx security headers configured
+- ✅ Non-root application user (http)
+
+---
+
+## 📞 Emergency Commands
+
+```bash
+# Quick status check
+ssh root@89.116.122.245 "pm2 status && curl -s localhost:3000/api/health"
+
+# Restart everything
+ssh root@89.116.122.245 "pm2 restart anshika-caters && systemctl reload nginx"
+
+# Rollback to previous version (CI/CD)
+ssh root@89.116.122.245 "cd /var/www && mv anshika-caters anshika-caters_broken && mv anshika-caters_backup_* anshika-caters && pm2 restart anshika-caters"
+
+# View recent logs
+ssh root@89.116.122.245 "pm2 logs anshika-caters --lines 50"
+```
+
+---
+
+## 🎉 Success!
+
+Your Anshika Caters website should now be live at:
+- **Production**: https://acaterers.com
+- **Health Check**: https://acaterers.com/api/health
+
+Choose the CI/CD option for automated, zero-downtime deployments, or use manual deployment for full control.
 
 ### 4. Setup SSL Certificate
 ```bash

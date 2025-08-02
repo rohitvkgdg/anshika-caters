@@ -1,0 +1,197 @@
+name: Deploy to Hostinger VPS
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+    types: [ closed ]
+
+env:
+  NODE_VERSION: '22.17.1'
+  PROJECT_NAME: 'anshika-caters'
+
+jobs:
+  # Test and Build Job
+  test-and-build:
+    name: Test and Build
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+
+    - name: Cache Dependencies
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.npm
+          .next/cache
+        key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+        restore-keys: |
+          ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
+
+    - name: Install Dependencies
+      run: bun ci
+
+    - name: Run Linting
+      run: bun run lint --if-present
+
+    - name: Run Type Check
+      run: bunx tsc --noEmit --if-present
+
+    - name: Build Application
+      run: bun run build
+      env:
+        CI: true
+        NODE_ENV: production
+
+    - name: Upload Build Artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: build-files
+        path: |
+          .next/
+          public/
+          package.json
+          package-lock.json
+        retention-days: 1
+
+  # Deploy Job (only runs if tests pass)
+  deploy:
+    name: Deploy to VPS
+    needs: test-and-build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Download Build Artifacts
+      uses: actions/download-artifact@v3
+      with:
+        name: build-files
+
+    - name: Setup SSH Agent
+      uses: webfactory/ssh-agent@v0.8.0
+      with:
+        ssh-private-key: ${{ secrets.VPS_SSH_KEY }}
+
+    - name: Add VPS to Known Hosts
+      run: |
+        mkdir -p ~/.ssh
+        ssh-keyscan -H ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
+
+    - name: Create Deployment Archive
+      run: |
+        tar -czf deployment.tar.gz \
+          --exclude='.git' \
+          --exclude='node_modules' \
+          --exclude='.github' \
+          --exclude='*.log' \
+          --exclude='.env*' \
+          .
+
+    - name: Deploy to VPS
+      run: |
+        # Create backup of current deployment
+        ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} "
+          cd /var/www &&
+          if [ -d '${{ env.PROJECT_NAME }}' ]; then
+            cp -r ${{ env.PROJECT_NAME }} ${{ env.PROJECT_NAME }}_backup_$(date +%Y%m%d_%H%M%S)
+            # Keep only last 3 backups
+            ls -dt ${{ env.PROJECT_NAME }}_backup_* | tail -n +4 | xargs rm -rf
+          fi
+        "
+
+        # Upload new deployment
+        scp deployment.tar.gz ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/tmp/
+
+        # Extract and setup new deployment
+        ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} "
+          cd /var/www &&
+          rm -rf ${{ env.PROJECT_NAME }}_new &&
+          mkdir -p ${{ env.PROJECT_NAME }}_new &&
+          cd ${{ env.PROJECT_NAME }}_new &&
+          tar -xzf /tmp/deployment.tar.gz &&
+          
+          # Install dependencies using bun (since it's installed on your VPS)
+          bun install --production &&
+          
+          # Atomic deployment swap
+          cd /var/www &&
+          if [ -d '${{ env.PROJECT_NAME }}' ]; then
+            mv ${{ env.PROJECT_NAME }} ${{ env.PROJECT_NAME }}_old
+          fi &&
+          mv ${{ env.PROJECT_NAME }}_new ${{ env.PROJECT_NAME }} &&
+          rm -rf ${{ env.PROJECT_NAME }}_old &&
+          
+          # Set proper permissions for Arch Linux (http user instead of www-data)
+          chown -R http:http ${{ env.PROJECT_NAME }} &&
+          chmod -R 755 ${{ env.PROJECT_NAME }}
+        "
+
+    - name: Restart Services
+      run: |
+        ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} "
+          # Restart PM2 process if using PM2
+          if command -v pm2 &> /dev/null; then
+            pm2 restart ${{ env.PROJECT_NAME }} || pm2 start ecosystem.config.json
+          fi &&
+          
+          # Restart Nginx (Arch Linux uses different service management)
+          systemctl reload nginx &&
+          
+          # Clean up
+          rm -f /tmp/deployment.tar.gz
+        "
+
+    - name: Health Check
+      run: |
+        # Wait a moment for services to start
+        sleep 10
+        
+        # Basic health check with your domain
+        if curl -f -s --max-time 30 https://acaterers.com/api/health > /dev/null; then
+          echo "✅ Deployment successful - Health check passed"
+        else
+          echo "❌ Health check failed - Manual verification needed"
+          echo "Please check https://acaterers.com/api/health manually"
+          # Don't fail the deployment for health check issues
+        fi
+
+    - name: Notify Success
+      if: success()
+      run: |
+        echo "🚀 Deployment completed successfully!"
+        echo "📅 Deployed at: $(date)"
+        echo "📦 Commit: ${{ github.sha }}"
+
+    - name: Rollback on Failure
+      if: failure()
+      run: |
+        echo "❌ Deployment failed, attempting rollback..."
+        ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} "
+          cd /var/www &&
+          BACKUP_DIR=\$(ls -dt ${{ env.PROJECT_NAME }}_backup_* | head -n 1) &&
+          if [ -n \"\$BACKUP_DIR\" ]; then
+            rm -rf ${{ env.PROJECT_NAME }} &&
+            mv \$BACKUP_DIR ${{ env.PROJECT_NAME }} &&
+            systemctl reload nginx &&
+            if command -v pm2 &> /dev/null; then
+              pm2 restart ${{ env.PROJECT_NAME }}
+            fi &&
+            echo '🔄 Rollback completed successfully'
+          else
+            echo '⚠️ No backup found for rollback'
+          fi
+        "

@@ -35,10 +35,10 @@ export function Navigation() {
   ]
 
   const eventTypes = [
-    { name: "Corporate Events", href: "/corporate-events-varanasi", description: "Professional business events and catering" },
+    { name: "Corporate Events", href: "/best-corporate-events-planners-in-varanasi", description: "Professional business events and catering" },
     { name: "Wedding Planning", href: "/best-wedding-planner-in-varanasi", description: "Beautiful wedding ceremonies and receptions" },
     { name: "Proposal Planning", href: "/best-proposal-planners-in-varanasi", description: "Magical proposal setups and romantic moments" },
-    { name: "Birthday Celebrations", href: "/birthday-planners-varanasi", description: "Memorable birthday parties and celebrations" },
+    { name: "Birthday Celebrations", href: "/best-birthday-planners-varanasi", description: "Memorable birthday parties and celebrations" },
   ]
 
   const handleMobileItemClick = () => {
