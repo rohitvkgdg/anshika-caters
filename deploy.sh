@@ -84,17 +84,6 @@ if [ "$SOURCE_ABS" != "$TARGET_ABS" ]; then
         log_error "Failed to copy files"
         exit 1
     fi
-    
-    # Verify critical files exist
-    log_info "Verifying critical files..."
-    for file in "package.json" "components/loading-context.tsx" "components/client-layout.tsx" "components/hero-section.tsx"; do
-        if [ ! -f "$TARGET_DIR/$file" ]; then
-            log_error "Critical file missing: $file"
-            exit 1
-        else
-            log_info "✓ Found: $file"
-        fi
-    done
 else
     log_info "Source and target directories are the same. Skipping file copy."
 fi

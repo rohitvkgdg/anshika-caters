@@ -7,6 +7,11 @@ import { CorporateTestimonials } from "@/components/corporate/corporate-testimon
 import { CorporateFAQ } from "@/components/corporate/corporate-faq"
 import { CorporateCTA } from "@/components/corporate/corporate-cta"
 import { WhatsAppFloat } from "@/components/whatsapp-float"
+import type { Metadata } from "next"
+
+export const metadata: Metadata = {
+  robots: "index,follow"
+}
 
 export default function CorporateEventsVaranasiPage() {
   return (

@@ -7,6 +7,11 @@ import { TestimonialsSection } from "@/components/landing/testimonials-section"
 import { GallerySection } from "@/components/landing/gallery-section"
 import { ContactSection } from "@/components/landing/contact-section"
 import { WhatsAppFloat } from "@/components/whatsapp-float"
+import type { Metadata } from "next"
+
+export const metadata: Metadata = {
+  robots: "index,follow"
+}
 
 export default function HomePage() {
   return (

@@ -1,5 +1,3 @@
-"use client"
-
 import { WeddingHeroSection } from "@/components/wedding/wedding-hero-section"
 import { WeddingCeremonies } from "@/components/wedding/wedding-ceremonies"
 import { WeddingWhyChooseUs } from "@/components/wedding/wedding-why-choose-us"
@@ -9,6 +7,11 @@ import { WeddingTestimonials } from "@/components/wedding/wedding-testimonials"
 import { WeddingFAQ } from "@/components/wedding/wedding-faq"
 import { WeddingCTA } from "@/components/wedding/wedding-cta"
 import { WhatsAppFloat } from "@/components/whatsapp-float"
+import type { Metadata } from "next"
+
+export const metadata: Metadata = {
+  robots: "index,follow"
+}
 
 export default function BestWeddingPlannerVaranasiPage() {
   return (

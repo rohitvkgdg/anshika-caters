@@ -3,7 +3,6 @@
 import { Button } from "@/components/ui/button"
 import StarBorder from "@/components/ui/StarBorder"
 import SpotlightCard from "@/components/ui/SpotlightCard"
-import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
 import { motion } from "framer-motion"
 import { useInView } from "framer-motion"
@@ -78,7 +77,7 @@ export function ServicesSection() {
   }
 
   return (
-    <section className="events py-20 bg-[#021631]" ref={ref}>
+    <section className="py-20 bg-[#021631]" ref={ref}>
       <div className="container mx-auto px-4">
         <motion.div
           className="text-center mb-16"
@@ -129,12 +128,10 @@ export function ServicesSection() {
               }}
             >
               <SpotlightCard
-                spotlightColor="rgba(188, 156, 34, 0.6)"
+                spotlightColor="rgba(188, 156, 34, 0.4)"
                 className="h-full"
               >
                 <motion.div
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ duration: 0.3 }}
                   className="h-full flex flex-col"
                 >
                   {/* Image Section - Responsive */}
@@ -154,17 +151,6 @@ export function ServicesSection() {
                     <p className="text-sm sm:text-base text-gray-400 mb-4 drop-shadow-sm font-sans font-light">
                       {service.description}
                     </p>
-                    <div className="flex flex-wrap gap-2">
-                      {service.features.map((feature, idx) => (
-                        <Badge
-                          key={idx}
-                          variant="secondary"
-                          className="bg-[#bc9c22]/10 text-gray-400 hover:bg-[#bc9c22]/20 transition-colors duration-300 text-xs sm:text-sm"
-                        >
-                          {feature}
-                        </Badge>
-                      ))}
-                    </div>
                   </div>
                 </motion.div>
               </SpotlightCard>

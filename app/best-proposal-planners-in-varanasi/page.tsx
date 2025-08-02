@@ -4,6 +4,11 @@ import { ProposalFeatures } from "@/components/proposal/proposal-features"
 import { ProposalTestimonials } from "@/components/proposal/proposal-testimonials"
 import { ProposalCTA } from "@/components/proposal/proposal-cta"
 import { WhatsAppFloat } from "@/components/whatsapp-float"
+import type { Metadata } from "next"
+
+export const metadata: Metadata = {
+    robots: "index,follow"
+}
 
 export default function BestProposalPlannersInVaranasiPage() {
     return (

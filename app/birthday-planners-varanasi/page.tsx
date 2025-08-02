@@ -5,6 +5,11 @@ import { BirthdayGallery } from "@/components/birthday/birthday-gallery"
 import { BirthdayTestimonials } from "@/components/birthday/birthday-testimonials"
 import { BirthdayCTA } from "@/components/birthday/birthday-cta"
 import { WhatsAppFloat } from "@/components/whatsapp-float"
+import type { Metadata } from "next"
+
+export const metadata: Metadata = {
+    robots: "index,follow"
+}
 
 export default function BirthdayPlannersVaranasiPage() {
     return (

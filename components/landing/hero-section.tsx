@@ -5,9 +5,27 @@ import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
 import { useState, useEffect } from "react"
 import { ASSETS } from "@/lib/assets"
+import { useLenis } from "@/hooks/use-lenis"
 
 export function HeroSection() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const { scrollTo } = useLenis()
+
+  const handleExploreEvents = () => {
+    scrollTo("#services", {
+      offset: -60, // Account for fixed navigation height
+      duration: 1.5,
+      easing: (t: number) => t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1
+    })
+  }
+
+  const handlePlanWithUs = () => {
+    scrollTo("#contact", {
+      offset: -60, // Account for fixed navigation height
+      duration: 1.5,
+      easing: (t: number) => t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1
+    })
+  }
 
   const heroImages = [
     {
@@ -18,11 +36,6 @@ export function HeroSection() {
     {
       src: ASSETS.hero.hero2,
       alt: "Luxury dining arrangement",
-      fallback: ASSETS.other.placeholder
-    },
-    {
-      src: ASSETS.hero.hero3,
-      alt: "Wedding reception celebration",
       fallback: ASSETS.other.placeholder
     },
     {
@@ -226,31 +239,29 @@ export function HeroSection() {
           className="flex flex-col sm:flex-row gap-6 justify-center items-center"
           variants={itemVariants}
         >
-          <motion.div
+          <motion.button
             variants={buttonVariants}
             whileTap="tap"
-            className="relative"
+            onClick={handlePlanWithUs}
+            className="relative cursor-pointer"
           >
-            <Link href="#contact">
-              <StarBorder
-                as="div"
-                className="inline-block"
-                color="#ffd700"
-                speed="3s"
-              >
-                <span className="text-md px-8 py-2">PLAN WITH US</span>
-              </StarBorder>
-            </Link>
-          </motion.div>
-          <motion.div
+            <StarBorder
+              as="div"
+              className="inline-block"
+              color="#ffd700"
+              speed="3s"
+            >
+              <span className="text-md px-8 py-2">PLAN WITH US</span>
+            </StarBorder>
+          </motion.button>
+          <motion.button
             variants={buttonVariants}
             whileTap="tap"
-            className="text-white hover:bg-white/20 hover:text-white px-6 py-3 text-md bg-white/30 backdrop-blur-lg hover:shadow-white/20 border-0 transition-all duration-300 drop-shadow-lg rounded-full hover:drop-shadow-xl transform shadow-[0_20px_50px_rgba(255,255,255,0.1)] hover:shadow-[0_25px_60px_rgba(255,255,255,0.2)]"
+            onClick={handleExploreEvents}
+            className="text-white hover:bg-white/20 hover:text-white px-6 py-3 text-md bg-white/30 backdrop-blur-lg hover:shadow-white/20 border-0 transition-all duration-300 drop-shadow-lg rounded-full hover:drop-shadow-xl transform shadow-[0_20px_50px_rgba(255,255,255,0.1)] hover:shadow-[0_25px_60px_rgba(255,255,255,0.2)] cursor-pointer"
           >
-            <Link href="#events">
-              <span className="text-md px-6 py-2">EXPLORE EVENTS</span>
-            </Link>
-          </motion.div>
+            <span className="text-md px-6 py-2">EXPLORE EVENTS</span>
+          </motion.button>
         </motion.div>
       </motion.div>
     </section>
