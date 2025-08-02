@@ -68,14 +68,14 @@ TARGET_ABS=$(realpath "$TARGET_DIR")
 
 if [ "$SOURCE_ABS" != "$TARGET_ABS" ]; then
     log_info "Copying from $SOURCE_ABS to $TARGET_ABS"
-    
+
     # Ensure target directory exists and is clean
     mkdir -p "$TARGET_DIR"
-    
+
     # Remove existing files except logs and node_modules to avoid conflicts
     log_info "Cleaning target directory (preserving logs and node_modules)..."
     find "$TARGET_DIR" -maxdepth 1 -not -name "logs" -not -name "node_modules" -not -name "." -not -name ".." -exec rm -rf {} + 2>/dev/null || true
-    
+
     # Copy files excluding certain directories with verbose output
     log_info "Syncing files..."
     if rsync -av --exclude='node_modules/' --exclude='logs/' --exclude='.git/' --exclude='dist/' --exclude='.next/' --exclude='bun.lockb' "$SOURCE_DIR/" "$TARGET_DIR/"; then
@@ -179,16 +179,16 @@ log_info "Starting build process..."
 if ! bun run build; then
     log_error "Build failed"
     log_error "Checking for common issues..."
-    
+
     # Check if @/ path resolution is working
     if [ ! -f "components/loading-context.tsx" ]; then
         log_error "components/loading-context.tsx is missing"
     fi
-    
+
     if [ ! -f "components/client-layout.tsx" ]; then
         log_error "components/client-layout.tsx is missing"
     fi
-    
+
     exit 1
 fi
 
@@ -231,12 +231,12 @@ cat > $NGINX_SITES_AVAILABLE/$APP_NAME << 'EOF'
 server {
     listen 80;
     server_name acaterers.com www.acaterers.com;
-    
+
     # For Let's Encrypt verification
     location /.well-known/acme-challenge/ {
         root /var/www/html;
     }
-    
+
     # Redirect all other HTTP requests to HTTPS
     location / {
         return 301 https://$server_name$request_uri;
