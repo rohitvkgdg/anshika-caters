@@ -36,6 +36,9 @@ jobs:
     - name: Install Dependencies
       run: bun install --frozen-lockfile
 
+    - name: Generate package-lock.json for npm fallback
+      run: npm install --package-lock-only
+
     - name: Build Application
       run: bun run build
       env:
@@ -51,6 +54,7 @@ jobs:
           public/
           package.json
           bun.lock
+          package-lock.json
         retention-days: 1
 
   # Deploy Job (only runs if tests pass)
@@ -122,8 +126,17 @@ jobs:
           cd ${{ env.PROJECT_NAME }}_new &&
           tar -xzf /tmp/deployment.tar.gz &&
           
-          # Install dependencies using bun (since it's installed on your VPS)
-          bun install --production &&
+          # Install dependencies using npm (fallback if bun not available)
+          if command -v bun &> /dev/null; then
+            echo 'Using Bun for dependency installation'
+            bun install --production
+          elif command -v ~/.bun/bin/bun &> /dev/null; then
+            echo 'Using Bun from ~/.bun/bin/'
+            ~/.bun/bin/bun install --production
+          else
+            echo 'Bun not found, using npm'
+            npm ci --production
+          fi &&
           
           # Atomic deployment swap
           cd /var/www &&
