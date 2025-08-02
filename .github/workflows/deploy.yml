@@ -36,26 +36,18 @@ jobs:
     - name: Install Dependencies
       run: bun install --frozen-lockfile
 
+    - name: Generate package-lock.json for npm fallback
+      run: npm install --package-lock-only
+
     - name: Build Application
       run: bun run build
       env:
         CI: true
         NODE_ENV: production
 
-    - name: Upload Build Artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: build-files
-        path: |
-          .next/
-          public/
-          package.json
-          bun.lock
-        retention-days: 1
-
   # Deploy Job (only runs if tests pass)
   deploy:
-    name: Deploy to VPS
+    name: Deploy to VPS using deploy.sh
     needs: test-and-build
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
@@ -63,12 +55,8 @@ jobs:
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v4
-
-    - name: Download Build Artifacts
-      uses: actions/download-artifact@v4
       with:
-        name: build-files
-        path: ./
+        fetch-depth: 0
 
     - name: Setup SSH Agent
       uses: webfactory/ssh-agent@v0.8.0
@@ -82,93 +70,63 @@ jobs:
 
     - name: Create Deployment Archive
       run: |
-        # List what we're about to archive
         echo "Creating deployment archive..."
-        ls -la
-        
-        # Create tar with warning suppression for changing files
-        tar --warning=no-file-changed -czf deployment.tar.gz \
+        tar --warning=no-file-changed -czf project.tar.gz \
           --exclude='.git' \
           --exclude='node_modules' \
           --exclude='.github' \
           --exclude='*.log' \
           --exclude='.env*' \
-          --exclude='deployment.tar.gz' \
+          --exclude='project.tar.gz' \
           . || [ $? -eq 1 ]
         
-        # Verify archive was created
-        ls -lh deployment.tar.gz
+        echo "Archive created:"
+        ls -lh project.tar.gz
 
-    - name: Deploy to VPS
+    - name: Upload and Deploy using deploy.sh
       run: |
-        # Create backup of current deployment
+        # Upload the project archive
+        scp project.tar.gz ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/tmp/
+
+        # Extract and run deploy script on VPS
         ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} "
-          cd /var/www &&
-          if [ -d '${{ env.PROJECT_NAME }}' ]; then
-            cp -r ${{ env.PROJECT_NAME }} ${{ env.PROJECT_NAME }}_backup_$(date +%Y%m%d_%H%M%S)
-            # Keep only last 3 backups
-            ls -dt ${{ env.PROJECT_NAME }}_backup_* | tail -n +4 | xargs rm -rf
+          # Create temporary deployment directory
+          rm -rf /tmp/anshika-caters-deploy
+          mkdir -p /tmp/anshika-caters-deploy
+          cd /tmp/anshika-caters-deploy
+          
+          # Extract project
+          tar -xzf /tmp/project.tar.gz
+          
+          # Make deploy script executable
+          chmod +x deploy.sh
+          
+          # Add Bun to PATH if it exists
+          export PATH=\"/root/.bun/bin:\$PATH\"
+          
+          # Install Bun if not available
+          if ! command -v bun &> /dev/null; then
+            echo 'Installing Bun...'
+            curl -fsSL https://bun.sh/install | bash
+            source ~/.bashrc
+            export PATH=\"/root/.bun/bin:\$PATH\"
           fi
-        "
-
-        # Upload new deployment
-        scp deployment.tar.gz ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/tmp/
-
-        # Extract and setup new deployment
-        ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} "
-          cd /var/www &&
-          rm -rf ${{ env.PROJECT_NAME }}_new &&
-          mkdir -p ${{ env.PROJECT_NAME }}_new &&
-          cd ${{ env.PROJECT_NAME }}_new &&
-          tar -xzf /tmp/deployment.tar.gz &&
           
-          # Install dependencies using npm (fallback if bun not available)
-          if command -v bun &> /dev/null; then
-            echo 'Using Bun for dependency installation'
-            bun install --production
-          elif command -v ~/.bun/bin/bun &> /dev/null; then
-            echo 'Using Bun from ~/.bun/bin/'
-            ~/.bun/bin/bun install --production
-          else
-            echo 'Bun not found, using npm'
-            npm ci --production
-          fi &&
-          
-          # Atomic deployment swap
-          cd /var/www &&
-          if [ -d '${{ env.PROJECT_NAME }}' ]; then
-            mv ${{ env.PROJECT_NAME }} ${{ env.PROJECT_NAME }}_old
-          fi &&
-          mv ${{ env.PROJECT_NAME }}_new ${{ env.PROJECT_NAME }} &&
-          rm -rf ${{ env.PROJECT_NAME }}_old &&
-          
-          # Set proper permissions for Arch Linux (http user instead of www-data)
-          chown -R http:http ${{ env.PROJECT_NAME }} &&
-          chmod -R 755 ${{ env.PROJECT_NAME }}
-        "
-
-    - name: Restart Services
-      run: |
-        ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} "
-          # Restart PM2 process if using PM2
-          if command -v pm2 &> /dev/null; then
-            cd /var/www/${{ env.PROJECT_NAME }} &&
-            pm2 restart ${{ env.PROJECT_NAME }} || pm2 start ecosystem.config.json
-          fi &&
-          
-          # Restart Nginx (Arch Linux uses different service management)
-          systemctl reload nginx &&
+          # Run the deployment script
+          echo 'Running deployment script...'
+          ./deploy.sh production
           
           # Clean up
-          rm -f /tmp/deployment.tar.gz
+          rm -f /tmp/project.tar.gz
+          rm -rf /tmp/anshika-caters-deploy
         "
 
     - name: Health Check
       run: |
-        # Wait a moment for services to start
-        sleep 10
+        # Wait for services to start
+        sleep 15
         
-        # Basic health check with your domain
+        # Check if the application is responding
         if curl -f -s --max-time 30 https://acaterers.com/api/health > /dev/null; then
           echo "✅ Deployment successful - Health check passed"
         else
@@ -180,27 +138,19 @@ jobs:
     - name: Notify Success
       if: success()
       run: |
-        echo "🚀 Deployment completed successfully!"
+        echo "🚀 Deployment completed successfully using deploy.sh!"
         echo "📅 Deployed at: $(date)"
         echo "📦 Commit: ${{ github.sha }}"
+        echo "🔗 Website: https://acaterers.com"
 
     - name: Rollback on Failure
       if: failure()
       run: |
-        echo "❌ Deployment failed, attempting rollback..."
+        echo "❌ Deployment failed, attempting to restart existing PM2 process..."
         ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} "
-          cd /var/www &&
-          BACKUP_DIR=\$(ls -dt ${{ env.PROJECT_NAME }}_backup_* | head -n 1) &&
-          if [ -n \"\$BACKUP_DIR\" ]; then
-            rm -rf ${{ env.PROJECT_NAME }} &&
-            mv \$BACKUP_DIR ${{ env.PROJECT_NAME }} &&
-            systemctl reload nginx &&
-            if command -v pm2 &> /dev/null; then
-              cd /var/www/${{ env.PROJECT_NAME }} &&
-              pm2 restart ${{ env.PROJECT_NAME }}
-            fi &&
-            echo '🔄 Rollback completed successfully'
-          else
-            echo '⚠️ No backup found for rollback'
+          export PATH=\"/root/.bun/bin:\$PATH\"
+          if command -v pm2 &> /dev/null; then
+            pm2 restart anshika-caters || echo 'PM2 restart failed'
+            pm2 list
           fi
         "
