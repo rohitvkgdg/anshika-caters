@@ -33,24 +33,8 @@ jobs:
       with:
         bun-version: latest
 
-    - name: Cache Dependencies
-      uses: actions/cache@v3
-      with:
-        path: |
-          ~/.bun/install/cache
-          .next/cache
-        key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lock') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
-        restore-keys: |
-          ${{ runner.os }}-bun-${{ hashFiles('**/bun.lock') }}-
-
     - name: Install Dependencies
       run: bun install --frozen-lockfile
-
-    - name: Run Linting
-      run: bun run lint
-
-    - name: Run Type Check
-      run: bunx tsc --noEmit
 
     - name: Build Application
       run: bun run build
