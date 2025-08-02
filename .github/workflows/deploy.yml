@@ -68,6 +68,7 @@ jobs:
       uses: actions/download-artifact@v4
       with:
         name: build-files
+        path: ./
 
     - name: Setup SSH Agent
       uses: webfactory/ssh-agent@v0.8.0
@@ -81,13 +82,22 @@ jobs:
 
     - name: Create Deployment Archive
       run: |
-        tar -czf deployment.tar.gz \
+        # List what we're about to archive
+        echo "Creating deployment archive..."
+        ls -la
+        
+        # Create tar with warning suppression for changing files
+        tar --warning=no-file-changed -czf deployment.tar.gz \
           --exclude='.git' \
           --exclude='node_modules' \
           --exclude='.github' \
           --exclude='*.log' \
           --exclude='.env*' \
-          .
+          --exclude='deployment.tar.gz' \
+          . || [ $? -eq 1 ]
+        
+        # Verify archive was created
+        ls -lh deployment.tar.gz
 
     - name: Deploy to VPS
       run: |
