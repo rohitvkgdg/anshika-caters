@@ -11,8 +11,9 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import { useToast } from "@/hooks/use-toast"
+import { useState } from "react"
 import { ASSETS } from "@/lib/assets"
-import { Heart, Sparkles } from "lucide-react"
+import { Heart, Sparkles, CheckCircle } from "lucide-react"
 
 const formSchema = z.object({
     name: z.string().min(2, "Name is required"),
@@ -23,6 +24,7 @@ const formSchema = z.object({
 
 export function ProposalHeroSection() {
     const { toast } = useToast()
+    const [isFormSubmitted, setIsFormSubmitted] = useState(false)
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -38,6 +40,8 @@ export function ProposalHeroSection() {
         try {
             console.log(values)
             // Handle form submission here
+
+            setIsFormSubmitted(true)
 
             toast({
                 title: "Perfect! Let's Create Magic ✨",
@@ -98,10 +102,11 @@ export function ProposalHeroSection() {
                 transition={{ duration: 2, ease: "easeOut" }}
             >
                 <div className="relative w-full h-full bg-[#1a1a1a]">
+                    {/* Desktop Image */}
                     <motion.img
                         src={ASSETS.proposal.hero}
                         alt="Romantic proposal setup"
-                        className="w-full h-full object-cover object-center"
+                        className="hidden md:block w-full h-full object-cover object-center"
                         initial={{ scale: 1.08 }}
                         animate={{ scale: 1 }}
                         transition={{
@@ -112,6 +117,24 @@ export function ProposalHeroSection() {
                         onError={(e) => {
                             console.error(`Failed to load image: ${ASSETS.proposal.hero}`)
                             e.currentTarget.src = "/placeholder.svg?height=1080&width=1920&text=Proposal+Setup"
+                        }}
+                    />
+
+                    {/* Mobile Vertical Image */}
+                    <motion.img
+                        src={ASSETS.proposal.heroV}
+                        alt="Romantic proposal setup"
+                        className="block md:hidden w-full h-full object-cover object-center"
+                        initial={{ scale: 1.08 }}
+                        animate={{ scale: 1 }}
+                        transition={{
+                            duration: 4,
+                            ease: "linear",
+                            type: "tween"
+                        }}
+                        onError={(e) => {
+                            console.error(`Failed to load image: ${ASSETS.proposal.heroV}`)
+                            e.currentTarget.src = "/placeholder.svg?height=1920&width=1080&text=Proposal+Setup"
                         }}
                     />
 
@@ -206,110 +229,126 @@ export function ProposalHeroSection() {
                                 </motion.div>
                             </CardHeader>
                             <CardContent className="px-6 pb-6">
-                                <Form {...form}>
-                                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-                                        <FormField
-                                            control={form.control}
-                                            name="name"
-                                            render={({ field }) => (
-                                                <FormItem>
-                                                    <FormLabel className="text-rose-100 font-medium">Your Name</FormLabel>
-                                                    <FormControl>
-                                                        <Input
-                                                            placeholder="Enter your name"
-                                                            {...field}
-                                                            className="bg-white/10 border-rose-300/30 text-white placeholder:text-gray-300 focus:border-rose-400 focus:ring-rose-400/20 rounded-lg"
-                                                        />
-                                                    </FormControl>
-                                                    <FormMessage className="text-rose-300 text-xs" />
-                                                </FormItem>
-                                            )}
-                                        />
-
-                                        <FormField
-                                            control={form.control}
-                                            name="phone"
-                                            render={({ field }) => (
-                                                <FormItem>
-                                                    <FormLabel className="text-rose-100 font-medium">Contact Number</FormLabel>
-                                                    <FormControl>
-                                                        <Input
-                                                            placeholder="+91 XXXXX XXXXX"
-                                                            {...field}
-                                                            className="bg-white/10 border-rose-300/30 text-white placeholder:text-gray-300 focus:border-rose-400 focus:ring-rose-400/20 rounded-lg"
-                                                        />
-                                                    </FormControl>
-                                                    <FormMessage className="text-rose-300 text-xs" />
-                                                </FormItem>
-                                            )}
-                                        />
-
-                                        <FormField
-                                            control={form.control}
-                                            name="eventDate"
-                                            render={({ field }) => (
-                                                <FormItem>
-                                                    <FormLabel className="text-rose-100 font-medium">Choose Your Special Day</FormLabel>
-                                                    <FormControl>
-                                                        <Input
-                                                            type="date"
-                                                            {...field}
-                                                            className="bg-white/10 border-rose-300/30 text-white placeholder:text-gray-300 focus:border-rose-400 focus:ring-rose-400/20 rounded-lg"
-                                                        />
-                                                    </FormControl>
-                                                    <FormMessage className="text-rose-300 text-xs" />
-                                                </FormItem>
-                                            )}
-                                        />
-
-                                        <FormField
-                                            control={form.control}
-                                            name="vibe"
-                                            render={({ field }) => (
-                                                <FormItem>
-                                                    <FormLabel className="text-rose-100 font-medium">What kind of vibe are you thinking?</FormLabel>
-                                                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                                        <FormControl>
-                                                            <SelectTrigger className="bg-white/10 border-rose-300/30 text-white focus:border-rose-400 focus:ring-rose-400/20 rounded-lg">
-                                                                <SelectValue placeholder="Select your vibe" />
-                                                            </SelectTrigger>
-                                                        </FormControl>
-                                                        <SelectContent className="bg-rose-950 border-rose-800">
-                                                            <SelectItem value="romantic-ghat" className="text-white focus:bg-rose-800">Romantic Ghat-side</SelectItem>
-                                                            <SelectItem value="rooftop-stars" className="text-white focus:bg-rose-800">Rooftop Under Stars</SelectItem>
-                                                            <SelectItem value="drone-show" className="text-white focus:bg-rose-800">Drone Show</SelectItem>
-                                                            <SelectItem value="private-concert" className="text-white focus:bg-rose-800">Private Concert</SelectItem>
-                                                            <SelectItem value="story-game" className="text-white focus:bg-rose-800">Story/Game Theme</SelectItem>
-                                                            <SelectItem value="intimate-simple" className="text-white focus:bg-rose-800">Intimate & Simple</SelectItem>
-                                                            <SelectItem value="other" className="text-white focus:bg-rose-800">Something Else</SelectItem>
-                                                        </SelectContent>
-                                                    </Select>
-                                                    <FormMessage className="text-rose-300 text-xs" />
-                                                </FormItem>
-                                            )}
-                                        />
-
+                                {isFormSubmitted ? (
+                                    <motion.div
+                                        initial={{ opacity: 0, scale: 0.8 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        transition={{ duration: 0.6, ease: "easeOut" }}
+                                        className="text-center py-12"
+                                    >
                                         <motion.div
-                                            whileHover={{ scale: 1.02 }}
-                                            whileTap={{ scale: 0.98 }}
+                                            initial={{ scale: 0 }}
+                                            animate={{ scale: 1 }}
+                                            transition={{ delay: 0.2, duration: 0.6, type: "spring", bounce: 0.4 }}
+                                            className="mb-6"
                                         >
-                                            <Button
-                                                type="submit"
-                                                className="w-full bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white font-semibold py-3 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl"
-                                                disabled={form.formState.isSubmitting}
-                                            >
-                                                {form.formState.isSubmitting ? (
-                                                    <div className="flex items-center gap-2">
-                                                        <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                                                        Planning Magic...
-                                                    </div>
-                                                ) : (
-                                                    "Let's Plan the Moment ✨"
-                                                )}
-                                            </Button>
+                                            <CheckCircle className="w-16 h-16 text-green-500 mx-auto" />
                                         </motion.div>
-                                    </form>
-                                </Form>
+                                        <motion.h3
+                                            initial={{ opacity: 0, y: 20 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            transition={{ delay: 0.4, duration: 0.6 }}
+                                            className="text-2xl font-serif text-white mb-4"
+                                        >
+                                            Thanks for filling the form!
+                                        </motion.h3>
+                                        <motion.p
+                                            initial={{ opacity: 0, y: 20 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            transition={{ delay: 0.6, duration: 0.6 }}
+                                            className="text-gray-300 text-lg"
+                                        >
+                                            We'll reach out to you in the next 12 hours.
+                                        </motion.p>
+                                        <motion.button
+                                            initial={{ opacity: 0, y: 20 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            transition={{ delay: 0.8, duration: 0.6 }}
+                                            onClick={() => setIsFormSubmitted(false)}
+                                            className="mt-6 px-6 py-2 bg-[#bc9c22] text-white rounded-lg hover:bg-[#bc9c22]/80 transition-colors duration-300"
+                                        >
+                                            Submit Another Request
+                                        </motion.button>
+                                    </motion.div>
+                                ) : (
+                                    <Form {...form}>
+                                        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                                            <FormField
+                                                control={form.control}
+                                                name="name"
+                                                render={({ field }) => (
+                                                    <FormItem>
+                                                        <FormLabel className="text-rose-100 font-medium">Your Name</FormLabel>
+                                                        <FormControl>
+                                                            <Input
+                                                                placeholder="Enter your name"
+                                                                {...field}
+                                                                className="bg-white/10 border-rose-300/30 text-white placeholder:text-gray-300 focus:border-rose-400 focus:ring-rose-400/20 rounded-lg"
+                                                            />
+                                                        </FormControl>
+                                                        <FormMessage className="text-rose-300 text-xs" />
+                                                    </FormItem>
+                                                )}
+                                            />
+
+                                            <FormField
+                                                control={form.control}
+                                                name="phone"
+                                                render={({ field }) => (
+                                                    <FormItem>
+                                                        <FormLabel className="text-rose-100 font-medium">Contact Number</FormLabel>
+                                                        <FormControl>
+                                                            <Input
+                                                                placeholder="+91 XXXXX XXXXX"
+                                                                {...field}
+                                                                className="bg-white/10 border-rose-300/30 text-white placeholder:text-gray-300 focus:border-rose-400 focus:ring-rose-400/20 rounded-lg"
+                                                            />
+                                                        </FormControl>
+                                                        <FormMessage className="text-rose-300 text-xs" />
+                                                    </FormItem>
+                                                )}
+                                            />
+
+                                            <FormField
+                                                control={form.control}
+                                                name="eventDate"
+                                                render={({ field }) => (
+                                                    <FormItem>
+                                                        <FormLabel className="text-rose-100 font-medium">Choose Your Special Day</FormLabel>
+                                                        <FormControl>
+                                                            <Input
+                                                                type="date"
+                                                                {...field}
+                                                                className="bg-white/10 border-rose-300/30 text-white placeholder:text-gray-300 focus:border-rose-400 focus:ring-rose-400/20 rounded-lg"
+                                                            />
+                                                        </FormControl>
+                                                        <FormMessage className="text-rose-300 text-xs" />
+                                                    </FormItem>
+                                                )}
+                                            />
+
+                                            <motion.div
+                                                whileHover={{ scale: 1.02 }}
+                                                whileTap={{ scale: 0.98 }}
+                                            >
+                                                <Button
+                                                    type="submit"
+                                                    className="w-full bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white font-semibold py-3 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl"
+                                                    disabled={form.formState.isSubmitting}
+                                                >
+                                                    {form.formState.isSubmitting ? (
+                                                        <div className="flex items-center gap-2">
+                                                            <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                                                            Planning Magic...
+                                                        </div>
+                                                    ) : (
+                                                        "Let's Plan the Moment ✨"
+                                                    )}
+                                                </Button>
+                                            </motion.div>
+                                        </form>
+                                    </Form>
+                                )}
                             </CardContent>
                         </Card>
                     </motion.div>

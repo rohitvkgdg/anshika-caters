@@ -24,6 +24,10 @@ export const ASSETS = {
     get hero2() { return getAssetUrl("hero-2.webp", "landing"); },
     get hero3() { return getAssetUrl("hero-3.webp", "landing"); },
     get hero4() { return getAssetUrl("hero-4.webp", "landing"); },
+    // Vertical hero images for mobile
+    get heroV1() { return getAssetUrl("hero-v-1.webp", "landing"); },
+    get heroV2() { return getAssetUrl("hero-v-2.webp", "landing"); },
+    get heroV3() { return getAssetUrl("hero-v-3.webp", "landing"); },
   },
   couples: {
     get couple1() { return getAssetUrl("couple-image-1.webp", "landing"); },
@@ -43,10 +47,10 @@ export const ASSETS = {
     get stack6() { return getAssetUrl("stack-6.webp", "landing"); },
   },
   events: {
-    get feature1() { return getAssetUrl("feature-events-1.webp", "landing"); },
-    get feature2() { return getAssetUrl("feature-events-2.webp", "landing"); },
-    get feature3() { return getAssetUrl("feature-events-3.webp", "landing"); },
-    get feature4() { return getAssetUrl("feature-events-4.webp", "landing"); },
+    get feature1() { return getAssetUrl("featured-events-corporate.webp", "landing"); },
+    get feature2() { return getAssetUrl("featured-events-bday.webp", "landing"); },
+    get feature3() { return getAssetUrl("featured-events-wedding.webp", "landing"); },
+    get feature4() { return getAssetUrl("featured-events-proposal.webp", "landing"); },
   },
   other: {
     get proposalEvent() { return getAssetUrl("proposal-event.webp", "landing"); },
@@ -54,6 +58,7 @@ export const ASSETS = {
   },
   corporate: {
     get hero() { return getAssetUrl("Hero.webp", "corporate-images"); },
+    get heroV() { return getAssetUrl("hero-v.webp", "corporate-images"); },
     get businessDinners() { return getAssetUrl("Business-Dinners.webp", "corporate-images"); },
     get corporateParties() { return getAssetUrl("Corporate-Parties.webp", "corporate-images"); },
     get corporateDecor() { return getAssetUrl("Corporate-event-decor.webp", "corporate-images"); },
@@ -68,6 +73,7 @@ export const ASSETS = {
   },
   weddingPlanning: {
     get hero() { return getAssetUrl("Hero.webp", "wedding"); },
+    get heroV() { return getAssetUrl("hero-v.webp", "wedding"); },
     get mehendi() { return getAssetUrl("Mehendi.webp", "wedding"); },
     get haldi() { return getAssetUrl("Haldi.webp", "wedding"); },
     get ganeshPooja() { return getAssetUrl("ganesh-pooja.webp", "wedding"); },
@@ -84,6 +90,7 @@ export const ASSETS = {
   },
   proposal: {
     get hero() { return getAssetUrl("hero.webp", "proposal"); },
+    get heroV() { return getAssetUrl("hero-v.webp", "proposal"); },
     get ghatSideSunset() { return getAssetUrl("ghat-sunset.webp", "proposal"); },
     get rooftopStars() { return getAssetUrl("rooftop-stars.webp", "proposal"); },
     get droneShow() { return getAssetUrl("drone-show.webp", "proposal"); },
@@ -92,7 +99,8 @@ export const ASSETS = {
     get intimateSimple() { return getAssetUrl("intimate-simple.webp", "proposal"); },
   },
   birthday: {
-    get hero() { return getAssetUrl("Hero.webp", "birthday"); },
+    get hero() { return getAssetUrl("hero.webp", "birthday"); },
+    get heroV() { return getAssetUrl("hero-v.webp", "birthday"); },
     get aestheticDecor() { return getAssetUrl("asthetic-decor.webp", "birthday/types"); },
     get foodTalkAbout() { return getAssetUrl("food.webp", "birthday/types"); },
     get returnGifts() { return getAssetUrl("return-gifts.webp", "birthday/types"); },

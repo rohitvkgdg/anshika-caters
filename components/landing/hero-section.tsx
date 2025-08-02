@@ -30,16 +30,19 @@ export function HeroSection() {
   const heroImages = [
     {
       src: ASSETS.hero.hero1,
+      srcMobile: ASSETS.hero.heroV1,
       alt: "Elegant wedding catering setup",
       fallback: ASSETS.other.placeholder
     },
     {
       src: ASSETS.hero.hero2,
+      srcMobile: ASSETS.hero.heroV2,
       alt: "Luxury dining arrangement",
       fallback: ASSETS.other.placeholder
     },
     {
       src: ASSETS.hero.hero4,
+      srcMobile: ASSETS.hero.heroV3,
       alt: "Wedding reception celebration",
       fallback: ASSETS.other.placeholder
     }
@@ -111,6 +114,7 @@ export function HeroSection() {
           {heroImages.map((image, index) => (
             <div key={`preload-${index}`} className="hidden">
               <img src={image.src} alt={image.alt} />
+              <img src={image.srcMobile} alt={image.alt} />
             </div>
           ))}
 
@@ -128,10 +132,11 @@ export function HeroSection() {
                 scale: { duration: 1.5 }
               }}
             >
+              {/* Desktop Image */}
               <motion.img
                 src={heroImages[currentImageIndex].src}
                 alt={heroImages[currentImageIndex].alt}
-                className="w-full h-full object-cover object-center"
+                className="hidden md:block w-full h-full object-cover object-center"
                 initial={{ scale: 1.08 }}
                 animate={{ scale: 1 }}
                 transition={{
@@ -142,6 +147,24 @@ export function HeroSection() {
                 onError={(e) => {
                   console.error(`Failed to load image: ${heroImages[currentImageIndex].src}`)
                   e.currentTarget.src = "/placeholder.svg?height=1080&width=1920&text=Hero+Image"
+                }}
+              />
+
+              {/* Mobile Vertical Image */}
+              <motion.img
+                src={heroImages[currentImageIndex].srcMobile}
+                alt={heroImages[currentImageIndex].alt}
+                className="block md:hidden w-full h-full object-cover object-center"
+                initial={{ scale: 1.08 }}
+                animate={{ scale: 1 }}
+                transition={{
+                  duration: 7,
+                  ease: "linear",
+                  type: "tween"
+                }}
+                onError={(e) => {
+                  console.error(`Failed to load image: ${heroImages[currentImageIndex].srcMobile}`)
+                  e.currentTarget.src = "/placeholder.svg?height=1920&width=1080&text=Hero+Image"
                 }}
               />
             </motion.div>

@@ -33,7 +33,7 @@ export function GallerySection() {
     },
     {
       image: ASSETS.stacks.stack3,
-      text: "Traditional Indian Cuisine"
+      text: "Live Music Performance"
     },
     {
       image: ASSETS.stacks.stack4,
@@ -41,7 +41,7 @@ export function GallerySection() {
     },
     {
       image: ASSETS.stacks.stack5,
-      text: "Wedding Dessert Table"
+      text: "Dreamy Proposal"
     },
     {
       image: ASSETS.stacks.stack6,

@@ -105,7 +105,7 @@ export function CorporateEventTypes() {
           animate={isInView ? "visible" : "hidden"}
           data-animate
         >
-          <FlowingMenu items={corporateEventTypes} />
+          <FlowingMenu items={corporateEventTypes} clickable={false} />
         </motion.div>
       </div>
     </section>

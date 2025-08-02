@@ -17,7 +17,7 @@ export function Footer() {
               <Image src={ASSETS.logo} alt="Anshika Caters Logo" width={80} height={80} className="rounded-full drop-shadow-lg" />
               <span className="text-2xl font-serif font-medium drop-shadow-md">Anshika Caterers</span>
             </Link>
-            <p className="text-gray-300 drop-shadow-sm font-sans font-light">Creating unforgettable culinary experiences for your most precious moments.</p>
+            <p className="text-gray-300 drop-shadow-sm font-sans font-light">Creating unforgettable experiences for your most precious moments.</p>
             <div className="flex space-x-4">
               <Instagram className="w-5 h-5 text-[#bc9c22] hover:text-white cursor-pointer transition-colors" />
               <Facebook className="w-5 h-5 text-[#bc9c22] hover:text-white cursor-pointer transition-colors" />
@@ -107,13 +107,13 @@ export function Footer() {
             <h3 className="text-lg font-serif text-[#bc9c22] mb-4">Stay Updated</h3>
             <p className="text-gray-300 mb-4 text-sm font-sans font-light">Get exclusive offers and wedding catering tips delivered to your inbox.</p>
             <div className="space-y-3">
-              <Input 
-                placeholder="Enter your email" 
+              <Input
+                placeholder="Enter your email"
                 type="email"
                 className="bg-white/10 border-gray-600 text-white placeholder:text-gray-400"
               />
-              <Button 
-                size="sm" 
+              <Button
+                size="sm"
                 className="w-full bg-[#bc9c22] hover:bg-[#a08820] text-[#021631] font-medium shadow-lg hover:shadow-xl transition-shadow duration-300 drop-shadow-md"
               >
                 Subscribe
@@ -123,7 +123,7 @@ export function Footer() {
         </div>
 
         <Separator className="my-8 bg-gray-700" />
-        
+
         <div className="flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-400 text-sm">
             © 2024 Anshika Caterers. All rights reserved.

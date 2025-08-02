@@ -3,7 +3,7 @@ import { BirthdayFeatures } from "@/components/birthday/birthday-features"
 import { BirthdayProcess } from "@/components/birthday/birthday-process"
 import { BirthdayGallery } from "@/components/birthday/birthday-gallery"
 import { BirthdayTestimonials } from "@/components/birthday/birthday-testimonials"
-import { BirthdayCTA } from "@/components/birthday/birthday-cta"
+import { ContactSection } from "@/components/landing/contact-section"
 import { WhatsAppFloat } from "@/components/whatsapp-float"
 import type { Metadata } from "next"
 
@@ -39,9 +39,9 @@ export default function BirthdayPlannersVaranasiPage() {
                 <BirthdayTestimonials />
             </section>
 
-            {/* Final CTA */}
-            <section id="cta">
-                <BirthdayCTA />
+            {/* Contact Section */}
+            <section id="contact">
+                <ContactSection />
             </section>
 
             <WhatsAppFloat />

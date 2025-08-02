@@ -2,7 +2,7 @@ import { ProposalHeroSection } from "@/components/proposal/proposal-hero-section
 import { ProposalTypes } from "@/components/proposal/proposal-types"
 import { ProposalFeatures } from "@/components/proposal/proposal-features"
 import { ProposalTestimonials } from "@/components/proposal/proposal-testimonials"
-import { ProposalCTA } from "@/components/proposal/proposal-cta"
+import { ContactSection } from "@/components/landing/contact-section"
 import { WhatsAppFloat } from "@/components/whatsapp-float"
 import type { Metadata } from "next"
 
@@ -36,9 +36,9 @@ export default function BestProposalPlannersInVaranasiPage() {
                 <ProposalTestimonials />
             </section>
 
-            {/* Final CTA */}
-            <section id="cta">
-                <ProposalCTA />
+            {/* Contact Section */}
+            <section id="contact">
+                <ContactSection />
             </section>
 
             <WhatsAppFloat />

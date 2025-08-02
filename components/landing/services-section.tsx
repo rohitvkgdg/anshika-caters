@@ -169,7 +169,12 @@ export function ServicesSection() {
             whileTap={{ scale: 0.95 }}
             className="flex items-center justify-center w-full md:w-auto"
           >
-            <Link href="/menu-builder" className="w-full md:w-auto">
+            <a
+              href="https://wa.me/917311129675?text=Hi! I'm interested in building a custom menu for my event. Can you help me with the options and pricing?"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full md:w-auto"
+            >
               <StarBorder
                 as="div"
                 className="w-full md:w-auto"
@@ -178,7 +183,7 @@ export function ServicesSection() {
               >
                 <span className="text-lg font-medium px-4">Build Your Menu</span>
               </StarBorder>
-            </Link>
+            </a>
           </motion.div>
           <motion.div
             whileHover={{ scale: 1.05 }}
@@ -191,7 +196,13 @@ export function ServicesSection() {
               className="text-[#021631] border-gray-100 bg-gray-200 hover:bg-gray-300 px-8 py-6 shadow-lg hover:shadow-xl transition-shadow duration-300 h-12 w-full md:w-auto rounded-full drop-shadow-sm"
               asChild
             >
-              <Link href="/budget-calculator">Calculate Budget</Link>
+              <a
+                href="https://wa.me/917311129675?text=Hello! I need help calculating the budget for my event. Can you provide me with pricing details and packages?"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Calculate Budget
+              </a>
             </Button>
           </motion.div>
         </motion.div>

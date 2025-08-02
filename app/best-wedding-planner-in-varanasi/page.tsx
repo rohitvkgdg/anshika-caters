@@ -5,7 +5,7 @@ import { WeddingGalleryShowcase } from "@/components/wedding/wedding-gallery-sho
 import { WeddingProcess } from "@/components/wedding/wedding-process"
 import { WeddingTestimonials } from "@/components/wedding/wedding-testimonials"
 import { WeddingFAQ } from "@/components/wedding/wedding-faq"
-import { WeddingCTA } from "@/components/wedding/wedding-cta"
+import { ContactSection } from "@/components/landing/contact-section"
 import { WhatsAppFloat } from "@/components/whatsapp-float"
 import type { Metadata } from "next"
 
@@ -54,9 +54,9 @@ export default function BestWeddingPlannerVaranasiPage() {
         <WeddingFAQ />
       </section>
 
-      {/* Final CTA */}
-      <section id="cta">
-        <WeddingCTA />
+      {/* Contact Section */}
+      <section id="contact">
+        <ContactSection />
       </section>
 
       {/* WhatsApp Float */}

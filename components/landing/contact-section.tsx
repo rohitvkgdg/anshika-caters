@@ -6,10 +6,11 @@ import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Phone, Mail, MapPin, Calendar } from 'lucide-react'
+import { Alert, AlertDescription } from "@/components/ui/alert"
+import { Phone, Mail, MapPin, Calendar, CheckCircle } from 'lucide-react'
 import { motion } from "framer-motion"
 import { useInView } from "framer-motion"
-import { useRef } from "react"
+import { useRef, useState } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
@@ -18,7 +19,7 @@ import { useToast } from "@/hooks/use-toast"
 const formSchema = z.object({
   name: z.string().min(2, "Name is required"),
   phone: z.string().min(10, "Please enter a valid phone number"),
-  weddingDate: z.string().min(1, "Please select a wedding date"),
+  weddingDate: z.string().min(1, "Please select the event date"),
   guestCount: z.string().min(1, "Please specify guest count"),
   message: z.string().min(10, "Please provide more details about your requirements"),
 })
@@ -27,6 +28,7 @@ export function ContactSection() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
   const { toast } = useToast()
+  const [isFormSubmitted, setIsFormSubmitted] = useState(false)
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -44,12 +46,14 @@ export function ContactSection() {
       console.log(values)
       // Handle form submission here
       // You can integrate with your backend API
-      
+
+      setIsFormSubmitted(true)
+
       toast({
         title: "Booking Request Sent!",
         description: "We'll contact you within 24 hours to schedule your tasting session.",
       })
-      
+
       form.reset()
     } catch (error) {
       toast({
@@ -147,11 +151,88 @@ export function ContactSection() {
           <motion.div variants={formVariants}>
             <Card className="bg-[#0d223d]/95 backdrop-blur-sm shadow-2xl hover:shadow-3xl transition-all duration-500 drop-shadow-lg rounded-xl border border-gray-500/20">
               <CardHeader className="pb-6">
-                <CardTitle className="text-2xl font-serif text-white drop-shadow-sm">Get Started Today</CardTitle>
+                <CardTitle className="text-2xl font-serif text-white drop-shadow-sm">Plan Your Event</CardTitle>
+
+                {/* Alert Banner */}
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -10 }}
+                  transition={{ delay: 0.6, duration: 0.8 }}
+                  className="mt-8"
+                >
+                  <Alert className="border-[#bc9c22]/30 bg-gradient-to-r from-[#bc9c22]/10 to-[#bc9c22]/5 text-[#bc9c22] p-4 rounded-lg shadow-lg backdrop-blur-sm relative overflow-hidden">
+                    <motion.div
+                      className="absolute inset-0 bg-gradient-to-r from-transparent via-[#bc9c22]/10 to-transparent"
+                      initial={{ x: "-100%" }}
+                      animate={{ x: "100%" }}
+                      transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+                    />
+                    <div className="flex items-center space-x-3 relative z-10">
+                      <motion.div
+                        className="bg-[#bc9c22]/20 rounded-full p-2"
+                      >
+                        <Calendar className="h-5 w-5 text-[#bc9c22]" />
+                      </motion.div>
+                      <AlertDescription className="text-white font-medium">
+                        <motion.span
+                          initial={{ scale: 1 }}
+                          animate={{ scale: [1, 1.05, 1] }}
+                          transition={{ duration: 2, repeat: Infinity }}
+                          className="text-[#bc9c22] font-bold text-lg"
+                        >
+                          Get Flat 20%* off
+                        </motion.span>{" "}
+                        on Your First Booking
+                      </AlertDescription>
+                    </div>
+                  </Alert>
+                </motion.div>
               </CardHeader>
               <CardContent className="px-8 pb-8">
-                <Form {...form}>
-                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                {isFormSubmitted ? (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.6, ease: "easeOut" }}
+                    className="text-center py-12"
+                  >
+                    <motion.div
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{ delay: 0.2, duration: 0.6, type: "spring", bounce: 0.4 }}
+                      className="mb-6"
+                    >
+                      <CheckCircle className="w-16 h-16 text-green-500 mx-auto" />
+                    </motion.div>
+                    <motion.h3
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.4, duration: 0.6 }}
+                      className="text-2xl font-serif text-white mb-4"
+                    >
+                      Thanks for filling the form!
+                    </motion.h3>
+                    <motion.p
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.6, duration: 0.6 }}
+                      className="text-gray-300 text-lg"
+                    >
+                      We'll reach out to you in the next 12 hours.
+                    </motion.p>
+                    <motion.button
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.8, duration: 0.6 }}
+                      onClick={() => setIsFormSubmitted(false)}
+                      className="mt-6 px-6 py-2 bg-[#bc9c22] text-white rounded-lg hover:bg-[#bc9c22]/80 transition-colors duration-300"
+                    >
+                      Submit Another Request
+                    </motion.button>
+                  </motion.div>
+                ) : (
+                  <Form {...form}>
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                       <FormField
                         control={form.control}
                         name="name"
@@ -165,7 +246,7 @@ export function ContactSection() {
                           </FormItem>
                         )}
                       />
-                    
+
                       <FormField
                         control={form.control}
                         name="phone"
@@ -180,14 +261,14 @@ export function ContactSection() {
                         )}
                       />
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <FormField
-                        control={form.control}
-                        name="weddingDate"
-                        render={({ field }) => (
+                        <FormField
+                          control={form.control}
+                          name="weddingDate"
+                          render={({ field }) => (
                             <FormItem>
-                              <FormLabel className="text-gray-200 font-medium">Wedding Date</FormLabel>
+                              <FormLabel className="text-gray-200 font-medium">Event Date</FormLabel>
                               <FormControl>
-                                <Input 
+                                <Input
                                   type="date"
                                   min={new Date().toISOString().split('T')[0]}
                                   className="border-gray-500/50 bg-white/5 text-gray-200 focus:border-[#bc9c22] focus:ring-2 focus:ring-[#bc9c22]/20 transition-all duration-300 rounded-lg px-4 py-3 shadow-sm"
@@ -196,71 +277,72 @@ export function ContactSection() {
                               </FormControl>
                               <FormMessage />
                             </FormItem>
-                        )}
-                      />
+                          )}
+                        />
+                        <FormField
+                          control={form.control}
+                          name="guestCount"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel className="text-gray-200 font-medium">Guest Count</FormLabel>
+                              <FormControl>
+                                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                  <SelectTrigger className="border-gray-500/50 bg-white/5 text-gray-200 focus:border-[#bc9c22] focus:ring-2 focus:ring-[#bc9c22]/20 transition-all duration-300 rounded-lg px-4 py-3 shadow-sm">
+                                    <SelectValue placeholder="Select guest count" />
+                                  </SelectTrigger>
+                                  <SelectContent className="bg-[#0d223d] text-gray-200 border-gray-500/50 rounded-lg shadow-xl">
+                                    <SelectItem value="1-50">1-50 guests</SelectItem>
+                                    <SelectItem value="51-100">51-100 guests</SelectItem>
+                                    <SelectItem value="101-200">101-200 guests</SelectItem>
+                                    <SelectItem value="201-300">201-300 guests</SelectItem>
+                                    <SelectItem value="301-500">301-500 guests</SelectItem>
+                                    <SelectItem value="500+">500+ guests</SelectItem>
+                                  </SelectContent>
+                                </Select>
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
                       <FormField
                         control={form.control}
-                        name="guestCount"
+                        name="message"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="text-gray-200 font-medium">Guest Count</FormLabel>
+                            <FormLabel className="text-gray-200 font-medium">Tell us about your event</FormLabel>
                             <FormControl>
-                              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                <SelectTrigger className="border-gray-500/50 bg-white/5 text-gray-200 focus:border-[#bc9c22] focus:ring-2 focus:ring-[#bc9c22]/20 transition-all duration-300 rounded-lg px-4 py-3 shadow-sm">
-                                  <SelectValue placeholder="Select guest count" />
-                                </SelectTrigger>
-                                <SelectContent className="bg-[#0d223d] text-gray-200 border-gray-500/50 rounded-lg shadow-xl">
-                                  <SelectItem value="1-50">1-50 guests</SelectItem>
-                                  <SelectItem value="51-100">51-100 guests</SelectItem>
-                                  <SelectItem value="101-200">101-200 guests</SelectItem>
-                                  <SelectItem value="201-300">201-300 guests</SelectItem>
-                                  <SelectItem value="301-500">301-500 guests</SelectItem>
-                                  <SelectItem value="500+">500+ guests</SelectItem>
-                                </SelectContent>
-                              </Select>
+                              <Textarea
+                                placeholder="Share your vision, dietary requirements, special requests, and any other details..."
+                                className="border-gray-500/50 bg-white/5 text-white min-h-[120px] focus:border-[#bc9c22] focus:ring-2 focus:ring-[#bc9c22]/20 transition-all duration-300 resize-none rounded-lg px-4 py-3 shadow-sm"
+                                {...field}
+                                autoComplete="off"
+                                style={{ resize: 'none' }}
+                              />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
                         )}
                       />
-                    </div>
-                    <FormField
-                      control={form.control}
-                      name="message"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="text-gray-200 font-medium">Tell us about your dream wedding</FormLabel>
-                          <FormControl>
-                            <Textarea
-                              placeholder="Share your vision, dietary requirements, special requests, and any other details..."
-                              className="border-gray-500/50 bg-white/5 text-white min-h-[120px] focus:border-[#bc9c22] focus:ring-2 focus:ring-[#bc9c22]/20 transition-all duration-300 resize-none rounded-lg px-4 py-3 shadow-sm"
-                              {...field}
-                              autoComplete="off"
-                              style={{ resize: 'none' }}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    
-                    <motion.div
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      className="pt-4"
-                    >
-                      <StarBorder
-                        as="button"
-                        type="submit"
-                        className="w-full shadow-lg hover:shadow-xl transition-shadow duration-300"
-                        color="#ffd700"
-                        speed="3s"
+
+                      <motion.div
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        className="pt-4"
                       >
-                        <span className="font-medium py-1">BOOK REQUEST</span>
-                      </StarBorder>
-                    </motion.div>
-                  </form>
-                </Form>
+                        <StarBorder
+                          as="button"
+                          type="submit"
+                          className="w-full shadow-lg hover:shadow-xl transition-shadow duration-300"
+                          color="#ffd700"
+                          speed="3s"
+                        >
+                          <span className="font-medium py-1">BOOK REQUEST</span>
+                        </StarBorder>
+                      </motion.div>
+                    </form>
+                  </Form>
+                )}
               </CardContent>
             </Card>
           </motion.div>
@@ -316,7 +398,7 @@ export function ContactSection() {
                 transition={{ duration: 3, repeat: Infinity, repeatDelay: 2 }}
               />
               <h3 className="text-2xl font-serif mb-4 text-[#bc9c22] relative z-10">Limited Availability</h3>
-              <p className="mb-4 relative z-10">Only limited bookings left for Winter '25 season. Secure your date today!</p>
+              <p className="mb-4 relative z-10">Only limited bookings left for this month. Secure your date today!</p>
               <div className="text-sm text-gray-300 relative z-10">
                 *Complimentary tasting sessions available for bookings above ₹2 lakhs
               </div>

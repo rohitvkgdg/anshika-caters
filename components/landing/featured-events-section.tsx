@@ -12,23 +12,23 @@ export function FeaturedEventsSection() {
 
   const featuredEvents = [
     {
-      link: "/destination-weddings",
-      text: "Destination Weddings",
+      link: "/best-corporate-events-planners-in-varanasi",
+      text: "Corporate Events",
       image: ASSETS.events.feature1
     },
     {
-      link: "/ghat-side-weddings",
-      text: "Ghat Side Weddings",
+      link: "/best-birthday-planners-varanasi",
+      text: "Birthday Celebrations",
       image: ASSETS.events.feature2
     },
     {
-      link: "/royal-weddings",
+      link: "/best-wedding-planner-in-varanasi",
       text: "Royal Weddings",
       image: ASSETS.events.feature3
     },
     {
-      link: "/classic-weddings",
-      text: "Classic Weddings",
+      link: "/best-proposal-planners-in-varanasi",
+      text: "Proposal Events",
       image: ASSETS.events.feature4
     }
   ]

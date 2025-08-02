@@ -5,7 +5,7 @@ import { CorporateGalleryShowcase } from "@/components/corporate/corporate-galle
 import { CorporateProcess } from "@/components/corporate/corporate-process"
 import { CorporateTestimonials } from "@/components/corporate/corporate-testimonials"
 import { CorporateFAQ } from "@/components/corporate/corporate-faq"
-import { CorporateCTA } from "@/components/corporate/corporate-cta"
+import { ContactSection } from "@/components/landing/contact-section"
 import { WhatsAppFloat } from "@/components/whatsapp-float"
 import type { Metadata } from "next"
 
@@ -54,9 +54,9 @@ export default function CorporateEventsVaranasiPage() {
         <CorporateFAQ />
       </section>
 
-      {/* Final CTA */}
-      <section id="cta">
-        <CorporateCTA />
+      {/* Contact Section */}
+      <section id="contact">
+        <ContactSection />
       </section>
 
       {/* WhatsApp Float */}
