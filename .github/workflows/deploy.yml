@@ -36,9 +36,6 @@ jobs:
     - name: Install Dependencies
       run: bun install --frozen-lockfile
 
-    - name: Generate package-lock.json for npm fallback
-      run: npm install --package-lock-only
-
     - name: Build Application
       run: bun run build
       env:
@@ -54,7 +51,6 @@ jobs:
           public/
           package.json
           bun.lock
-          package-lock.json
         retention-days: 1
 
   # Deploy Job (only runs if tests pass)
