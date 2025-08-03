@@ -8,43 +8,97 @@ import { WhatsAppFloat } from "@/components/whatsapp-float"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-    robots: "index,follow"
+    title: "Best Birthday Planner in Varanasi | Anshika Caterers",
+    description: "Celebrate in style with the best birthday planner in Varanasi. Anshika Caterers creates magical, customized birthdays with décor, catering and joyful surprises.",
+    robots: "index,follow",
+    alternates: {
+        canonical: "https://acaterers.com/best-birthday-planners-varanasi"
+    }
 }
 
 export default function BirthdayPlannersVaranasiPage() {
     return (
-        <div className="min-h-screen bg-[#fdfaf5]">
-            {/* Hero Section with Form */}
-            <section id="hero">
-                <BirthdayHeroSection />
-            </section>
+        <>
+            {/* Structured Data for Birthday Service */}
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify({
+                        "@context": "https://schema.org",
+                        "@type": "Service",
+                        "name": "Best Birthday Planner in Varanasi | Anshika Caterers",
+                        "description": "Celebrate in style with the best birthday planner in Varanasi. Anshika Caterers creates magical, customized birthdays with décor, catering and joyful surprises.",
+                        "serviceType": "Birthday Party Planning & Catering",
+                        "category": ["kids birthday", "theme parties", "custom cakes"],
+                        "url": "https://acaterers.com/best-birthday-planners-varanasi",
+                        "areaServed": {
+                            "@type": "Place",
+                            "name": "Varanasi and nearby"
+                        },
+                        "image": [
+                            "https://pub-250244d4617c45ce94590c237a6e15b3.r2.dev/birthday/gallery/gallery-1.webp",
+                            "https://pub-250244d4617c45ce94590c237a6e15b3.r2.dev/birthday/gallery/gallery-3.webp",
+                            "https://pub-250244d4617c45ce94590c237a6e15b3.r2.dev/birthday/gallery/gallery-4.webp",
+                            "https://pub-250244d4617c45ce94590c237a6e15b3.r2.dev/birthday/gallery/gallery-5.webp"
+                        ],
+                        "provider": {
+                            "@type": ["LocalBusiness", "EventService"],
+                            "name": "Anshika Caterers",
+                            "url": "https://acaterers.com",
+                            "logo": "https://pub-250244d4617c45ce94590c237a6e15b3.r2.dev/landing/AC.png",
+                            "address": {
+                                "@type": "PostalAddress",
+                                "streetAddress": "C-32/47, Vidya Vihar Colony, Chandua Chhittupur, Shivpurwa",
+                                "addressLocality": "Varanasi",
+                                "addressRegion": "Uttar Pradesh",
+                                "postalCode": "221002",
+                                "addressCountry": "IN"
+                            },
+                            "telephone": "+91-7311129675",
+                            "email": "anshika@acaterers.com",
+                            "openingHours": "Mo-Su 00:00-23:59",
+                            "areaServed": {
+                                "@type": "Place",
+                                "name": "Varanasi and nearby areas"
+                            }
+                        }
+                    })
+                }}
+            />
 
-            {/* What We Bring to the Party */}
-            <section id="features">
-                <BirthdayFeatures />
-            </section>
+            <div className="min-h-screen bg-[#fdfaf5]">
+                {/* Hero Section with Form */}
+                <section id="hero">
+                    <BirthdayHeroSection />
+                </section>
 
-            {/* How It Works */}
-            <section id="process">
-                <BirthdayProcess />
-            </section>
+                {/* What We Bring to the Party */}
+                <section id="features">
+                    <BirthdayFeatures />
+                </section>
 
-            {/* Gallery */}
-            <section id="gallery">
-                <BirthdayGallery />
-            </section>
+                {/* How It Works */}
+                <section id="process">
+                    <BirthdayProcess />
+                </section>
 
-            {/* Testimonials */}
-            <section id="testimonials">
-                <BirthdayTestimonials />
-            </section>
+                {/* Gallery */}
+                <section id="gallery">
+                    <BirthdayGallery />
+                </section>
 
-            {/* Contact Section */}
-            <section id="contact">
-                <ContactSection />
-            </section>
+                {/* Testimonials */}
+                <section id="testimonials">
+                    <BirthdayTestimonials />
+                </section>
 
-            <WhatsAppFloat />
-        </div>
+                {/* Contact Section */}
+                <section id="contact">
+                    <ContactSection />
+                </section>
+
+                <WhatsAppFloat />
+            </div>
+        </>
     )
 }
