@@ -19,7 +19,6 @@ export function LoadingProvider({ children }: { children: React.ReactNode }) {
   // Handle initial load
   useEffect(() => {
     const hasLoaded = sessionStorage.getItem('hasInitiallyLoaded')
-    console.log('Loading context initial effect:', { hasLoaded }) // Debug log
     if (hasLoaded) {
       setIsInitialLoad(false)
       setIsLoading(false)
@@ -48,16 +47,16 @@ export function LoadingProvider({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <LoadingContext.Provider value={{ 
-      isLoading, 
+    <LoadingContext.Provider value={{
+      isLoading,
       setIsLoading: (loading: boolean) => {
         if (!loading) {
           handleLoadingComplete()
         } else {
           setIsLoading(loading)
         }
-      }, 
-      isInitialLoad 
+      },
+      isInitialLoad
     }}>
       {children}
     </LoadingContext.Provider>

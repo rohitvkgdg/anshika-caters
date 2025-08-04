@@ -75,7 +75,6 @@ export function ContactSection({ category = "General Inquiry" }: ContactSectionP
         throw new Error('Form submission failed')
       }
     } catch (error) {
-      console.error('Form submission error:', error)
       toast({
         title: "Something went wrong",
         description: "Please try again or contact us directly.",

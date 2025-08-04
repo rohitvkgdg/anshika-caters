@@ -38,7 +38,6 @@ export function ProposalHeroSection() {
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
-            console.log(values)
             // Handle form submission here
 
             setIsFormSubmitted(true)
@@ -115,7 +114,6 @@ export function ProposalHeroSection() {
                             type: "tween"
                         }}
                         onError={(e) => {
-                            console.error(`Failed to load image: ${ASSETS.proposal.hero}`)
                             e.currentTarget.src = "/placeholder.svg?height=1080&width=1920&text=Proposal+Setup"
                         }}
                     />
@@ -133,7 +131,6 @@ export function ProposalHeroSection() {
                             type: "tween"
                         }}
                         onError={(e) => {
-                            console.error(`Failed to load image: ${ASSETS.proposal.heroV}`)
                             e.currentTarget.src = "/placeholder.svg?height=1920&width=1080&text=Proposal+Setup"
                         }}
                     />

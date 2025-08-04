@@ -43,7 +43,6 @@ export function CorporateHeroSection() {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      console.log(values)
       // Handle form submission here
 
       setIsFormSubmitted(true)
@@ -120,7 +119,6 @@ export function CorporateHeroSection() {
               type: "tween"
             }}
             onError={(e) => {
-              console.error(`Failed to load image: ${ASSETS.corporate.hero}`)
               e.currentTarget.src = "/placeholder.svg?height=1080&width=1920&text=Corporate+Event"
             }}
           />
@@ -138,7 +136,6 @@ export function CorporateHeroSection() {
               type: "tween"
             }}
             onError={(e) => {
-              console.error(`Failed to load image: ${ASSETS.corporate.heroV}`)
               e.currentTarget.src = "/placeholder.svg?height=1920&width=1080&text=Corporate+Event"
             }}
           />

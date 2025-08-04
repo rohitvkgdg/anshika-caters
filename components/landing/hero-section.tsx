@@ -145,7 +145,6 @@ export function HeroSection() {
                   type: "tween"
                 }}
                 onError={(e) => {
-                  console.error(`Failed to load image: ${heroImages[currentImageIndex].src}`)
                   e.currentTarget.src = "/placeholder.svg?height=1080&width=1920&text=Hero+Image"
                 }}
               />
@@ -163,7 +162,6 @@ export function HeroSection() {
                   type: "tween"
                 }}
                 onError={(e) => {
-                  console.error(`Failed to load image: ${heroImages[currentImageIndex].srcMobile}`)
                   e.currentTarget.src = "/placeholder.svg?height=1920&width=1080&text=Hero+Image"
                 }}
               />

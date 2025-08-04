@@ -50,7 +50,6 @@ export function GallerySection() {
   ]
 
   // Debug: Log the generated URLs
-  console.log('Gallery images URLs:', galleryImages.map(img => img.image))
 
   return (
     <section className="py-20 bg-[#021631] text-white relative overflow-hidden" ref={ref}>

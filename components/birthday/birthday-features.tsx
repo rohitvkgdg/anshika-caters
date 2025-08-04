@@ -115,7 +115,6 @@ export function BirthdayFeatures() {
                                             alt={feature.title}
                                             className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
                                             onError={(e) => {
-                                                console.error(`Failed to load image: ${feature.image}`)
                                                 e.currentTarget.src = "/placeholder.svg?height=400&width=600&text=Birthday+Feature"
                                             }}
                                         />
