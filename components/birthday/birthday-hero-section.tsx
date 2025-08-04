@@ -37,17 +37,35 @@ export function BirthdayHeroSection() {
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
-            // Handle form submission here
+            // Prepare form data for Web3Forms
+            const formData = new FormData()
+            formData.append('access_key', '8dad1118-7e51-42f5-b012-d9196b57335c')
+            formData.append('name', values.name)
+            formData.append('phone', values.phone)
+            formData.append('celebration_for', values.celebrationFor)
+            formData.append('birthday_date', values.birthdayDate)
+            formData.append('service_category', 'Birthday Party Planning - Hero Form')
+            formData.append('subject', `New Birthday Party Inquiry from ${values.name} (Hero Form)`)
+            formData.append('form_source', 'Birthday Hero Section')
 
-            setIsFormSubmitted(true)
-
-            toast({
-                title: "Perfect! Let's Plan an Amazing Birthday! 🎉",
-                description: "We'll reach out within 24 hours to start planning the celebration.",
+            // Submit to Web3Forms
+            const response = await fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                body: formData
             })
 
-            form.reset()
+            if (response.ok) {
+                setIsFormSubmitted(true)
+                toast({
+                    title: "Perfect! Let's Plan an Amazing Birthday! 🎉",
+                    description: "We'll reach out within 24 hours to start planning the celebration.",
+                })
+                form.reset()
+            } else {
+                throw new Error('Form submission failed')
+            }
         } catch (error) {
+            console.error('Form submission error:', error)
             toast({
                 title: "Something went wrong",
                 description: "Please try again or contact us directly.",

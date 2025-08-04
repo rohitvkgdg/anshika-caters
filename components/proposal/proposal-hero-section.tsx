@@ -19,7 +19,6 @@ const formSchema = z.object({
     name: z.string().min(2, "Name is required"),
     phone: z.string().min(10, "Please enter a valid phone number"),
     eventDate: z.string().min(1, "Please select your special day"),
-    vibe: z.string().min(1, "Please select your preferred vibe"),
 })
 
 export function ProposalHeroSection() {
@@ -32,23 +31,39 @@ export function ProposalHeroSection() {
             name: "",
             phone: "",
             eventDate: "",
-            vibe: "",
         },
     })
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
-            // Handle form submission here
+            // Prepare form data for Web3Forms
+            const formData = new FormData()
+            formData.append('access_key', '8dad1118-7e51-42f5-b012-d9196b57335c')
+            formData.append('name', values.name)
+            formData.append('phone', values.phone)
+            formData.append('event_date', values.eventDate)
+            formData.append('service_category', 'Proposal Planning - Hero Form')
+            formData.append('subject', `New Proposal Planning Inquiry from ${values.name} (Hero Form)`)
+            formData.append('form_source', 'Proposal Hero Section')
 
-            setIsFormSubmitted(true)
-
-            toast({
-                title: "Perfect! Let's Create Magic ✨",
-                description: "We'll reach out within 24 hours to plan your unforgettable moment.",
+            // Submit to Web3Forms
+            const response = await fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                body: formData
             })
 
-            form.reset()
+            if (response.ok) {
+                setIsFormSubmitted(true)
+                toast({
+                    title: "Perfect! Let's Create Magic ✨",
+                    description: "We'll reach out within 24 hours to plan your unforgettable moment.",
+                })
+                form.reset()
+            } else {
+                throw new Error('Form submission failed')
+            }
         } catch (error) {
+            console.error('Form submission error:', error)
             toast({
                 title: "Something went wrong",
                 description: "Please try again or contact us directly.",

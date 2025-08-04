@@ -49,7 +49,7 @@ export function ContactSection({ category = "General Inquiry" }: ContactSectionP
     try {
       // Prepare form data for Web3Forms
       const formData = new FormData()
-      formData.append('access_key', 'a4e38aa8-a548-4c14-89c9-2a74db32e477') // Replace with your actual key
+      formData.append('access_key', '8dad1118-7e51-42f5-b012-d9196b57335c') // Replace with your actual key
       formData.append('name', values.name)
       formData.append('phone', values.phone)
       formData.append('event_date', values.weddingDate)

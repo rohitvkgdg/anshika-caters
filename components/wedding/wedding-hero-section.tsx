@@ -38,17 +38,35 @@ export function WeddingHeroSection() {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      // Handle form submission here
+      // Prepare form data for Web3Forms
+      const formData = new FormData()
+      formData.append('access_key', '8dad1118-7e51-42f5-b012-d9196b57335c')
+      formData.append('name', values.name)
+      formData.append('phone', values.phone)
+      formData.append('event_date', values.weddingDate)
+      formData.append('guest_count', values.guestCount)
+      formData.append('service_category', 'Wedding Planning - Hero Form')
+      formData.append('subject', `New Wedding Planning Inquiry from ${values.name} (Hero Form)`)
+      formData.append('form_source', 'Wedding Hero Section')
 
-      setIsFormSubmitted(true)
-
-      toast({
-        title: "Wedding Plan Request Sent!",
-        description: "We'll get back to you with a custom proposal within 24 hours.",
+      // Submit to Web3Forms
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData
       })
 
-      form.reset()
+      if (response.ok) {
+        setIsFormSubmitted(true)
+        toast({
+          title: "Wedding Plan Request Sent!",
+          description: "We'll get back to you with a custom proposal within 24 hours.",
+        })
+        form.reset()
+      } else {
+        throw new Error('Form submission failed')
+      }
     } catch (error) {
+      console.error('Form submission error:', error)
       toast({
         title: "Something went wrong",
         description: "Please try again or contact us directly.",
