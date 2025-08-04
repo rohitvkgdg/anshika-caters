@@ -105,7 +105,7 @@ export default function CorporateEventsVaranasiPage() {
 
         {/* Contact Section */}
         <section id="contact">
-          <ContactSection />
+          <ContactSection category="Corporate Event Planning" />
         </section>
 
         {/* WhatsApp Float */}

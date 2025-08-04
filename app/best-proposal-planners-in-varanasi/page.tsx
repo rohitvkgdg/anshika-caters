@@ -88,7 +88,7 @@ export default function BestProposalPlannersInVaranasiPage() {
 
                 {/* Contact Section */}
                 <section id="contact">
-                    <ContactSection />
+                    <ContactSection category="Proposal Planning" />
                 </section>
 
                 <WhatsAppFloat />

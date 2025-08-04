@@ -94,7 +94,7 @@ export default function BirthdayPlannersVaranasiPage() {
 
                 {/* Contact Section */}
                 <section id="contact">
-                    <ContactSection />
+                    <ContactSection category="Birthday Party Planning" />
                 </section>
 
                 <WhatsAppFloat />

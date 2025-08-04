@@ -105,7 +105,7 @@ export default function BestWeddingPlannerVaranasiPage() {
 
         {/* Contact Section */}
         <section id="contact">
-          <ContactSection />
+          <ContactSection category="Wedding Planning" />
         </section>
 
         {/* WhatsApp Float */}

@@ -142,7 +142,7 @@ export default function HomePage() {
 
         {/* Contact */}
         <section id="contact">
-          <ContactSection />
+          <ContactSection category="General Event Planning" />
         </section>
 
         {/* WhatsApp Float */}

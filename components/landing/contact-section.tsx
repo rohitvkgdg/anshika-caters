@@ -24,7 +24,11 @@ const formSchema = z.object({
   message: z.string().min(10, "Please provide more details about your requirements"),
 })
 
-export function ContactSection() {
+interface ContactSectionProps {
+  category?: string
+}
+
+export function ContactSection({ category = "General Inquiry" }: ContactSectionProps) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
   const { toast } = useToast()
@@ -43,19 +47,35 @@ export function ContactSection() {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      console.log(values)
-      // Handle form submission here
-      // You can integrate with your backend API
+      // Prepare form data for Web3Forms
+      const formData = new FormData()
+      formData.append('access_key', 'a4e38aa8-a548-4c14-89c9-2a74db32e477') // Replace with your actual key
+      formData.append('name', values.name)
+      formData.append('phone', values.phone)
+      formData.append('event_date', values.weddingDate)
+      formData.append('guest_count', values.guestCount)
+      formData.append('message', values.message)
+      formData.append('service_category', category) // This will identify the service type
+      formData.append('subject', `New ${category} Inquiry from ${values.name}`)
 
-      setIsFormSubmitted(true)
-
-      toast({
-        title: "Booking Request Sent!",
-        description: "We'll contact you within 24 hours to schedule your tasting session.",
+      // Submit to Web3Forms
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData
       })
 
-      form.reset()
+      if (response.ok) {
+        setIsFormSubmitted(true)
+        toast({
+          title: "Booking Request Sent!",
+          description: "We'll contact you within 24 hours to schedule your tasting session.",
+        })
+        form.reset()
+      } else {
+        throw new Error('Form submission failed')
+      }
     } catch (error) {
+      console.error('Form submission error:', error)
       toast({
         title: "Something went wrong",
         description: "Please try again or contact us directly.",
@@ -233,6 +253,10 @@ export function ContactSection() {
                 ) : (
                   <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                      {/* Hidden field for Web3Forms to identify the service category */}
+                      <input type="hidden" name="service_category" value={category} />
+                      <input type="hidden" name="subject" value={`New ${category} Inquiry`} />
+
                       <FormField
                         control={form.control}
                         name="name"
