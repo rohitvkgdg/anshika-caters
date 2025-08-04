@@ -25,14 +25,58 @@ export const metadata: Metadata = {
     "Your Dream Wedding Seamlessly Crafted. 20+ years of culinary excellence, 1000+ weddings across India. Premium event catering services.",
   keywords:
     "wedding catering, luxury events, Indian wedding catering, premium catering services, Mumbai wedding caterers",
+  metadataBase: new URL('https://acaterers.com'),
+  applicationName: "Anshika Caterers",
+  authors: [{ name: "Anshika Caterers" }],
+  creator: "Anshika Caterers",
+  publisher: "Anshika Caterers",
+  robots: "index,follow",
   icons: {
     icon: [
       { url: ASSETS.logo, sizes: "16x16", type: "image/png" },
       { url: ASSETS.logo, sizes: "32x32", type: "image/png" },
+      { url: ASSETS.logo, sizes: "48x48", type: "image/png" },
+      { url: ASSETS.logo, sizes: "64x64", type: "image/png" },
+      { url: ASSETS.logo, sizes: "128x128", type: "image/png" },
+      { url: ASSETS.logo, sizes: "256x256", type: "image/png" },
     ],
     apple: [
+      { url: ASSETS.logo, sizes: "120x120", type: "image/png" },
+      { url: ASSETS.logo, sizes: "152x152", type: "image/png" },
       { url: ASSETS.logo, sizes: "180x180", type: "image/png" },
     ],
+    shortcut: { url: ASSETS.logo, type: "image/png" },
+  },
+  manifest: "/manifest.json",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://acaterers.com",
+    siteName: "Anshika Caterers",
+    title: "Anshika Caterers - Best Caterers In Varanasi",
+    description: "Your Dream Wedding Seamlessly Crafted. 20+ years of culinary excellence, 1000+ weddings across India. Premium event catering services.",
+    images: [
+      {
+        url: ASSETS.logo,
+        width: 1200,
+        height: 630,
+        alt: "Anshika Caterers Logo",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: "@AnshikaCaterers",
+    creator: "@AnshikaCaterers",
+  },
+  other: {
+    "theme-color": "#bc9c22",
+    "apple-mobile-web-app-capable": "yes",
+    "apple-mobile-web-app-status-bar-style": "default",
+    "apple-mobile-web-app-title": "Anshika Caterers",
+    "application-name": "Anshika Caterers",
+    "msapplication-TileColor": "#bc9c22",
+    "msapplication-TileImage": "ASSETS.logo",
   },
 }
 

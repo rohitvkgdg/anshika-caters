@@ -15,7 +15,29 @@ export const metadata: Metadata = {
   robots: "index,follow",
   alternates: {
     canonical: "https://acaterers.com"
-  }
+  },
+  openGraph: {
+    title: "Anshika Caterers - Best Event Planner in Varanasi",
+    description: "Anshika Caterers is the best event planner in Varanasi for weddings, proposals, and corporate events. Trusted for flawless execution and luxury experiences.",
+    url: "https://acaterers.com",
+    siteName: "Anshika Caterers",
+    locale: "en_US",
+    type: "website",
+    images: [
+      {
+        url: "https://pub-250244d4617c45ce94590c237a6e15b3.r2.dev/landing/AC.png",
+        width: 1200,
+        height: 630,
+        alt: "Anshika Caterers Logo - Best Event Planner in Varanasi",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Anshika Caterers - Best Event Planner in Varanasi",
+    description: "Anshika Caterers is the best event planner in Varanasi for weddings, proposals, and corporate events. Trusted for flawless execution and luxury experiences.",
+    images: ["https://pub-250244d4617c45ce94590c237a6e15b3.r2.dev/landing/AC.png"],
+  },
 }
 
 export default function HomePage() {
