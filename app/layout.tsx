@@ -76,7 +76,7 @@ export const metadata: Metadata = {
     "apple-mobile-web-app-title": "Anshika Caterers",
     "application-name": "Anshika Caterers",
     "msapplication-TileColor": "#bc9c22",
-    "msapplication-TileImage": "ASSETS.logo",
+    "msapplication-TileImage": ASSETS.logo,
   },
 }
 
@@ -85,6 +85,41 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Anshika Caterers",
+    "alternateName": "Anshika Caterers - Best Event Planner in Varanasi",
+    "description": "Best Event Planner in Varanasi for weddings, proposals, corporate events, and birthday celebrations. 20+ years of culinary excellence.",
+    "url": "https://acaterers.com",
+    "logo": ASSETS.logo,
+    "image": ASSETS.logo,
+    "telephone": "+91-9876543210",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Varanasi",
+      "addressRegion": "Uttar Pradesh",
+      "addressCountry": "IN"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "25.3176",
+      "longitude": "82.9739"
+    },
+    "openingHours": "Mo-Su 08:00-22:00",
+    "priceRange": "₹₹₹",
+    "servedCuisine": ["Indian", "Continental", "Chinese"],
+    "serviceArea": {
+      "@type": "GeoCircle",
+      "geoMidpoint": {
+        "@type": "GeoCoordinates",
+        "latitude": "25.3176",
+        "longitude": "82.9739"
+      },
+      "geoRadius": "50000"
+    }
+  };
+
   return (
     <html lang="en" className="no-horizontal-overflow">
       <head>
@@ -100,6 +135,15 @@ export default function RootLayout({
             'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
             })(window,document,'script','dataLayer','GTM-PSZ3Q73F');
             `,
+          }}
+        />
+
+        {/* Structured Data */}
+        <Script
+          id="structured-data"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(structuredData),
           }}
         />
       </head>
