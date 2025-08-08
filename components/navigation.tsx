@@ -18,6 +18,7 @@ import { useLoading } from "@/components/loading-context"
 import { useLenis } from "@/hooks/use-lenis"
 import { ASSETS } from "@/lib/assets"
 import Image from "next/image"
+import { Button } from "./ui/button"
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
@@ -174,11 +175,11 @@ export function Navigation() {
 
         {/* CTA Button */}
         <div className="relative z-20">
-          <Link href="/contact" onClick={() => handleNavItemClick({ name: "Contact", link: "#contact" })}>
+          <div onClick={() => handleNavItemClick({ name: "Contact", link: "#contact" })}>
             <InteractiveHoverButton className="bg-[#bc9c22] hover:bg-[#a08820] text-white border-0 shadow-lg hover:shadow-xl text-sm transition-shadow duration-200">
               PLAN EVENT
             </InteractiveHoverButton>
-          </Link>
+          </div>
         </div>
       </NavBody>
 
@@ -254,14 +255,14 @@ export function Navigation() {
           </div>
 
           <div className="pt-4">
-            <Link href="/contact" onClick={() => {
+            <div onClick={() => {
               handleMobileItemClick()
               handleNavItemClick({ name: "Contact", link: "#contact" })
             }}>
               <InteractiveHoverButton className="bg-[#bc9c22] hover:bg-[#a08820] text-white border-[#bc9c22] font-medium w-full shadow-lg hover:shadow-xl transition-shadow duration-200">
                 Plan Event
               </InteractiveHoverButton>
-            </Link>
+            </div>
           </div>
         </MobileNavMenu>
       </MobileNav>
