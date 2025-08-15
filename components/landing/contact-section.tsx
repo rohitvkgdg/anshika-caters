@@ -170,7 +170,7 @@ export function ContactSection({ category = "General Inquiry" }: ContactSectionP
           <motion.div variants={formVariants}>
             <Card className="bg-[#0d223d]/95 backdrop-blur-sm shadow-2xl hover:shadow-3xl transition-all duration-500 drop-shadow-lg rounded-xl border border-gray-500/20">
               <CardHeader className="pb-6">
-                <CardTitle className="text-2xl font-serif text-white drop-shadow-sm">Plan Your Event</CardTitle>
+                <CardTitle className="text-2xl pb-4 font-serif text-white drop-shadow-sm">Plan Your Event</CardTitle>
 
                 {/* Alert Banner */}
                 <motion.div
@@ -207,7 +207,7 @@ export function ContactSection({ category = "General Inquiry" }: ContactSectionP
                   </Alert>
                 </motion.div>
               </CardHeader>
-              <CardContent className="px-8 pb-8">
+              <CardContent className="px-8 pb-8 pt-0">
                 {isFormSubmitted ? (
                   <motion.div
                     initial={{ opacity: 0, scale: 0.8 }}
@@ -251,10 +251,9 @@ export function ContactSection({ category = "General Inquiry" }: ContactSectionP
                   </motion.div>
                 ) : (
                   <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
                       {/* Hidden field for Web3Forms to identify the service category */}
-                      <input type="hidden" name="service_category" value={category} />
-                      <input type="hidden" name="subject" value={`New ${category} Inquiry`} />
+
 
                       <FormField
                         control={form.control}
@@ -263,7 +262,7 @@ export function ContactSection({ category = "General Inquiry" }: ContactSectionP
                           <FormItem>
                             <FormLabel className="text-gray-200 font-medium">Name</FormLabel>
                             <FormControl>
-                              <Input placeholder="Enter your name" {...field} className="border-gray-500/50 bg-white/5 text-white focus:border-[#bc9c22] focus:ring-2 focus:ring-[#bc9c22]/20 transition-all duration-300 rounded-lg px-4 py-3 shadow-sm" />
+                              <Input placeholder="Enter your name" {...field} className="border-gray-500/50 bg-white/5 text-white focus:border-[#bc9c22] focus:ring-2 focus:ring-[#bc9c22]/20 transition-all duration-300 rounded-lg px-4 pb-3 shadow-sm" />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -363,6 +362,8 @@ export function ContactSection({ category = "General Inquiry" }: ContactSectionP
                           <span className="font-medium py-1">BOOK REQUEST</span>
                         </StarBorder>
                       </motion.div>
+                      <input type="hidden" name="service_category" value={category} />
+                      <input type="hidden" name="subject" value={`New ${category} Inquiry`} />
                     </form>
                   </Form>
                 )}

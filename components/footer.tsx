@@ -19,7 +19,9 @@ export function Footer() {
             </Link>
             <p className="text-gray-300 drop-shadow-sm font-sans font-light">Creating unforgettable experiences for your most precious moments.</p>
             <div className="flex space-x-4">
-              <Instagram className="w-5 h-5 text-[#bc9c22] hover:text-white cursor-pointer transition-colors" />
+              <Link href="https://www.instagram.com/anshikacaterers" target="_blank" rel="noopener noreferrer">
+                <Instagram className="w-5 h-5 text-[#bc9c22] hover:text-white cursor-pointer transition-colors" />
+              </Link>
               <Facebook className="w-5 h-5 text-[#bc9c22] hover:text-white cursor-pointer transition-colors" />
               <Youtube className="w-5 h-5 text-[#bc9c22] hover:text-white cursor-pointer transition-colors" />
             </div>
@@ -30,23 +32,23 @@ export function Footer() {
             <h3 className="text-lg font-serif text-[#bc9c22] mb-4 drop-shadow-sm">Services</h3>
             <ul className="space-y-2 text-gray-300 font-sans font-light">
               <li>
-                <Link href="/wedding-packages" className="hover:text-[#bc9c22]">
-                  Wedding Catering
+                <Link href="/best-wedding-planner-in-varanasi" className="hover:text-[#bc9c22]">
+                  Wedding Planner
                 </Link>
               </li>
               <li>
-                <Link href="/corporate-events" className="hover:text-[#bc9c22]">
+                <Link href="/best-corporate-events-planners-in-varanasi" className="hover:text-[#bc9c22]">
                   Corporate Events
                 </Link>
               </li>
               <li>
-                <Link href="/private-parties" className="hover:text-[#bc9c22]">
-                  Private Parties
+                <Link href="/best-proposal-planners-in-varanasi" className="hover:text-[#bc9c22]">
+                  Proposal Planning
                 </Link>
               </li>
               <li>
-                <Link href="/menu-builder" className="hover:text-[#bc9c22]">
-                  Custom Menus
+                <Link href="/best-birthday-planners-varanasi" className="hover:text-[#bc9c22]">
+                  Birthday Events
                 </Link>
               </li>
             </ul>
@@ -57,23 +59,23 @@ export function Footer() {
             <h3 className="text-lg font-serif text-[#bc9c22] mb-4">Quick Links</h3>
             <ul className="space-y-2 text-gray-300 font-sans font-light">
               <li>
-                <Link href="/about" className="hover:text-[#bc9c22]">
+                <Link href="/" className="hover:text-[#bc9c22]">
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link href="/#about" className="hover:text-[#bc9c22]">
                   About Us
                 </Link>
               </li>
               <li>
-                <Link href="/gallery" className="hover:text-[#bc9c22]">
+                <Link href="/#gallery" className="hover:text-[#bc9c22]">
                   Gallery
                 </Link>
               </li>
               <li>
-                <Link href="/testimonials" className="hover:text-[#bc9c22]">
-                  Testimonials
-                </Link>
-              </li>
-              <li>
-                <Link href="/blog" className="hover:text-[#bc9c22]">
-                  Blog
+                <Link href="/#contact" className="hover:text-[#bc9c22]">
+                  Contact Us
                 </Link>
               </li>
             </ul>
@@ -126,7 +128,7 @@ export function Footer() {
 
         <div className="flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-400 text-sm">
-            © 2024 Anshika Caterers. All rights reserved.
+            © 2025 Anshika Caterers. All rights reserved.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <Link href="/privacy" className="text-gray-400 hover:text-[#bc9c22] text-sm transition-colors">

@@ -20,7 +20,7 @@ const cinzel = Cinzel({
 })
 
 export const metadata: Metadata = {
-  title: "Anshika Caterers - Best Caterers In Varanasi",
+  title: "Anshika Caterers | Best Event Planner in Varanasi",
   description:
     "Your Dream Wedding Seamlessly Crafted. 20+ years of culinary excellence, 1000+ weddings across India. Premium event catering services.",
   keywords:
@@ -33,19 +33,14 @@ export const metadata: Metadata = {
   robots: "index,follow",
   icons: {
     icon: [
-      { url: ASSETS.logo, sizes: "16x16", type: "image/png" },
-      { url: ASSETS.logo, sizes: "32x32", type: "image/png" },
-      { url: ASSETS.logo, sizes: "48x48", type: "image/png" },
-      { url: ASSETS.logo, sizes: "64x64", type: "image/png" },
-      { url: ASSETS.logo, sizes: "128x128", type: "image/png" },
-      { url: ASSETS.logo, sizes: "256x256", type: "image/png" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/favicon.ico", type: "image/x-icon" },
     ],
     apple: [
-      { url: ASSETS.logo, sizes: "120x120", type: "image/png" },
-      { url: ASSETS.logo, sizes: "152x152", type: "image/png" },
-      { url: ASSETS.logo, sizes: "180x180", type: "image/png" },
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
     ],
-    shortcut: { url: ASSETS.logo, type: "image/png" },
+    shortcut: "/favicon.ico",
   },
   manifest: "/manifest.json",
   openGraph: {
@@ -53,7 +48,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://acaterers.com",
     siteName: "Anshika Caterers",
-    title: "Anshika Caterers - Best Caterers In Varanasi",
+    title: "Anshika Caterers | Best Event Planner in Varanasi",
     description: "Your Dream Wedding Seamlessly Crafted. 20+ years of culinary excellence, 1000+ weddings across India. Premium event catering services.",
     images: [
       {
@@ -68,6 +63,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     site: "@AnshikaCaterers",
     creator: "@AnshikaCaterers",
+    title: "Anshika Caterers | Best Event Planner in Varanasi",
   },
   other: {
     "theme-color": "#bc9c22",
@@ -87,37 +83,52 @@ export default function RootLayout({
 }) {
   const structuredData = {
     "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "name": "Anshika Caterers",
-    "alternateName": "Anshika Caterers - Best Event Planner in Varanasi",
-    "description": "Best Event Planner in Varanasi for weddings, proposals, corporate events, and birthday celebrations. 20+ years of culinary excellence.",
-    "url": "https://acaterers.com",
-    "logo": ASSETS.logo,
-    "image": ASSETS.logo,
-    "telephone": "+91-9876543210",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Varanasi",
-      "addressRegion": "Uttar Pradesh",
-      "addressCountry": "IN"
-    },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": "25.3176",
-      "longitude": "82.9739"
-    },
-    "openingHours": "Mo-Su 08:00-22:00",
-    "priceRange": "₹₹₹",
-    "servedCuisine": ["Indian", "Continental", "Chinese"],
-    "serviceArea": {
-      "@type": "GeoCircle",
-      "geoMidpoint": {
-        "@type": "GeoCoordinates",
-        "latitude": "25.3176",
-        "longitude": "82.9739"
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://acaterers.com/#org",
+        "name": "Anshika Caterers",
+        "url": "https://acaterers.com",
+        "logo": {
+          "@type": "ImageObject",
+          "url": ASSETS.logo,
+        },
+        "sameAs": [
+          "https://www.instagram.com/anshikacaterers/"
+        ]
       },
-      "geoRadius": "50000"
-    }
+      {
+        "@type": "WebSite",
+        "@id": "https://acaterers.com/#website",
+        "url": "https://acaterers.com",
+        "name": "Anshika Caterers",
+        "alternateName": "Anshika Caterers | Best Event Planner in Varanasi",
+        "publisher": { "@id": "https://acaterers.com/#org" }
+      },
+      {
+        "@type": "LocalBusiness",
+        "@id": "https://acaterers.com/#local",
+        "name": "Anshika Caterers",
+        "description": "Best Event Planner in Varanasi for weddings, proposals, corporate events, and birthday celebrations. 20+ years of culinary excellence.",
+        "url": "https://acaterers.com",
+        "image": ASSETS.logo,
+        "logo": ASSETS.logo,
+        "telephone": "+91-9876543210",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Varanasi",
+          "addressRegion": "Uttar Pradesh",
+          "addressCountry": "IN"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": "25.3176",
+          "longitude": "82.9739"
+        },
+        "openingHours": "Mo-Su 08:00-22:00",
+        "priceRange": "₹₹₹"
+      }
+    ]
   };
 
   return (

@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   description: "Anshika Caterers is the best corporate event planner in Varanasi. We offer expert planning, custom catering, and flawless execution for business gatherings.",
   robots: "index,follow",
   alternates: {
-    canonical: "https://acaterers.com/corporate-events-varanasi"
+    canonical: "https://acaterers.com/best-corporate-events-planners-in-varanasi"
   }
 }
 
